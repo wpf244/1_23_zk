@@ -276,47 +276,36 @@
 
 											<div class="affairs_right float_rt">
 												<ul class="affairs_right_top">
-													<li><a href="leader_box.html" target="_blank">
-															<i class="iconfont icon-lingdao1"></i>
-															<p>领导之窗</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-jigou"></i>
-															<p>政府机构</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-baogao1"></i>
-															<p>政府工作报告</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-icon"></i>
-															<p>人事信息</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-caigou"></i>
-															<p>政府采购</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-guihua"></i>
-															<p>规划计划</p>
-														</a></li>
+														{volist name="jcxxgks" id="vk"  offset="0" length='6'}	
+													<li>
+															{if condition="$vk.categoryurl eq '' "}
+															{if condition="$vk.code eq 'ldzc' "}
+															<a href="{:url('News/ldzc',array('id'=>$vk['id']))}" target="_blank">
+															{else /}
+														<a href="{:url('News/index',array('id'=>$vk['id']))}" target="_blank">
+															{/if}
+														{else /}
+														<a href="javascript:;" target="_blank" data-url="{$vk.categoryurl}" class="out_link">
+														{/if}
+															<i class="iconfont {$vk.iconname}"></i>
+															<p>{$vk.name}</p>
+														</a>
+													</li>
+
+														{/volist}
+											
 												</ul>
 												<ul class="affairs_right_tips">
-													<li><a href="news_list.html" target="_blank">
-															政策文件
+														{volist name="jcxxgks" id="vks"  offset="6" length='5'}	
+													<li>
+															{if condition="$vks.categoryurl eq '' "}
+														<a href="{:url('News/index',array('id'=>$vks['id']))}" target="_blank">
+															{else /}
+														<a href="javascript:;" target="_blank" data-url="{$vks.categoryurl}" class="out_link">
+														{/if}
+															{$vks.name}
 														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															统计信息
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															应急管理
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															周口市直部门三级十同事项梳理公开目录
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															为民办实事项目
-														</a></li>
+														{/volist}
 												</ul>
 											</div>
 										</div>
@@ -379,16 +368,16 @@
 														</div>
 														<div class="bd">
 															<ul>
-																<li><a href="news_list.html" target="_blank">按主题</a></li>
-																<li><a href="news_list.html" target="_blank">按特定人群</a></li>
-																<li><a href="news_list.html" target="_blank">按人生部门</a></li>
-																<li><a href="news_list.html" target="_blank">按部门</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按主题</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按特定人群</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按人生部门</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按部门</a></li>
 															</ul>
 															<ul>
-																<li><a href="news_list.html" target="_blank">按主题</a></li>
-																<li><a href="news_list.html" target="_blank">按经营活动</a></li>
-																<li><a href="news_list.html" target="_blank">按指定对象</a></li>
-																<li><a href="news_list.html" target="_blank">按部门</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按主题</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按经营活动</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按指定对象</a></li>
+																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按部门</a></li>
 															</ul>
 														</div>
 													</div>
@@ -399,38 +388,13 @@
 													<span>便民服务</span>
 												</div>
 												<ul class="service_mid_list">
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-jiaotonggongjiaochekanfangtuandabamianxing"></i>
-															<p>交通领域</p>
+												  {volist name="bmfu" id="vf"}	
+													<li><a href="{:url('Index/bmfu')}" target="_blank">
+															<i class="iconfont {$vf.iconname}"></i>
+															<p>{$vf.title}</p>
 														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-hunyinyuyue"></i>
-															<p>婚育收养</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-jiaoyu"></i>
-															<p>教育领域</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-chengzhenjiansheyongdi"></i>
-															<p>公共事业</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-shenghuojiaofei"></i>
-															<p>通信缴费</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-zhengjian"></i>
-															<p>证件办理</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-qiyegongchangjianzhu"></i>
-															<p>企业开办</p>
-														</a></li>
-													<li><a href="news_list.html" target="_blank">
-															<i class="iconfont icon-fupin"></i>
-															<p>社保领域</p>
-														</a></li>
+											        {/volist}
+													<li></li>
 													<li></li>
 												</ul>
 											</div>
@@ -440,37 +404,30 @@
 												</div>
 												<div class="service_right_list">
 													<div class="news_list">
-														<a class="news_item ful" href="news_detail.html" target="_blank">
-	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
-</a>
-														<a class="news_item ful" href="news_detail.html" target="_blank">
-	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
-</a>
-														<a class="news_item ful" href="news_detail.html" target="_blank">
-	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
-</a>
-														<a class="news_item ful" href="news_detail.html" target="_blank">
-	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
-</a>
+													{volist name="zdyws" id="yws"}	
+														<a class="news_item ful" href="{:url('News/detail',array('nid'=>$yws['id']))}" target="_blank">
+															<p title="{$yws.title}">{$yws.title}</p>
+														</a>
+													{/volist}
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="index_tab_btm">
 											<ul class="service_btm_list">
-												<li><a href="news_list.html" target="_blank" title="权责清单">
+												<li><a href="{:url('News/index',array('id'=>512))}" target="_blank" title="权责清单">
 														<img src="__HOME__/img/service_btm_1.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="news_list.html" target="_blank" title="公共服务事项清单">
+												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="公共服务事项清单">
 														<img src="__HOME__/img/service_btm_2.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="news_list.html" target="_blank" title="办事进度查询">
+												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="办事进度查询">
 														<img src="__HOME__/img/service_btm_3.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="news_list.html" target="_blank" title="便民查询">
+												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="便民查询">
 														<img src="__HOME__/img/service_btm_4.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="news_list.html" target="_blank" title="移动应用">
+												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="移动应用">
 														<img src="__HOME__/img/service_btm_5.jpg" width="232" height="90" alt="">
 													</a></li>
 											</ul>
@@ -478,7 +435,8 @@
 									</div>
 									<!-- 政民互动 -->
 									<div class="index_tab_item">
-										<div class="index_box clearfix">
+											<iframe scrolling="no" src="http://221.176.200.22/zkhotline/website/jsp/sqList.jsp" frameborder="0" height="1300px" width="100%"></iframe>
+										<!-- <div class="index_box clearfix">
 											<div class="interact_left float_lt">
 												<div class="interact_left_banner" style="background-image: url(__HOME__/img/interact_banner.jpg)"></div>
 												<div class="interact_news_box">
@@ -560,20 +518,20 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div>-->
 										<div class="index_tab_btm">
 											<ul class="interact_btm">
-												<li><a href="appeal_list.html" target="_blank" title="民生诉求">
+												<li><a href="javascript:;" target="_blank" title="民生诉求">
 														民生诉求
 													</a></li>
-												<li><a href="appeal_to.html" target="_blank" title="我要诉求">
+												<li><a href="javascript:;" target="_blank" title="我要诉求">
 														我要诉求
 													</a></li>
-												<li><a href="news_list.html" target="_blank" title="阳光信访">
+												<li><a href="javascript:;" data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
 														阳光信访
 													</a></li>
 											</ul>
-										</div>
+										</div> 
 									</div>
 									<!-- 走进周口 -->
 									<div class="index_tab_item">

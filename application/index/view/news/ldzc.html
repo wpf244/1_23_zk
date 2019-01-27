@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body>
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<header class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing" id="article_cont">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="javascript:;">领导之窗</a>
+					</div>
+					<div class="leader_box">
+						<div class="leader_title">
+							<div class="listing_left_title">
+								<i class="iconfont icon-lingdao1"></i>
+								<span>领导之窗</span>
+							</div>
+						</div>
+						<div class="leader_wrap">
+							<ul class="leader_wrap_title">
+							  {volist name="reb" key="k" id="vb"}	
+								<li {if condition="$k eq 1"} class="active" {/if} >{$vb.name}</li>
+								{/volist}
+							</ul>
+							<div class="leader_wrap_body" style="height:500px;overflow-y: scroll;">
+								{volist name="news" id="vs" key="ks"}
+								{if condition="$ks eq 1"}
+								<div class="leader_wrap_cont active">
+									{else /}
+									<div class="leader_wrap_cont">
+									{/if}
+									<div class="leader_list">
+									  {if condition="$vs.name eq '' "}
+									  
+									   {volist name="$vs['list']" id="v"}
+										<div class="leader_item">
+											<h6>{$v.title}</h6>
+											<ul>
+												<li><a href="{:url('News/detail',array('nid'=>$v['id']))}" target="_blank">
+		<i class="iconfont icon-gerenshixin"></i>
+		<span>{$v.subtitle}</span>
+	</a></li>
+											</ul>
+										</div>
+										{/volist}
+										{else /}
+										{volist name="$vs['list']" id="vv"}
+										<div class="leader_item">
+											
+										
+											<h6>{$vv.name}</h6>
+											<ul>
+											 <?php $id=$vv['id']; $ress=db("article_category")->alias("a")->field("a.categoryid as categoryids ,subtitle,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$id])->join("article_info b","a.articleid=b.id")->order("id desc")->select();?>		
+										  {volist name="ress" id="vss"}		
+											 <li><a href="{:url('News/detail',array('nid'=>$vss['id']))}" target="_blank">
+									<i class="iconfont icon-gerenshixin"></i>
+									<span>{$vss.subtitle}</span>
+								</a></li>
+							 {/volist}
+																		</ul>
+																	</div>
+											{/volist}	
+
+										{/if}
+									
+									</div>
+								</div>
+							
+								{/volist}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+
+	{include file="public:footer"}
+
+	<script>
+		$(function () {
+			$('.leader_wrap_title li').click(function () {
+				commonTab($(this), $('.leader_wrap_cont'), 'active')
+			})
+
+		})
+	</script>
+</body>
+
+</html>

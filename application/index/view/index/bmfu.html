@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+	.serve_item {
+		border-bottom: 1px solid #efefef;
+	}
+	.serve_item h6 {
+		margin-bottom: 20px;
+	}
+	.serve_item ul {
+		background-color: transparent;
+	}
+	.serve_item ul li {
+		width: auto;
+		margin-right: 20px;
+		margin-bottom: 20px;
+		padding: 0 10px;
+		background-color: #89B3EC;
+		color: #fff;
+	}
+</style>
+
+<body>
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<header class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing" id="article_cont">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="javascript:;">便民服务</a>
+					</div>
+					<div class="leader_box">
+						<div class="leader_title">
+							<div class="listing_left_title">
+								<i class="iconfont icon-lingdao1"></i>
+								<span>便民服务</span>
+							</div>
+						</div>
+						<div class="leader_wrap">
+							<div class="leader_wrap_body">
+								<div class="leader_wrap_cont active">
+									<div class="leader_list">
+									  {volist name="bmfu" id="v"}	
+										<div class="leader_item serve_item">
+											<h6>{$v.title}</h6>
+											<ul>
+											 {volist name="$v['list']" id="vs"}	
+												<li><a href="javascript::"  data-url="{$vs.url}" class="out_link" target="_blank"><span>{$vs.title}</span>
+													</a></li>
+											 {/volist}
+											</ul>
+										</div>
+									{/volist}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+<!-- 外链跳转模态窗 -->
+<div class="model_bg" id="model_bg"></div>
+<div class="model_box" id="model_box">
+	<div class="model_title">
+		您访问的链接即将离开”周口市人民政府网“门户网站是否继续？
+	</div>
+	<div class="model_btn">
+		<a class="model_goon" href="javascript:;" onclick="go_to();" target="_blank">继续访问</a>
+		<a class="model_giveup" id="model_giveup" href="javascript:;">放弃</a>
+	</div>
+	<div class="model_close" id="model_close">
+		<a href="javascript:;">
+			<i class="iconfont icon-guanbi1"></i>
+		</a>
+	</div>
+</div>
+ <script>
+ var url = "javascript:;";
+		$(function () {
+             
+			// 隐藏模态窗背景及盒子
+			$('#model_bg').hide()
+			$('#model_box').hide()
+
+			function closeModel() {
+				$('#model_bg').fadeOut()
+				$('#model_box').fadeOut()
+			}
+
+			$('.out_link').click(function () {
+				 url = $(this).attr('data-url');
+				$('#model_bg').fadeIn()
+				$('#model_box').fadeIn()
+			})
+            
+
+			$('#model_close').click(function () {
+				closeModel()
+			})
+
+			$('#model_giveup').click(function () {
+				closeModel()
+			})
+		})
+ function go_to()
+			{
+				$("#model_bg").hide();
+				$('#model_box').hide();
+				window.open(url);
+			}
+ </script>
+	{include file="public:footer"}
+</body>
+
+</html>

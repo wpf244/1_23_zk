@@ -98,9 +98,36 @@ class News extends BaseHome
         }else{
             $this->redirect("Index/index");
         }
+    }
+    public function ldzc()
+    {
+        $id=input("id");
+        $reb=db("category_info")->where(["parentid"=>$id,"status"=>0])->order(["orderid desc","id asc"])->select();
+        $this->assign("reb",$reb);
+
+        $news=db("category_info")->field("id,parentid,name")->where(["parentid"=>$id,"status"=>0])->order(["orderid desc","id asc"])->select();
+        //var_dump($news);exit;
+        foreach($news as $k => $v){
+            $child=db("category_info")->field("id,parentid,name")->where(["parentid"=>$v['id'],"status"=>0])->select();
+            if($child){
+               
+                $news[$k]['list']=$child;
+               
+              
+            }else{
+                $news[$k]['name']="";
+                $news[$k]['list']=db("article_category")->alias("a")->field("a.categoryid as categoryids ,subtitle,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$v['id']])->join("article_info b","a.articleid=b.id")->order("id desc")->select();
+            }
+        }
+      
+        $this->assign("news",$news);
+
+        return $this->fetch();
+    }
+
 
         
-    }
+   
     
 
 

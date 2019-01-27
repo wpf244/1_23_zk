@@ -85,14 +85,41 @@ class Index extends BaseHome
         $this->assign("zdxxs",$zdxxs);
 
         $newss=db("category_info")->field("id,code,status,name,iconname,orderid,categoryurl")->where(["parentid"=>$zid,"status"=>0])->order(["orderid desc","id asc"])->select();
-        foreach($newss as $nk => $ns){
-           
+        foreach($newss as $nk => $ns){ 
             $newss[$nk]['list']=db("category_info")->where(['status'=>0,"parentid"=>$ns['id']])->order(["id desc"])->limit("0,6")->select();
-
         }
-        
         $this->assign("newss",$newss);
 
+        //基础信息公开
+        $jcxxgk=db("category_info")->field("id,code,status")->where(["code"=>"jcxxgk","status"=>0])->find();
+        $jid=$jcxxgk['id'];
+
+        $jcxxgks=db("category_info")->field("id,code,status,name,iconname,orderid,categoryurl")->where(["parentid"=>$jid,"status"=>0])->order(["orderid desc","id asc"])->select();
+        $this->assign("jcxxgks",$jcxxgks);
+
+        //便民服务
+
+        $bmfu=db("link_info")->where(["parentid"=>0,"linktype"=>"bmfw"])->select();
+        $this->assign("bmfu",$bmfu);
+
+        //重点业务
+        $zdyw=db("category_info")->field("id,code,status")->where(["code"=>"zdxm","status"=>0])->find();
+        $did=$zdyw['id'];
+     //   var_dump($did);
+        
+        $zdyws=db("article_category")->alias("a")->field("a.categoryid as categoryids ,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$did])->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,8)->select();
+        $this->assign("zdyws",$zdyws);
+
+
+        return $this->fetch();
+    }
+    public function bmfu()
+    {
+        $bmfu=db("link_info")->where(["parentid"=>0,"linktype"=>"bmfw"])->select();
+        foreach($bmfu as $k =>$v){
+            $bmfu[$k]['list']=db("link_info")->where(["parentid"=>$v['id'],"linktype"=>"bmfw"])->select();
+        }
+        $this->assign("bmfu",$bmfu);
         return $this->fetch();
     }
 }
