@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+{include file="public:header"}
+
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body>
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<header class="header_container">
+			<div class="common_wrap">
+				<div class="header_top">
+					{include file="public:top"}
+					<!-- 中间切换盒子 -->
+					<div class="index_tab">
+						<div class="index_wrap">
+							<!-- 切换头部 -->
+							{include file="public:nav"}
+							</ul>
+						</div>
+					</div>
+
+					<!-- 新闻列表 -->
+					<div class="listing">
+						<div class="listing_crumb">
+							当前位置：<a href="news_list.html">中国周口</a>&gt;<a href="javascript:;">搜索结果</a>
+						</div>
+						<div class="listing_box clearfix">
+							<div class="listing_left float_lt">
+								<div class="listing_left_title">
+									<i class="iconfont icon-xingtaiduICON_sousuo--"></i>
+									<span>搜索结果</span>
+								</div>
+								<div class="listing_left_unit">
+									<div class="news_list">
+										{volist name="res" id='v'}
+										<a class="news_item" href="{:url('News/detail',array('nid'=>$v['id']))}" target="_blank">
+											<p title="{$v.title}">{$v.title}</p>
+											<span>{$v.createtime}</span>
+										</a>
+										{/volist}
+									</div>
+									<div class="listing_page">
+										<div class="pages_box">
+											{$page}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="listing_right float_rt">
+								<div class="listing_right_box">
+									<div class="listing_right_title">
+										时间
+									</div>
+									<div class="listing_right_menu">
+										<ul>
+											<li class="active"><a href="{:url('Search/search_result',array('week'=>1))}" target="_blank">
+													过去一周以内
+													<i class="iconfont icon-sanjiaobiao"></i>
+												</a></li>
+											<li class=""><a href="{:url('Search/search_result',array('mouth'=>1))}" target="_blank">
+													过去一月以内
+													<i class="iconfont icon-sanjiaobiao"></i>
+												</a></li>
+											<li class=""><a href="{:url('Search/search_result',array('year'=>1))}" target="_blank">
+													过去一年以内
+													<i class="iconfont icon-sanjiaobiao"></i>
+												</a></li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="listing_right_box">
+									<div class="listing_right_title">
+										热门搜索
+									</div>
+									<div class="listing_right_menu">
+										<ul>
+											{volist name='hot' id='v'}
+											<li class="">
+												<a href="{:url('Search/search_result',array('hid'=>$v['id']))}" target="_blank">
+													{$v.title}
+													<i class="iconfont icon-sanjiaobiao"></i>
+												</a>
+											</li>
+											{/volist}
+										</ul>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+		</header>
+	</div>
+
+	{include file="public:footer"}
+</body>
+
+</html>

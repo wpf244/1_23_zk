@@ -6,9 +6,11 @@
         </h1>
         <div class="header_other">
             <div class="header_search">
-                <input type="text" placeholder="请输入关键字">
-                <i class="iconfont icon-xingtaiduICON_sousuo--"></i>
-                <button class="header_search_btn">搜索</button>
+                <form action="{:url('Search/search_result')}" method="POST">
+                    <input type="text" placeholder="请输入关键字" name="search">
+                        <i class="iconfont icon-xingtaiduICON_sousuo--"></i>
+                    <button class="header_search_btn" type="submit">搜索</button>
+                </form>
             </div>
             <div class="header_date clearfix">
                 <div class="header_riqi float_lt">

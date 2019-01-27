@@ -1446,9 +1446,54 @@ class News extends BaseAdmin
         }
     }
 
+    public function hot(){
+        $list=db('article_hot')->paginate(10);
+        $this->assign('list',$list);
+        return $this->fetch();
+    }
 
+    public function save_hot(){
+        if($this->request->isAjax()){
+            $id=$_POST['id'];
+            if($id){
+                $data['title']=$_POST['title'];
+                $res=db('article_hot')->where("id=$id")->update($data);
+                if($res){
+                    $this->success("修改成功！",url('hot'));
+                }else{
+                    $this->error("修改失败！",url('hot'));
+                }
+            }else{
+                $data['title']=$_POST['title'];
+                $re=$res=db('article_hot')->insert($data);
+                if($re){
+                    $this->success("添加成功！",url('hot'));
+                }else{
+                    $this->error("添加失败！",url('hot'));
+                } 
+            }
+            
+        }else{
+            $this->success("非法提交",url('hot'));
+        }
+    }
 
+    public function modify(){
+        $id=input('id');
+        $re=db('article_hot')->where("id=$id")->find();
+        echo json_encode($re);
+    }
 
+    public function hot_change(){
+        $id=input('id');
+        $status=input('status');
+        if($status == 1){
+            $data['status']=0;
+        }else{
+            $data['status']=1;
+        }
+        db('article_hot')->where("id=$id")->update($data);
+    }
 
 
 
