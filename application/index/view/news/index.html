@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body>
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<header class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="{:url('News/index',array('id'=>$rep['id']))}">{$rep.name}</a>&gt;<a href="javascript:;">{$re.name}</a>
+					</div>
+					<div class="listing_box clearfix">
+						<div class="listing_left float_lt">
+							<div class="listing_left_title">
+								<i class="iconfont icon-shuben"></i>
+								<span>{$re.name}</span>
+							</div>
+							<div class="listing_left_unit">
+								<div class="news_list">
+								{volist name="list" id="vs"}	
+									<a class="news_item" href="{:url('News/detail',array('nid'=>$vs['id']))}" target="_blank">
+	<p title="{$vs.title}">{$vs.title}</p>
+	<span>{$vs.createtime|mb_substr=0,10,'utf-8'}</span>
+</a>
+{/volist}
+		
+								</div>
+								<div class="listing_page">
+									{$page}
+								</div>
+							</div>
+						</div>
+						<div class="listing_right float_rt">
+							<div class="listing_right_title">
+								{$rep.name}
+							</div>
+							<div class="listing_right_menu">
+								<ul style="height:500px;overflow-y: scroll;">
+								  {volist name="res" id="v"}
+									<li class="active"><a href="{:url('News/index',array('id'=>$v['id']))}">
+											{$v.name}
+											<i class="iconfont icon-sanjiaobiao"></i>
+										</a></li>
+								 {/volist}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+
+	{include file="public:footer"}
+</body>
+
+</html>

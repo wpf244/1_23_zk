@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+{include file="public:header"}
+
+<body class="no-skin">
+<!--头部-->
+{include file="public:nav"}
+
+<div class="main-container ace-save-state" id="main-container">
+  <!--菜单-->
+  <script type="text/javascript">
+  try{ace.settings.loadState('main-container')}catch(e){}
+</script>
+
+{include file="public:left"}
+
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="{:url('Index/index')}">首页</a>
+          </li>
+          <li class="active">评论列表</li>
+        </ul><!-- /.breadcrumb -->
+
+      </div>
+
+      <div class="page-content">
+        {include file="public:set"}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="col-sm-10 col-sm-offset-1">
+              <div class="page-header">
+                <div class="row">
+                <div class="col-sm-4">
+                  <button class="btn btn-danger btn-white btn-bold del-btn">
+                      <i class="ace-icon fa fa-trash-o icon-only"></i>
+                      删除
+                    </button>
+                    <button class="btn btn-success btn-white btn-bold del-btnt">
+                        
+                        审核通过
+                      </button>
+                      <button class="btn btn-danger btn-white btn-bold del-btnj">
+                        
+                          审核拒绝
+                        </button>
+                </div>
+                <div class="col-sm-8 clearfix">
+                    <form class="form-inline pull-right" action="{:url('Message/news')}" method="post">
+
+                      <div class="form-group">
+                          <div class="input-group">
+                      <span class="input-group-addon">
+                          状态
+                        </span>
+                            <select class="form-control" name="status">
+                              <option {if condition="$status eq 3"}selected{/if} value="3">所有状态</option>
+                              <option {if condition="$status eq 1"}selected{/if} value="1">已审核</option>
+                              <option {if condition="$status eq 0"}selected{/if} value="0">待审核</option>
+                              <option {if condition="$status eq 2"}selected{/if} value="2">已退回</option>
+                            </select>
+                          </div>
+                        </div>
+
+                      <div class="form-group">
+                          <div class="input-daterange input-group">
+                <input type="text" class="form-control search-query" name="start" value="{$start}" placeholder="选择开始时间" />
+                <span class="input-group-addon">
+                  <i class="fa fa-exchange"></i>
+                </span>
+    
+                <input type="text" class="form-control search-querys" name="end" value="{$end}" placeholder="选择结束时间" />
+              </div>   
+                        </div>
+                        
+
+
+                      <div class="form-group">
+                        <div class="input-group">
+									<span class="input-group-addon">
+										<i class="ace-icon fa fa-check"></i>
+									</span>
+                          <input type="text" name="keywords" value="{$keywords}"  class="form-control search-query" 
+                                 placeholder="文章标题">
+                          <span class="input-group-btn">
+										<button type="submit" class="btn btn-info btn-sm ajax-search-form">
+											<span class="ace-icon fa fa-search icon-on-right bigger-120"></span> 搜索
+									</button>
+									</span>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th class="center">
+                        <label class="pos-rel">
+                          <input type="checkbox" class="ace checkAll">
+                          <span class="lbl"></span>
+                        </label>
+                      </th>
+                  <th>ID</th>
+                  <th class="hidden-480" style="width:30%;">内容</th>                  
+                  <th class="hidden-480">文章标题</th>
+                  <th class="hidden-480">栏目</th>
+                  <th class="hidden-480">用户名</th>
+                  <th class="hidden-480">发布日期</th>
+                  <th class="hidden-480">审核日期</th>
+                  <th class="hidden-480">是否审核</th>
+                  <th class="hidden-480">审核人</th>
+                  <th style="border-right:#ddd solid 1px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="v"}
+                <tr class="ace-thumbnails">
+                    <td class="center"><label class="pos-rel">
+                        <input type="checkbox" class="ace check" value="{$v.mid}">
+                        <span class="lbl"></span>
+                      </label>
+                      </td>
+                  <td><span class="badge badge-grey">{$v.mid}</span></td>
+                  <td>{$v.content}</td>
+                  <td>{$v.title}</td>
+                  <td>{$v.name}</td>
+                  <td class="hidden-480">{$v.username}</td>
+                  <td class="hidden-480">{$v.createtime}</td>
+                  <td class="hidden-480">{$v.shenhetime}</td>
+                  <td class="hidden-480">
+                    {if condition="$v.mstatus eq 0"}未审核{/if}
+                    {if condition="$v.mstatus eq 1"}已审核{/if}
+                    {if condition="$v.mstatus eq 2"}审核拒绝{/if}
+                  </td>
+                  <td class="hidden-480">{$v.shenhename}</td>
+                  <td>
+                  
+                    <button class="btn btn-xs btn-danger" type="button" onclick="dels({$v.mid})" title="删除">
+                      <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                    </button>
+                  </td>
+                </tr>
+                {/volist}
+                {empty name="list"}<tr><td colspan="11" class="text-center">暂无数据</td></tr>{/empty}
+                </tbody>
+
+              </table>
+              <div class="text-center">
+                <ul class="pagination">
+                  {$page}
+                </ul>
+              </div>
+            </div>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.page-content -->
+    </div>
+  </div><!-- /.main-content -->
+
+{include file="public:footer"}
+
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+  <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<script>
+  jQuery(function($) {
+
+    $('.input-daterange').datepicker({
+		  autoclose:true,
+		  language:"zh-CN",
+          format:"yyyy-mm-dd"
+          });
+   
+    $('[data-rel=tooltip]').tooltip();
+
+    $( "#hide-option" ).tooltip({
+      hide: {
+        effect: "explode",
+        delay: 250
+      }
+    });
+
+  })
+</script>
+<script type="text/javascript">
+		function dels(id){
+			layer.confirm('你确定删除吗？', {icon: 3}, function(index){
+		    layer.close(index);
+		    $.ajax({
+            type:"post",
+            url:"{:url('Message/delete')}",
+              data:{id:id},
+              datatype:"text",
+              success:function(re){
+                if(re == 2 || re == 1){
+                    layer.msg("系统繁忙请稍后再试");
+                    setTimeout("location.reload()",2000);
+                }
+                
+                if(re == 0){
+                  layer.msg("删除成功")
+                  setTimeout("location.reload()",2000);
+                }
+              }
+          })
+		  });
+	    }
+    </script>
+    
+    <script>
+       
+  $(".del-btnt").on(ace.click_event,function(){
+	var valarr = [];
+	var checkitem = $(".check:checked")
+    var len = checkitem.length;
+    if(len>0){
+    	for(let i = 0; i < len;i++){
+    		valarr.push(checkitem.eq(i).val())
+    	}
+      layer.confirm('你确定通过审核?',{icon: 3},function (index) {
+        layer.close(index);
+        window.location.href="adopt/id/"+valarr;
+      });
+    }else{
+      layer.msg("请先选择数据");
+    }
+  });
+    </script>
+
+<script>
+   
+$(".del-btnj").on(ace.click_event,function(){
+var valarr = [];
+var checkitem = $(".check:checked")
+var len = checkitem.length;
+if(len>0){
+  for(let i = 0; i < len;i++){
+    valarr.push(checkitem.eq(i).val())
+  }
+  layer.confirm('你确定拒绝审核?',{icon: 3},function (index) {
+    layer.close(index);
+    window.location.href="refuse/id/"+valarr;
+  });
+}else{
+  layer.msg("请先选择数据");
+}
+});
+</script>
+
+
+</body>
+</html>

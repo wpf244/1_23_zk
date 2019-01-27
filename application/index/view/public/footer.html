@@ -1,0 +1,40 @@
+
+<footer class="footer_box">
+        <div class="common_wrap">
+            <div class="footer_top clearfix">
+               {volist name="footer_link" id="vf"} 
+                <div class="footer_cell">
+                    <p class="footer_txt">{$vf.title}</p>
+                    <i class="iconfont icon-sanjiaobiao"></i>
+                    <ul class="footer_unit">
+                       {volist name="$vf['list']" id="vff"}  
+                        <li><a href="{$vff.url}" target="_blank">{$vff.title}</a></li>
+                      {/volist}
+                    </ul>
+                </div>
+             {/volist}
+            
+            </div>
+    
+            <div class="footer_btm clearfix">
+                <div class="footer_left float_lt">
+                    <a href="http://bszs.conac.cn/sitename?method=show&id=115E1901DF3F6586E053012819AC4EA6" target="_blank"><img src="__HOME__/img/footer_icon1.png"
+                         width="34" height="41" alt=""></a>
+                </div>
+                <div class="footer_mid float_lt">
+                    <p>
+                        <a href="news_detail.html" target="_blank">联系我们</a> |<a href="news_detail.html" target="_blank">关于我们</a> |<a href="news_detail.html"
+                         target="_blank">网站声明</a>
+                        | <a href="news_detail.html" target="_blank">网站排行</a> | <a href="javascript:;" class="zh_click" id="zh_click_s">简体</a>
+                        |
+                        <a href="javascript:;" class="zh_click" id="zh_click_t">繁体</a>
+                    </p>
+                    <p><span>主办单位：周口市人民政府 </span> <span>备案序号：豫ICP备06001056</span> <span>豫公网安备：41160202000019</span> </p>
+                </div>
+                <div class="footer_right float_lt">
+                    <a href="http://121.43.68.40/exposure/jiucuo.html?site_code=4116000007&url=http%3A%2F%2Fwww.zhoukou.gov.cn%2F"
+                     target="_blank"><img src="__HOME__/img/footer_icon2.png" width="72" height="35" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </footer>

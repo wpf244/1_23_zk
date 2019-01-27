@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+{include file="public:header"}
+<link rel="stylesheet" href="__ADMIN__/js/themes/default/style.min.css">
+<script src="__ADMIN__/js/jstree.min.js"></script>
+<script src="__ADMIN__/js/jscolor.js"></script>
+<body class="no-skin">
+<!--头部-->
+{include file="public:nav"}
+
+<div class="main-container ace-save-state" id="main-container">
+  <!--菜单-->
+  <script type="text/javascript">
+  try{ace.settings.loadState('main-container')}catch(e){}
+</script>
+
+{include file="public:left"}
+
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="{:url('Index/index')}">首页</a>
+          </li>
+          <li class="active">基本信息</li>
+        </ul><!-- /.breadcrumb -->
+
+      </div>
+
+      <div class="page-content">
+        {include file="public:set"}
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1">
+          <div class="col-sm-3">
+              <!-- <div class="widget-box ui-sortable-handle" id="widget-box-1"> -->
+              <div class="widget-box transparent" id="widget-box-1">
+                  <div class="widget-header">
+                  <h5 class="widget-title">栏目</h5>
+                  <div class="widget-toolbar">
+                  <div class="widget-menu">
+                  <a href="#" data-action="settings" data-toggle="dropdown">
+                  <i class="ace-icon fa fa-bars"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                  <li>
+                  <a data-toggle="tab" href="#dropdown1">Option#1</a>
+                  </li>
+                  <li>
+                  <a data-toggle="tab" href="#dropdown2">Option#2</a>
+                  </li>
+                  </ul>
+                  </div>
+                  <a href="#" data-action="fullscreen" class="orange2">
+                  <i class="ace-icon fa fa-expand"></i>
+                  </a>
+                  <a href="#" data-action="reload">
+                  <i class="ace-icon fa fa-refresh"></i>
+                  </a>
+                  <a href="#" data-action="collapse">
+                  <i class="ace-icon fa fa-chevron-up"></i>
+                  </a>
+                  <a href="#" data-action="close">
+                  <i class="ace-icon fa fa-times"></i>
+                  </a>
+                  </div>
+                  </div>
+                  <div class="widget-body">
+                    <div class="widget-main">
+                      <div id="column"></div>
+                    </div>
+                  </div>
+                  </div>
+          </div>
+          <div class="col-sm-9">
+              <form id="modal-form" class="form-horizontal" action="{:url('News/savel')}" method="post" enctype="multipart/form-data">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="widget-box transparent">
+                      <div class="widget-header widget-header-flat">
+                        <h4 class="widget-title"><i class="ace-icon fa fa-leaf green"></i>文章信息</h4>
+                        <!-- <div class="widget-toolbar no-border">
+                            <button class="btn btn-xs btn-success bigger" id="add" type="button">
+                              <i class="ace-icon fa fa-plus"></i>
+                              添加
+                            </button>
+                            <button class="btn btn-xs bigger btn-danger dropdown-toggle" id="delete" data-toggle="dropdown" type="button">
+                              <i class="ace-icon fa fa-remove icon-on-right"></i>
+                            删除
+                            </button>
+                          
+                            </div> -->
+                      </div>
+                      <div class="widget-body">
+                        <div class="widget-main">
+                          
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">职位</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text" name="title" placeholder="职位必填"   required>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">姓名</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text" name="subtitle" placeholder="姓名必填"   required >
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">领导描述</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text"  name="description">
+                            </div>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">领导摘要</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text"  name="summary" required>
+                            </div>
+                          </div>
+
+                          <div class="form-group">                                                                            
+                            <label class="col-sm-2 control-label no-padding-right" for="">是否加粗</label>
+                             <div class="col-sm-2">
+                               <label style="padding-top: 8px">
+                                 <input name="isbold"  class="ace ace-switch ace-switch-6" type="checkbox" />
+                                 <span class="lbl"></span>
+                                 <small>(是否加粗)</small>
+                               </label>
+                             </div>
+
+
+                             <label class="col-sm-2 control-label no-padding-right" for="">标题颜色</label>
+                             <div class="col-sm-2">
+                               <label style="padding-top: 8px">
+                                <input type="text" id="inputss" name="color" value="#000000" />
+                                <input type="button" value="000" class="jscolor {onFineChange:'setTextColor(this)'}" style="overflow:hidden;text-indent: -99px;width: 20px; height:20px;border-style: none;border: 1px solid black;display: block;float: left;margin-right: 5px;margin-top: 7px;margin-left: 5px;">
+                                
+                               </label>
+                             </div>
+                           
+                           </div>
+
+                        
+
+                           <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">头像</label>
+                          <div class="col-sm-10 col-sm-offset-2">
+                            <input multiple="" type="file" id="thumb" name="coverimage"/>
+                            <img src="" id="image" class="img-responsive" />
+                          </div>
+                        </div>
+
+
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">发布栏目</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text" id="duiyingname"  name="categoryname"  required placeholder="从左侧选择要发布的栏目" readonly>
+                              <input name="categoryid" id="duiyingid" type="hidden"  />
+                            </div>
+                          </div>
+         
+                   
+                       
+                       
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <script src="__ADMIN__/assets/js/ueditor.config.js" type="text/javascript"></script>
+                    <script src="__ADMIN__/assets/js/ueditor.all.js" type="text/javascript"></script>
+                    <textarea id="myEditor" name="content" style="width:100%;"></textarea>
+                    <script type="text/javascript">
+                      var editor = new UE.ui.Editor({
+                        initialFrameHeight: 300
+                      });
+                      editor.render("myEditor");
+                    </script>
+                  </div>
+                </div>
+               
+                <input type="hidden" name="reviewstatus" value="1" />
+                <input type="hidden" name="arttype" value="lingdao" />
+                <div class="clearfix form-actions">
+                  <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="submit">
+                      <i class="ace-icon fa fa-floppy-o bigger-110"></i>
+                      保存
+                    </button>
+                    <button class="btn" type="button">
+                      <i class="ace-icon fa fa-undo bigger-110"></i>
+                      重置
+                    </button>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+        </div><!-- /.row -->
+      </div><!-- /.page-content -->
+    </div>
+  </div><!-- /.main-content -->
+
+{include file="public:footer"}
+
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+  <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<script>
+  function setTextColor(picker) {
+      var inputs=document.getElementById('inputss');
+      inputs.value= '#'+picker.toString();
+  }
+</script>
+<script>
+  jQuery(function($) {
+
+  
+
+    $('#thumb').ace_file_input({
+        style: 'well',
+        btn_choose: '头像',
+        btn_change: null,
+        no_icon: 'ace-icon fa fa-picture-o',
+        droppable: true,
+        thumbnail: 'fit'//large | fit
+        //,icon_remove:null//set null, to hide remove/reset button
+        /**,before_change:function(files, dropped) {
+						//Check an example below
+						//or examples/file-upload.html
+						return true;
+					}*/
+        /**,before_remove : function() {
+						return true;
+					}*/
+        ,
+        preview_error: function (filename, error_code) {
+          //name of the file that failed
+          //error_code values
+          //1 = 'FILE_LOAD_FAILED',
+          //2 = 'IMAGE_LOAD_FAILED',
+          //3 = 'THUMBNAIL_FAILED'
+          //alert(error_code);
+        }
+
+      }).on('change', function () {
+        //console.log($(this).data('ace_input_files'));
+        //console.log($(this).data('ace_input_method'));
+      });
+
+
+    $('.input-daterange').datepicker({
+		  autoclose:true,
+		  language:"zh-CN",
+          format:"yyyy-mm-dd"
+          });
+   
+    $('[data-rel=tooltip]').tooltip();
+
+    $( "#hide-option" ).tooltip({
+      hide: {
+        effect: "explode",
+        delay: 250
+      }
+    });
+    // 获取节点数组
+    function getList(id,texts) {
+      if(idarr.indexOf(id) == -1) {
+        strarr.push(texts)
+        idarr.push(id)
+      }else {
+        strarr.splice(strarr.indexOf(texts),1)
+        idarr.splice(idarr.indexOf(id),1)
+      }
+      
+      return {
+        names: strarr,
+        ids: idarr
+      }
+    }
+    var strarr = [],
+    idarr = []
+    // jstree
+    var columData = {$data};
+    var oldname = ''
+    $('#column').jstree({'core': {
+      'data':columData
+    },
+    "checkbox": {
+      "keep_selected_style": false,
+      "real_checkboxes": true,
+
+      "tie_selection": false
+    },
+    'plugins': ['state', 'types', 'dnd', 'checkbox']
+    }).on("activate_node.jstree", function (e, data) {
+  
+       var node = data.node,
+          id = node.id,
+          text = node.text
+          checked = node.state.checked,
+          duiyingname = $('#duiyingname'),
+          duiyingid = $('#duiyingid');
+        
+       if(text == "周口政府"){
+         checked=false;
+         return false;
+       }
+
+       $.ajax({
+         type:"post",
+         url:"{:url('Column/find')}",
+         data:{id:id},
+         datatype:"json",
+         success:function(re)
+         {
+             var re = JSON.parse(re);
+
+             var redata = getList.call(this,id,re.name)
+             duiyingname.val(redata.names);
+             duiyingid.val(redata.ids);
+  
+         }
+
+       })
+    });
+  })
+</script>
+<script>
+ $("#add").click(function()
+ {
+   var id = $("#id").val();
+   if(id == ''){
+     layer.msg("请先选择上级栏目");return false;
+   }else{
+      location.href="__URL__/add/parentid/"+id;
+   }
+ })
+</script>
+<script type="text/javascript">
+		function dels(id){
+			layer.confirm('你确定删除吗？', {icon: 3}, function(index){
+		    layer.close(index);
+		    $.ajax({
+            type:"post",
+            url:"{:url('Message/delete')}",
+              data:{id:id},
+              datatype:"text",
+              success:function(re){
+                if(re == 2 || re == 1){
+                    layer.msg("系统繁忙请稍后再试");
+                    setTimeout("location.reload()",2000);
+                }
+                
+                if(re == 0){
+                  layer.msg("删除成功")
+                  setTimeout("location.reload()",2000);
+                }
+              }
+          })
+		  });
+	    }
+    </script>
+    
+    <script>
+       
+  $(".del-btnt").on(ace.click_event,function(){
+	var valarr = [];
+	var checkitem = $(".check:checked")
+    var len = checkitem.length;
+    if(len>0){
+    	for(let i = 0; i < len;i++){
+    		valarr.push(checkitem.eq(i).val())
+    	}
+      layer.confirm('你确定通过审核?',{icon: 3},function (index) {
+        layer.close(index);
+        window.location.href="adopt/id/"+valarr;
+      });
+    }else{
+      layer.msg("请先选择数据");
+    }
+  });
+    </script>
+
+<script>
+   
+$(".del-btnj").on(ace.click_event,function(){
+var valarr = [];
+var checkitem = $(".check:checked")
+var len = checkitem.length;
+if(len>0){
+  for(let i = 0; i < len;i++){
+    valarr.push(checkitem.eq(i).val())
+  }
+  layer.confirm('你确定拒绝审核?',{icon: 3},function (index) {
+    layer.close(index);
+    window.location.href="refuse/id/"+valarr;
+  });
+}else{
+  layer.msg("请先选择数据");
+}
+});
+</script>
+<script>
+  $(function(){
+    $('#modal-form').ajaxForm({
+      beforeSubmit: checkForm, // 此方法主要是提交前执行的方法，根据需要设置
+      success: complete, // 这是提交后的方法
+      dataType: 'json'
+    });
+    
+    function checkForm(){
+           if($("#duiyingname").val() == ''){
+             layer.msg("请选择要发布的栏目");return false;
+           }
+      
+      }
+  
+    function complete(data){
+      if(data.status==1){
+        layer.alert(data.msg, {icon: 5}, function(index){
+         layer.close(index);
+         window.location.href=data.url;
+        });
+        
+      }else{
+        layer.alert(data.msg, {icon: 6}, function(index){
+         layer.close(index);
+         window.location.href=data.url;
+        });
+        
+      }
+    }
+   
+  });
+  
+  </script>
+
+</body>
+</html>
