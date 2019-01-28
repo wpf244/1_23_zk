@@ -97,7 +97,7 @@
 																</a>
 															</li>
 															<li>
-																<a href="javascript:;" title="国务院信息" target="_blank" class="out_link">
+																<a href="javascript:;" title="国务院信息" target="_blank" data-url="http://www.gov.cn/pushinfo/v150203/" class="out_link">
 																	<i class="iconfont icon-wendang"></i>国务院信息
 																</a>
 															</li>
@@ -138,9 +138,9 @@
 																<div class="news_wrap">
 																	<div class="news_list">
 																		{volist name="reg" id="vg"}
-																			<a class="news_item" href="# target="_blank">
+																			<a class="news_item out_link" href="javascript:;" data-url="http://www.gov.cn/premier/{$vg['Unix_timestamp(createtime)']|date='Y-m/d',###}/content_{$vg.zhongguogovid}" target="_blank">
 																<p title="{$vy.title}">{$vg.title}</p>
-																<span>{$vg.createtime|mb_substr=0,10,'utf-8'}</span>
+																<span>{$vg['Unix_timestamp(createtime)']|date="Y-m-d",###}</span>
 															</a>
 															{/volist}
 					
@@ -197,20 +197,20 @@
 
 										<div class="index_tab_btm">
 											<div class="topic_box clearfix">
-												<h6 class="topic_title float_lt"><a href="topic_list.html" target="_blank">专题专栏</a></h6>
+												<h6 class="topic_title float_lt"><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank">专题专栏</a></h6>
 												<div class="topic_right float_rt">
 													<div class="bd">
 														<ul>
-															<li><a href="news_list.html" target="_blank" title="">
+															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
 																	<img src="__HOME__/img/topic_1.jpg" width="265" height="90" alt="">
 																</a></li>
-															<li><a href="news_list.html" target="_blank" title="">
+															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
 																	<img src="__HOME__/img/topic_2.jpg" width="265" height="90" alt="">
 																</a></li>
-															<li><a href="news_list.html" target="_blank" title="">
+															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
 																	<img src="__HOME__/img/topic_3.jpg" width="265" height="90" alt="">
 																</a></li>
-															<li><a href="news_list.html" target="_blank" title="">
+															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
 																	<img src="__HOME__/img/topic_4.jpg" width="265" height="90" alt="">
 																</a></li>
 														</ul>
@@ -332,22 +332,19 @@
 													<div class="banner_tab banner_box service_tab">
 														<div class="hd">
 															<ul>
+																	{volist name="lb" id="lbvs"}
 																<li class="on"></li>
-																<li></li>
-																<li></li>
+																
+																{/volist}
 															</ul>
 														</div>
 														<div class="bd">
 															<ul>
-																<li style="background-image: url(__HOME__/img/service_banner.jpg)">
-																	<a href="news_detail.html" target="_blank"></a>
+															 {volist name="lb" id="lbv"}	
+																<li style="background-image: url(/uploads/{$lbv.image})">
+																	<a href="javascript:;" class="out_link" data-url="{$lbv.url}" target="_blank"></a>
 																</li>
-																<li style="background-image: url(__HOME__/img/service_banner.jpg)">
-																	<a href="news_detail.html" target="_blank"></a>
-																</li>
-																<li style="background-image: url(__HOME__/img/service_banner.jpg)">
-																	<a href="news_detail.html" target="_blank"></a>
-																</li>
+																{/volist}
 															</ul>
 														</div>
 													</div>
@@ -541,49 +538,41 @@
 													<div class="banner_tab banner_box walkin_tab float_lt">
 														<div class="hd">
 															<ul>
-																<li class="on"></li>
+																	{volist name="lbz" id="lz"}
+																
 																<li></li>
-																<li></li>
+																{/volist}
 															</ul>
 														</div>
 														<div class="bd">
 															<ul>
-																<li style="background-image: url(__HOME__/img/walkin_banner.jpg)">
-																	<a class="banner_txt" href="news_detail.html" title="太康小吴塔">
-																		<span>太康小吴塔</span>
+																{volist name="lbz" id="lz"}
+																<li style="background-image: url(/uploads/{$lz.image})">
+																	<a class="banner_txt" href="javascript:;" title="{$lz.name}">
+																		<span>{$lz.name}</span>
 																	</a>
 																</li>
-																<li style="background-image: url(__HOME__/img/walkin_banner.jpg)">
-																	<a class="banner_txt" href="news_detail.html" title="太康小吴塔">
-																		<span>太康小吴塔</span>
-																	</a>
-																</li>
-																<li style="background-image: url(__HOME__/img/walkin_banner.jpg)">
-																	<a class="banner_txt" href="news_detail.html" title="太康小吴塔">
-																		<span>太康小吴塔</span>
-																	</a>
-																</li>
+															 {/volist}
 															</ul>
 														</div>
 													</div>
 													<div class="walkin_top_txt float_rt">
 														<h5>周口简介</h5>
-														<p>周口位于河南省东南部，地处黄淮平原腹地，东临安徽阜阳市，西接河南漯河市、许昌市，南与驻马店市相连，北和开封市、商丘市接壤，1965年设立周口专区（后改为周口地区），2000年经国务院批准撤销周口地区设立...<a
-															 href="news_detail.html" target="_blank" title="查看详情">【详细】</a></p>
+														<p>{:strip_tags(mb_substr($zksqs['content'],0,310,'utf8'))}...<a
+															 href="{:url('News/detail',array('nid'=>$zksqs['articleid']))}" target="_blank" title="查看详情">【详细】</a></p>
 													</div>
 												</div>
 												<div class="walkin_top_right float_rt">
 													<div class="walkin_top_title clearfix">
 														<h6 class="float_lt">人文周口</h6>
-														<a class="float_rt common_more" href="news_list.html" target="_blank" title="查看更多">
+														<a class="float_rt common_more" href="{:url('News/index',array('id'=>$rid))}" target="_blank" title="查看更多">
 	<i class="iconfont icon-jia"></i>
 </a>
 													</div>
 													<ul class="walkin_person">
-														<li><a href="news_detail.html" target="_blank" title="袁世凯">袁世凯</a></li>
-														<li><a href="news_detail.html" target="_blank" title="袁世凯">袁世凯</a></li>
-														<li><a href="news_detail.html" target="_blank" title="袁世凯">袁世凯</a></li>
-														<li><a href="news_detail.html" target="_blank" title="袁世凯">袁世凯</a></li>
+													  {volist name="rwzks" id="vr"}	
+														<li><a href="{:url('News/detail',array('nid'=>$vr['id']))}" target="_blank" title="{$vr.title}">{$vr.title}</a></li>
+														{/volist}
 													</ul>
 												</div>
 											</div>
@@ -595,36 +584,12 @@
 													</div>
 													<div class="bd">
 														<ul>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
+														{volist name="lyjds" id="yv"}	
+															<li style="background-image: url(/uploads/{$yv.coverimage})"><a href="{:url('News/detail',array('nid'=>$yv['id']))}" target="_blank" title="{$yv.title}">
+		<p>{$yv.title}</p>
 	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
-															<li style="background-image: url(__HOME__/img/walkin_pic.jpg)"><a href="news_list.html" target="_blank" title="龙泉寺">
-		<p>龙泉寺</p>
-	</a></li>
+	{/volist}
+	
 														</ul>
 													</div>
 												</div>
@@ -634,45 +599,11 @@
 											<div class="walkin_map">
 												<div class="bd">
 													<ul>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
+														{volist name="jczks" id="vk"}
+														<li style="background-image: url(/uploads/{$vk.coverimage})"><a href="{:url('News/detail',array('nid'=>$vk['id']))}" target="_blank">
+		{$vk.title}
 	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
-														<li style="background-image: url(__HOME__/img/map_bg.png)"><a href="news_list.html" target="_blank">
-		<i class="iconfont icon-dingwei"></i>扶沟县
-	</a></li>
+												{/volist}		
 													</ul>
 												</div>
 											</div>
@@ -774,7 +705,7 @@
 		</section>
 
 		<!-- 外链跳转模态窗 -->
-		<div class="model_bg" id="model_bg"></div>
+		<!-- <div class="model_bg" id="model_bg"></div>
 		<div class="model_box" id="model_box">
 			<div class="model_title">
 				您访问的链接即将离开”周口市人民政府网“门户网站是否继续？
@@ -788,7 +719,7 @@
 					<i class="iconfont icon-guanbi1"></i>
 				</a>
 			</div>
-		</div>
+		</div> -->
 
 		{include file="public:footer"}
 	</section>
@@ -930,54 +861,7 @@
 			bgchange(1200)
 			clearTimeout(initTime)
 		})
-		var url = "javascript:;";
-		$(function () {
-             
-			// 隐藏模态窗背景及盒子
-			$('#model_bg').hide()
-			$('#model_box').hide()
-
-			function closeModel() {
-				$('#model_bg').fadeOut()
-				$('#model_box').fadeOut()
-			}
-
-			$('.out_link').click(function () {
-				 url = $(this).attr('data-url');
-				$('#model_bg').fadeIn()
-				$('#model_box').fadeIn()
-			})
-            
-
-			$('#model_close').click(function () {
-				closeModel()
-			})
-
-			$('#model_giveup').click(function () {
-				closeModel()
-			})
-
-
-
-			// 隐藏中间新闻模块
-			$('.header_news').hide()
-
-			// index_tab选项卡
-			$('.index_nav_item').click(function () {
-				commonTab($(this), $('.index_tab_item'), 'on')
-			})
-
-			// 周口荟萃选项卡
-			$('.huicui_title li').click(function () {
-				commonTab($(this), $('.huicui_body li'), 'active')
-			})
-		})
-		function go_to()
-			{
-				$("#model_bg").hide();
-				$('#model_box').hide();
-				window.open(url);
-			}
+		
 	</script>
 </body>
 

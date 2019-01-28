@@ -22,9 +22,10 @@ class News extends BaseHome
         $pid=$re['id'];
         $parentid=$re['parentid'];
         $this->assign("re",$re);
-
+     //   var_dump($re);
         //上级栏目
         $rep=db("category_info")->field("id,name,status")->where(["id"=>$parentid,"status"=>0])->find();
+        
         if(empty($rep)){
             $rep=$re;
         }
@@ -50,12 +51,14 @@ class News extends BaseHome
         $this->assign("page",$page);
 
         //侧边栏
-        $res=db("category_info")->field("id,name,status")->where(["parentid"=>$pid,"status"=>0,"categoryurl"=>''])->order(["orderid desc","id asc"])->select();
+        $res=db("category_info")->field("id,name,status")->where(["parentid"=>$pid,"status"=>0,'categoryurl'=>null])->order(["orderid desc","id asc"])->select();
+       
         if(empty($res)){
            
-            $res=db("category_info")->field("id,name,status")->where(["parentid"=>$parentid,"status"=>0,"categoryurl"=>''])->order(["orderid desc","id asc"])->select();
+            $res=db("category_info")->field("id,name,status")->where(["parentid"=>$parentid,"status"=>0,'categoryurl'=>null])->order(["orderid desc","id asc"])->select();
+            //  var_dump($res,$parentid);exit;
             if(empty($res)){
-                $res=db("category_info")->field("id,name,status")->where(["parentid"=>$rep['id'],"status"=>0,"categoryurl"=>''])->order(["orderid desc","id asc"])->select();
+                $res=db("category_info")->field("id,name,status")->where(["parentid"=>$rep['id'],"status"=>0,'categoryurl'=>null])->order(["orderid desc","id asc"])->select();
 
             }
         }

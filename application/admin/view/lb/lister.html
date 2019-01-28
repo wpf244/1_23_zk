@@ -128,8 +128,8 @@
                   <td>{$v.name}</td>
                   <td class="hidden-480"><a href="{$v.url}" target="_blank">{$v.url}</a></td>
                   <td class="ace-thumbnails hidden-480" style="background:#c9c6cc;">
-                    <li><a href="{$v.image}" data-rel="colorbox">
-                      <img width="80" height="80" alt="150x150" src="{$v.image}"/>
+                    <li><a href="/uploads/{$v.image}" data-rel="colorbox">
+                      <img width="80" height="80" alt="150x150" src="/uploads/{$v.image}"/>
                       <div class="text">
                         <div class="inner">点击放大</div>
                       </div>
@@ -382,7 +382,7 @@ function change(id){
         editor.setContent(data.desc);
 });
       //$(".desc").html(data.desc);
-      $("#image").attr('src',data.image);
+      $("#image").attr('src','/uploads/'+data.image);
       $('#add').modal('show');
     }
 

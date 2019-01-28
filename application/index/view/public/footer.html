@@ -8,7 +8,7 @@
                     <i class="iconfont icon-sanjiaobiao"></i>
                     <ul class="footer_unit">
                        {volist name="$vf['list']" id="vff"}  
-                        <li><a href="{$vff.url}" target="_blank">{$vff.title}</a></li>
+                        <li><a href="javascript:;" class="out_link" data-url="{$vff.url}" target="_blank">{$vff.title}</a></li>
                       {/volist}
                     </ul>
                 </div>
@@ -23,11 +23,11 @@
                 </div>
                 <div class="footer_mid float_lt">
                     <p>
-                        <a href="news_detail.html" target="_blank">联系我们</a> |<a href="news_detail.html" target="_blank">关于我们</a> |<a href="news_detail.html"
+                        <a href="{:url('News/detail',array('nid'=>$call['id']))}" target="_blank">联系我们</a> |<a href="{:url('News/detail',array('nid'=>$about['id']))}" target="_blank">关于我们</a> |<a href="{:url('News/detail',array('nid'=>$sm['id']))}"
                          target="_blank">网站声明</a>
-                        | <a href="news_detail.html" target="_blank">网站排行</a> | <a href="javascript:;" class="zh_click" id="zh_click_s">简体</a>
+                        | <a href="http://www.hazhoukou.gov.cn/Article/zcpm" target="_blank">网站排行</a> | <a href="javascript:;" class="zh_click" onclick="zh_tran('s');">简体</a>
                         |
-                        <a href="javascript:;" class="zh_click" id="zh_click_t">繁体</a>
+                        <a href="javascript:;" class="zh_click"  onclick="zh_tran('t');">繁体</a>
                     </p>
                     <p><span>主办单位：周口市人民政府 </span> <span>备案序号：豫ICP备06001056</span> <span>豫公网安备：41160202000019</span> </p>
                 </div>
@@ -38,3 +38,69 @@
             </div>
         </div>
     </footer>
+    <!-- 外链跳转模态窗 -->
+<div class="model_bg" id="model_bg" style="display: none;"></div>
+<div class="model_box" id="model_box" style="display: none;">
+	<div class="model_title">
+		您访问的链接即将离开”周口市人民政府网“门户网站是否继续？
+	</div>
+	<div class="model_btn">
+		<a class="model_goon" href="javascript:;" onclick="go_to();" target="_blank">继续访问</a>
+		<a class="model_giveup" id="model_giveup" href="javascript:;">放弃</a>
+	</div>
+	<div class="model_close" id="model_close">
+		<a href="javascript:;">
+			<i class="iconfont icon-guanbi1"></i>
+		</a>
+	</div>
+</div>
+ <script>
+ var url = "javascript:;";
+		$(function () {
+             
+			// 隐藏模态窗背景及盒子
+			$('#model_bg').hide()
+			$('#model_box').hide()
+
+			function closeModel() {
+				$('#model_bg').fadeOut()
+				$('#model_box').fadeOut()
+			}
+
+			$('.out_link').click(function () {
+				 url = $(this).attr('data-url');
+				$('#model_bg').fadeIn()
+				$('#model_box').fadeIn()
+			})
+            
+
+			$('#model_close').click(function () {
+				closeModel()
+			})
+
+			$('#model_giveup').click(function () {
+				closeModel()
+			})
+
+
+
+			// 隐藏中间新闻模块
+			$('.header_news').hide()
+
+			// index_tab选项卡
+			$('.index_nav_item').click(function () {
+				commonTab($(this), $('.index_tab_item'), 'on')
+			})
+
+			// 周口荟萃选项卡
+			$('.huicui_title li').click(function () {
+				commonTab($(this), $('.huicui_body li'), 'active')
+			})
+		})
+		function go_to()
+			{
+				$("#model_bg").hide();
+				$('#model_box').hide();
+				window.open(url);
+			}
+ </script>

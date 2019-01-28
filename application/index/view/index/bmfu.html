@@ -80,57 +80,7 @@
 			</div>
 		</header>
 	</div>
-<!-- 外链跳转模态窗 -->
-<div class="model_bg" id="model_bg"></div>
-<div class="model_box" id="model_box">
-	<div class="model_title">
-		您访问的链接即将离开”周口市人民政府网“门户网站是否继续？
-	</div>
-	<div class="model_btn">
-		<a class="model_goon" href="javascript:;" onclick="go_to();" target="_blank">继续访问</a>
-		<a class="model_giveup" id="model_giveup" href="javascript:;">放弃</a>
-	</div>
-	<div class="model_close" id="model_close">
-		<a href="javascript:;">
-			<i class="iconfont icon-guanbi1"></i>
-		</a>
-	</div>
-</div>
- <script>
- var url = "javascript:;";
-		$(function () {
-             
-			// 隐藏模态窗背景及盒子
-			$('#model_bg').hide()
-			$('#model_box').hide()
 
-			function closeModel() {
-				$('#model_bg').fadeOut()
-				$('#model_box').fadeOut()
-			}
-
-			$('.out_link').click(function () {
-				 url = $(this).attr('data-url');
-				$('#model_bg').fadeIn()
-				$('#model_box').fadeIn()
-			})
-            
-
-			$('#model_close').click(function () {
-				closeModel()
-			})
-
-			$('#model_giveup').click(function () {
-				closeModel()
-			})
-		})
- function go_to()
-			{
-				$("#model_bg").hide();
-				$('#model_box').hide();
-				window.open(url);
-			}
- </script>
 	{include file="public:footer"}
 </body>
 

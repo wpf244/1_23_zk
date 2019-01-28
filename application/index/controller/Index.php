@@ -26,8 +26,9 @@ class Index extends BaseHome
         $this->assign("rey",$rey);
 
         //国务院信息
-        $reg=db("article_info")->field("id,title,createtime,arttype,zhongguogovid")->where(["arttype"=>"wenjian","zhongguogovid"=>["neq",0]])->order("createtime desc")->limit(0,8)->select();
+        $reg=db("article_info")->field("id,title,Unix_timestamp(createtime),arttype,zhongguogovid")->where(["arttype"=>"wenjian","zhongguogovid"=>["neq",0]])->order("createtime desc")->limit(0,8)->select();
         $this->assign("reg",$reg);
+        
 
         //部门动态
         $cateb=db("category_info")->field("id,code,status")->where(["code"=>"bmdt","status"=>0])->find();
@@ -109,6 +110,47 @@ class Index extends BaseHome
         
         $zdyws=db("article_category")->alias("a")->field("a.categoryid as categoryids ,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$did])->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,8)->select();
         $this->assign("zdyws",$zdyws);
+
+        //政务服务轮播
+        $lb=db("lb")->where("fid=1")->select();
+        $this->assign("lb",$lb);
+
+        //走进周口轮播
+        $lbz=db("lb")->where("fid=2")->select();
+        $this->assign("lbz",$lbz);
+
+        //周口市情
+        $zksq=db("category_info")->field("id,code,status")->where(["code"=>"zksq","status"=>0])->find();
+        $kid=$zksq['id'];
+     
+        
+        $zksqs=db("article_category")->alias("a")->field("a.categoryid as categoryids ,a.articleid,content")->where(["a.categoryid"=>$kid])->join("article_content b","a.articleid=b.articleid")->find();
+        $this->assign("zksqs",$zksqs);
+       
+        //人文周口
+        $rwzk=db("category_info")->field("id,code,status")->where(["code"=>"rwzk","status"=>0])->find();
+        $rid=$rwzk['id'];
+     //   var_dump($did);
+        
+        $rwzks=db("article_category")->alias("a")->field("a.categoryid as categoryids ,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$rid])->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,20)->select();
+        $this->assign("rwzks",$rwzks);
+        $this->assign("rid",$rid);
+
+        //精彩周口
+        $jczk=db("category_info")->field("id,code,status")->where(["code"=>"jczk","status"=>0])->find();
+        $cid=$jczk['id'];
+     //   var_dump($did);
+        
+        $jczks=db("article_category")->alias("a")->field("a.categoryid as categoryids ,articleid,b.id,title,reviewstatus,coverimage")->where(['reviewstatus'=>1,"a.categoryid"=>$cid])->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,10)->select();
+        $this->assign("jczks",$jczks);
+
+         //旅游景点
+         $lyjd=db("category_info")->field("id,code,status")->where(["code"=>"lyjd","status"=>0])->find();
+         $yid=$lyjd['id'];
+      //   var_dump($did);
+         
+         $lyjds=db("article_category")->alias("a")->field("a.categoryid as categoryids ,articleid,b.id,title,reviewstatus,b.coverimage")->where(['reviewstatus'=>1,"a.categoryid"=>$yid])->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,10)->select();
+         $this->assign("lyjds",$lyjds);
 
 
         return $this->fetch();
