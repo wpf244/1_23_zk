@@ -6,30 +6,15 @@ class Index extends BaseAdmin
    public  function index(){
         
         $this->getSystemConfig(); 
+
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $rolesjson=json_decode($user['rolesjson']);
+        $siteid=$rolesjson->SiteId;
         
-        //会员数量
-        // $user_cou=db("user")->count();
-        // $this->assign("user_cou",$user_cou);
-
-        // $today=db("user")->whereTime("u_ztime","week")->count();
-        // $this->assign("today",$today);
-
-        // $month=db("user")->whereTime("u_ztime","month")->count();
-        // $this->assign("month",$month);
-
-        // //站内通信
-        // $email_cou=db("email")->count();
-        // $this->assign("email_cou",$email_cou);
-
-        // $today_email=db("email")->whereTime("time","week")->count();
-        // $this->assign("today_email",$today_email);
-
-        // $month_email=db("email")->whereTime("time","month")->count();
-        // $this->assign("month_email",$month_email);
-
-        // //今日升级申请
-        // $apply=db("apply")->whereTime("time","today")->paginate(10);
-        // $this->assign("apply",$apply);
+        //全部文章数量
+        $qcou=db("article_info")->where("siteid",$siteid)->count();
+        $this->assign("qcou",$qcou);
 
         return view('index');
     }

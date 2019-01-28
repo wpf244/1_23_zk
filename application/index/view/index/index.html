@@ -2,11 +2,29 @@
 <html lang="en">
 
 {include file="public:header"}
+<style>
+html,
+		body {
+			height: 100%;
+		}
+		body {
+			overflow: hidden;
+			background-image: url(__HOME__/img/wrap_bg.jpg);
+			background-position: 0 -120px;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+		.footer_box {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 122px;
+		}
 
+</style>
 <body>
-	<section class="webkit_box">
-		<section class="webkit_content">
-			<div class="wrap_container" style="background-image: url(__HOME__/img/wrap_bg.jpg)">
+
+			<div class="wrap_container">
 				<header class="header_container">
 					<div class="common_wrap">
 					   {include file="public:top"}
@@ -18,19 +36,19 @@
 								<!-- 切换头部 -->
 								<ul class="index_nav index">
 									<li class="index_nav_item on">
-										<a href="javascript:(0);" title="网站首页">网站首页</a>
+										<a href="javascript:;" title="网站首页">网站首页</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:(0);" title="政务公开">政务公开</a>
+										<a href="javascript:;" title="政务公开">政务公开</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:(0);" title="政务服务">政务服务</a>
+										<a href="javascript:;" title="政务服务">政务服务</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:(0);" title="政民互动">政民互动</a>
+										<a href="javascript:;" title="政民互动">政民互动</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:(0);" title="走进周口">走进周口</a>
+										<a href="javascript:;" title="走进周口">走进周口</a>
 									</li>
 									<!-- <li class="index_nav_item">
 										<a href="javascript:(0);" title="周口荟萃">周口荟萃</a>
@@ -702,7 +720,7 @@
 					</div>
 				</header>
 			</div>
-		</section>
+		
 
 		<!-- 外链跳转模态窗 -->
 		<!-- <div class="model_bg" id="model_bg"></div>
@@ -722,7 +740,7 @@
 		</div> -->
 
 		{include file="public:footer"}
-	</section>
+
 
 	<script>
 		// 轮播图
