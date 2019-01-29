@@ -18,6 +18,9 @@ class News extends BaseHome
         }else{
             $re=db("category_info")->field("id,name,status,parentid")->where(["code"=>$code,"status"=>0])->find();
         }
+        $ids=$re['id'];
+        db("category_info")->where("id",$ids)->setInc("clicks",1);
+        $this->assign("ids",$ids);
         
         $pid=$re['id'];
         $parentid=$re['parentid'];
@@ -51,14 +54,14 @@ class News extends BaseHome
         $this->assign("page",$page);
 
         //侧边栏
-        $res=db("category_info")->field("id,name,status")->where(["parentid"=>$pid,"status"=>0,'categoryurl'=>null])->order(["orderid desc","id asc"])->select();
+        $res=db("category_info")->field("id,name,status")->where(["parentid"=>$pid,"status"=>0])->order(["orderid desc","id asc"])->select();
        
         if(empty($res)){
            
-            $res=db("category_info")->field("id,name,status")->where(["parentid"=>$parentid,"status"=>0,'categoryurl'=>null])->order(["orderid desc","id asc"])->select();
+            $res=db("category_info")->field("id,name,status")->where(["parentid"=>$parentid,"status"=>0])->order(["orderid desc","id asc"])->select();
             //  var_dump($res,$parentid);exit;
             if(empty($res)){
-                $res=db("category_info")->field("id,name,status")->where(["parentid"=>$rep['id'],"status"=>0,'categoryurl'=>null])->order(["orderid desc","id asc"])->select();
+                $res=db("category_info")->field("id,name,status")->where(["parentid"=>$rep['id'],"status"=>0])->order(["orderid desc","id asc"])->select();
 
             }
         }
@@ -125,6 +128,32 @@ class News extends BaseHome
       
         $this->assign("news",$news);
 
+        return $this->fetch();
+    }
+    public function ranks()
+    {
+        //文章排行
+        // $res=db("site_info")->field("id,sitename")->where("status",1)->order("id asc")->select();
+        // $arr=array();
+        // $arrs=array();
+        // foreach($res as $k => $v){
+        //     $rec=db("category_info")->field("id")->where(["siteid"=>$v['id'],"status"=>0])->select();
+        //     foreach($rec as $vv){
+        //         $arr[]=$vv['id'];
+        //     }
+        //     $arrs[$k][]=$v['sitename'];
+        //     $arrs[$k][]=db("article_category")->where("categoryid","in",$arr)->count();
+        // }
+      //  $res=array_values($arrs);
+      //  $this->assign("arrs",json_encode($arrs));
+
+       $infos=db("category_info")->field("id,name,clicks")->where("status",0)->order("clicks desc")->limit("0,9")->select();
+       $this->assign("infos",$infos);
+
+       $hot=db("article_info")->field("id,title,clicks,createtime")->where("reviewstatus",1)->order("clicks desc")->limit("0,9")->select();
+       $this->assign("hot",$hot);
+
+        
         return $this->fetch();
     }
 

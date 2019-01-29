@@ -9,11 +9,23 @@ html,
 		}
 		body {
 			overflow: hidden;
+			
+		}
+		.body_bg {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
 			background-image: url(__HOME__/img/wrap_bg.jpg);
 			background-position: 0 -120px;
 			background-size: cover;
 			background-repeat: no-repeat;
 		}
+
+		
 		.footer_box {
 			position: absolute;
 			bottom: 0;
@@ -22,10 +34,61 @@ html,
 		}
 
 </style>
-<body>
-
+<style>
+		.news_list ul {
+			float: left;
+			width: 700px;
+			height: 286px;
+			background-color: #f5f5f5;
+		}
+		.news_box .news_list .govpushinfo150203 {
+			width: 100%;
+		}
+		.news_box .news_list .govpushinfo150203 li {
+			position: relative;
+			padding-left: 20px;
+			padding-right: 0;
+			overflow: hidden;
+			line-height: 32px;
+			border-bottom: 1px dashed #b4b4b4;
+		}
+		.news_list ul li:before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    width: 4px;
+    height: 4px;
+    display: block;
+    background-color: #b40002;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+		.news_list ul li a {
+			
+			display: block;
+			float: left;
+			width: 75%;
+			font-size: 14px;
+			height: 35px;
+			
+			
+			
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.govpushinfo150203  li span {
+			float: right;
+			font-size: 14px;
+			/* line-height: 36px; */
+			color: #999;
+		}
+	</style>
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+<div class="body_bg"></div>
 			<div class="wrap_container">
-				<header class="header_container">
+				<div class="header_container">
 					<div class="common_wrap">
 					   {include file="public:top"}
 						<!-- 撑起的div -->
@@ -151,16 +214,18 @@ html,
 																</div>
 															</li>
 														</ul>
+														
 														<ul>
 															<li>
 																<div class="news_wrap">
 																	<div class="news_list">
-																		{volist name="reg" id="vg"}
+																			<script charset="utf-8" language="javascript" type="text/javascript" src="http://www.gov.cn/pushinfo/v150203/pushinfo.js"> </script>
+																		<!-- {volist name="reg" id="vg"}
 																			<a class="news_item out_link" href="javascript:;" data-url="http://www.gov.cn/premier/{$vg['Unix_timestamp(createtime)']|date='Y-m/d',###}/content_{$vg.zhongguogovid}" target="_blank">
 																<p title="{$vy.title}">{$vg.title}</p>
 																<span>{$vg['Unix_timestamp(createtime)']|date="Y-m-d",###}</span>
 															</a>
-															{/volist}
+															{/volist} -->
 					
 																	</div>
 																</div>
@@ -215,22 +280,21 @@ html,
 
 										<div class="index_tab_btm">
 											<div class="topic_box clearfix">
-												<h6 class="topic_title float_lt"><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank">专题专栏</a></h6>
+												<h6 class="topic_title float_lt"><a href="{:url('News/index',array('id'=>941))}" target="_blank">专题专栏</a></h6>
 												<div class="topic_right float_rt">
 													<div class="bd">
 														<ul>
-															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
-																	<img src="__HOME__/img/topic_1.jpg" width="265" height="90" alt="">
-																</a></li>
-															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
-																	<img src="__HOME__/img/topic_2.jpg" width="265" height="90" alt="">
-																</a></li>
-															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
-																	<img src="__HOME__/img/topic_3.jpg" width="265" height="90" alt="">
-																</a></li>
-															<li><a href="http://www.hazhoukou.gov.cn/ZTZL/Index?Id=941" target="_blank" title="">
-																	<img src="__HOME__/img/topic_4.jpg" width="265" height="90" alt="">
-																</a></li>
+														 {volist name="ztzl" id="ztzls"}	
+															<li>
+																{if condition="$ztzls.url_status eq 0"}
+																<a href="{:url('Spec/index',array('id'=>$ztzls['id']))}" target="_blank" title="">
+																{else /}
+																<a href="javascript:;" class="out_link" data-url="{$ztzls.url}" target="_blank" title="">
+																{/if}	
+																	<img src="/uploads/{$ztzls.image}" width="265" height="90" alt="">
+																</a>
+															</li>
+														{/volist}
 														</ul>
 													</div>
 												</div>
@@ -450,8 +514,35 @@ html,
 									</div>
 									<!-- 政民互动 -->
 									<div class="index_tab_item">
-											<iframe scrolling="no" src="http://221.176.200.22/zkhotline/website/jsp/sqList.jsp" frameborder="0" height="1300px" width="100%"></iframe>
-										<!-- <div class="index_box clearfix">
+										<div class="zhengmin_box">
+											<div class="zhengmin_title">
+												<ul>
+													<li class="active"><a href="javascript:;" title="民生诉求">
+															民生诉求
+														</a></li>
+													<li><a href="javascript:;" title="我要诉求">
+															我要诉求
+														</a></li>
+													<div class="zhengmin_li"><a href="javascript:;" data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
+															阳光信访
+														</a></div>
+												</ul>
+											</div>
+
+											<div class="zhengmin_wrap">
+												<div class="zhengmin_cont active">
+													<div class="zhengmin_width">
+													<iframe scrolling="no" src="http://www.zk12345.gov.cn/zkhotline/website/jsp/sqList.jsp" frameborder="0" height="1120px" width="100%"></iframe>
+												</div>
+												</div>
+												<div class="zhengmin_cont">
+														<div class="zhengmin_width">
+													<iframe scrolling="no" src="http://www.zk12345.gov.cn/zkhotline/website/jsp/addsq.jsp" frameborder="0" height="760px" width="100%"></iframe>
+												</div>
+												</div>
+											</div>
+										</div>
+											<!-- <div class="index_box clearfix">
 											<div class="interact_left float_lt">
 												<div class="interact_left_banner" style="background-image: url(__HOME__/img/interact_banner.jpg)"></div>
 												<div class="interact_news_box">
@@ -534,7 +625,7 @@ html,
 												</div>
 											</div>
 										</div>-->
-										<div class="index_tab_btm">
+										<!-- <div class="index_tab_btm">
 											<ul class="interact_btm">
 												<li><a href="javascript:;" target="_blank" title="民生诉求">
 														民生诉求
@@ -546,10 +637,74 @@ html,
 														阳光信访
 													</a></li>
 											</ul>
-										</div> 
+										</div>  -->
 									</div>
 									<!-- 走进周口 -->
 									<div class="index_tab_item">
+											<div class="index_box clearfix">
+												<div class="huicui_left float_lt">
+													<ul class="huicui_title">
+														<li class="active">
+															周口市情
+														</li>
+														<li class="">
+															历史概况
+														</li>
+														<li class="">
+															自然资源
+														</li>
+														<li class="">
+															行政区划
+														</li>
+													</ul>
+													<ul class="huicui_body">
+														<li class="active">
+															<div>{:strip_tags(mb_substr($zksqs['content'],0,806,'utf8'))}<a
+																 href="{:url('News/detail',array('nid'=>$zksqs['articleid']))}" target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+														<li>
+															<div>{:strip_tags(mb_substr($lsgks['content'],0,806,'utf8'))}...<a href="{:url('News/detail',array('nid'=>$lsgks['articleid']))}" target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+														<li>
+															<div>{:strip_tags(mb_substr($zrzys['content'],0,806,'utf8'))}...<a href="{:url('News/detail',array('nid'=>$zrzys['articleid']))}"
+																 target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+														<li>
+															<div>{:strip_tags(mb_substr($xzqhs['content'],0,489,'utf8'))}...<a href="{:url('News/detail',array('nid'=>$xzqhs['articleid']))}" target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+													</ul>
+												</div>
+												<div class="huicui_map">
+													<a href="javascript:;" target="_blank">
+														<img src="__HOME__/img/map.png" alt="">
+													</a>
+												</div>
+												<div class="huicui_right float_rt">
+													<div class="walkin_top_title clearfix">
+														<h6 class="float_lt">发展周口</h6>
+													</div>
+													<ul class="huicui_list clearfix">
+													  {volist name="fzzkss" id="vff"}
+														<li><a href="{:url('News/index',array('id'=>$vff['id']))}" target="_blank">
+																<i class="iconfont {$vff.iconname}"></i>
+																<p>{$vff.name}</p>
+															</a></li>
+														 {/volist}
+													</ul>
+													<div class="huicui_pic" style="background-image:url(__HOME__/img/huicui_pic.jpg)"></div>
+												</div>
+											</div>
+											<div class="index_tab_btm">
+												<ul class="huicui_btm">
+												  {volist name="zkyxs" id="vzs"}
+													<li><a href="{:url('News/index',array('id'=>$vzs['id']))}" target="_blank" title="{$vzs.name}">
+															{$vzs.name}
+														</a></li>
+												{/volist}
+												</ul>
+											</div>
+										</div>
+									<!-- <div class="index_tab_item">
 										<div class="index_box">
 											<div class="walkin_top clearfix">
 												<div class="walkin_top_left float_lt">
@@ -626,7 +781,7 @@ html,
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<!-- 周口荟萃 -->
 									<!-- <div class="index_tab_item">
 										<div class="index_box clearfix">
@@ -718,7 +873,7 @@ html,
 						</div>
 
 					</div>
-				</header>
+				</div>
 			</div>
 		
 
@@ -738,7 +893,18 @@ html,
 				</a>
 			</div>
 		</div> -->
-
+{if condition="$other['jstatus'] eq 1"}
+		<div class="fest_box" id="fest_box">
+				<div class="fest_img">
+						
+					<a href="javascript:;" {if condition="$other['jurl'] neq '' "} class="out_link" data-url="{$other['jurl']}" {/if} >
+				
+					<img src="/uploads/{$other['jimage']}" width="800" height="400" alt="">
+				</a>
+				</div>
+				<div class="fest_close" id="fest_close">X</div>
+			</div>
+{/if}
 		{include file="public:footer"}
 
 
@@ -770,12 +936,22 @@ html,
 		//图片
 		jQuery(".topic_right").slide({
 			mainCell: ".bd ul",
+			autoPage: true,
+			effect: "leftLoop",
 			autoPlay: true,
-			effect: "leftMarquee",
-			vis: 4,
-			interTime: 50,
-			trigger: "click"
+			scroll: 4,
+			vis: 4
 		});
+		// data-url="{$other['jurl']}"
+		$('.govpushinfo150203 a').addClass('out_link');
+		$('.govpushinfo150203 a').each(function(i,item) {
+				var itm = $(item),
+					href = itm.attr('href');
+					itm.attr('href','javascript:;')
+				// console.log(href);
+				
+		itm.attr('data-url',href)
+		})
 
 		// 头条新闻滚动
 		jQuery("#news_wrap").slide({
@@ -879,7 +1055,33 @@ html,
 			bgchange(1200)
 			clearTimeout(initTime)
 		})
-		
+
+		// 节日展示
+		var showType = 'slideDown'  // fadeIn,show
+			var closeType = "{$other.jtype}" ;
+			var colseTime = "{$other.jtime}"*1000;
+			if ($('#fest_box')) {
+				setTimeout(function () {
+							$('#fest_box')[closeType]()
+						}, colseTime)
+			}
+
+			$('#fest_close').click(function () {
+				$(this).parents('#fest_box')[closeType]()
+			})
+		// 政民互动选项卡
+		$('.zhengmin_title ul li').click(function(){
+				commonTab($(this), $('.zhengmin_cont'), 'active');
+			})
+
+			window.onload = function () {
+
+document.getElementById("iframe1").setAttribute("src", "http://www.zk12345.gov.cn/zkhotline/website/jsp/sqList.jsp");
+
+document.getElementById("iframe2").setAttribute("src", "http://www.zk12345.gov.cn/zkhotline/website/jsp/addsq.jsp");
+
+}
+
 	</script>
 </body>
 

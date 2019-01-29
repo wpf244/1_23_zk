@@ -11,28 +11,28 @@ class Search extends BaseHome{
         
         if($search){
             $map['title|author|source']=['like','%'.$search.'%'];
-            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->where($map)->order('id desc')->paginate(10);
+            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->where($map)->order('id desc')->paginate(10,false,['query'=>request()->param()]);
         }elseif($hid){
             $hot=db('article_hot')->where("id=$hid")->find();
             $search=$hot['title'];
             $map['title|author|source']=['like','%'.$search.'%'];
-            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->where($map)->order('id desc')->paginate(10);
+            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->where($map)->order('id desc')->paginate(10,false,['query'=>request()->param()]);
         }elseif($week){
             // $time=date('Y-m-d',time());
             // $map['createtime']=['<= time',$time];
-            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->whereTime("createtime","last week")->order('id desc')->paginate(10);
+            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->whereTime("createtime","last week")->order('id desc')->paginate(10,false,['query'=>request()->param()]);
         }elseif($year){
             $time=date('Y',time());
             $map['createtime']=['<= time',$time];
-            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->whereTime("createtime","m")->order('id desc')->paginate(10);
+            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->whereTime("createtime","m")->order('id desc')->paginate(10,false,['query'=>request()->param()]);
         }elseif($month){
             $time=date('Y-m',time());
             $map['createtime']=['<= time',$time];
-            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->whereTime("createtime","y")->order('id desc')->paginate(10);
+            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->whereTime("createtime","y")->order('id desc')->paginate(10,false,['query'=>request()->param()]);
         }
         else{
             $map=[];
-            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->where($map)->order('id desc')->paginate(10);
+            $res=db('article_info')->field('id,title,createtime')->where("reviewstatus",1)->where($map)->order('id desc')->paginate(10,false,['query'=>request()->param()]);
 
         }
         

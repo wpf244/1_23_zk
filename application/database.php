@@ -13,9 +13,9 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '192.168.101.235',
+    'hostname'        => '127.0.0.1',
     // 数据库名
-    'database'        => '1_25_zk',
+    'database'        => '1_29_zk',
     // 用户名
     'username'        => 'root',
     // 密码

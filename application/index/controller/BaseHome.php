@@ -31,18 +31,45 @@ class BaseHome extends Controller
         $sm=db("article_info")->where("title","网站声明")->find();
         $this->assign("sm",$sm);
 
-        // $ip=Request::instance()->ip();
-        // $ip="192.168.101.235";
-        // $yun=getYun($ip);
-        // var_dump($yun);exit;
+        $other=db("other")->where("id=1")->find();
+        $this->assign("other",$other);
+
+        $ip=Request::instance()->ip();
+      //  $ip="1.192.37.212";
+      //  $yun=$this->findCityByIp($ip);
+        // if($yun['code'] == 0){
+        //     $data=$yun['data'];
+        //     $ip=$data['ip'];
+        //     $re=db("visit")->where("ip",$ip)->find();
+        //     if($re){
+        //         $dats['time']=time();
+        //          db("visit")->where("ip",$ip)->setInc("times",1);
+        //          db("visit")->where("ip",$ip)->update($dats);
+        //     }else{
+        //         $datas['ip']=$data['ip'];
+        //         $datas['addrs']=$data['country'].$data['region'].$data['city'];
+        //         $datas['isp']=$data['isp'];
+        //         $datas['time']=time();
+        //         db("visit")->insert($datas);
+        //     }
+            
+           
+        // }
+        
         
     }
+
+    public function findCityByIp($ip){
+        $data = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
+        return json_decode($data,$assoc=true);
+       }
+      
  
       
-    public function _empty()
-    {
-        $this->redirect("Index/index");
-    }
+    // public function _empty()
+    // {
+    //     $this->redirect("Index/index");
+    // }
 
     
 

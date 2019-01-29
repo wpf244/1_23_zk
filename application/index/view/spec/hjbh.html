@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+
+{include file="public:header"}
+
+    <style type="text/css">
+        body,
+        ul,
+        div,
+        li {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .list-box,
+        .img-info {
+            font-family: "microsoft yahei";
+        }
+
+        .kang-mid {
+            width: 1028px;
+            margin: 0 auto;
+            border-left: 2px solid #79ccec;
+            border-right: 2px solid #79ccec;
+        }
+
+        .cl:after {
+            content: '';
+            clear: both;
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+
+        .cl {
+            zoom: 1;
+        }
+
+        .fl {
+            float: left;
+        }
+
+        .fr {
+            float: right;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            font-size: inherit;
+        }
+
+            a:hover {
+                color: none;
+            }
+
+        .top-banner {
+            overflow: hidden;
+            height: 532px;
+            background: url(/static/ztzl/2018zyhb/img/1868.jpg) no-repeat center;
+        }
+
+        .img-info {
+            padding: 50px;
+            background: url(/static/ztzl/2018zyhb/img/kang-bg2.png) no-repeat center;
+        }
+
+        .list-text {
+            /*display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;*/
+            overflow: hidden;
+            width: 920px;
+            margin: 0 auto;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 26px;
+            color: #e19058;
+         
+        }
+
+        .list-width {
+            overflow: hidden;
+            width: 494px;
+            height: 330px;
+            margin: 9px;
+            border: 1px solid #cfcfcf;
+        }
+
+        .list-hd {
+            height: 42px;
+            padding: 0 30px;
+            background-color: #fbfbfb;
+            border-bottom: 1px solid #f2f2f2;
+            background: url(/static/ztzl/2018zyhb/img/bd.png) no-repeat left center;
+        }
+
+        .list-title,
+        .list-more {
+            line-height: 42px;
+        }
+
+        .list-title {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .list-more {
+            color: #41bbbe;
+        }
+
+        .list-list {
+            padding: 10px 20px;
+            height: 260px;
+            overflow: hidden;
+			
+        }
+
+        .list-item {
+             text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 14px;
+            line-height: 30px;
+            color: #666;
+            border-bottom: 1px dashed #ccc;
+			width:460px;
+			
+        }
+		.sp1{
+		     text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+			width:300px;
+		}
+        .list-last {
+            border-bottom: none;
+        }
+		
+    </style>
+
+
+<body>
+    <div class="top-banner"></div>
+    <div class="img-info kang-mid">
+        <!--<div class="list-text">
+            根据安排，中央第一环境保护督察组督察进驻时间为1个月。
+           <br/>进驻期间（2018年6月1日-7月1日）<br/>设立专门值班电话：0371-65603600。<br/>专门邮政信箱：郑州市70号专用邮政信箱。<br/>邮编：450044。<br/>督察组受理举报电话时间为每天8:00-20:00。根据党中央、国务院要求和督察组职责，中央环境保护督察组主要受理河南省生态环境保护方面的来信来电举报。其他不属于受理范围的信访问题，将按规定交由被督察地区、单位和有关部门处理。
+        </div>-->
+		<div class="list-text">
+            进驻期间：2018年10月23日-11月6日。<br/>设立专门值班电话：0394-7989096。<br/>专门邮政信箱：周口市69号专用邮政信箱。<br/>邮编：466000。<br/>督察组受理举报电话时间为每天8:00-20:00。<br/>根据省委、省政府要求和督察组职责，省委省政府环境保护督察组主要受理周口市生态环境保护方面的来信来电举报。其他不属于受理范围的信访问题，将按规定交由被督察地区、单位和有关部门处理。<br>
+			
+        </div>
+    </div>
+    <div class="list-box cl kang-mid">
+            {volist name="titles" id="v" offset="0" length="1"}
+        <div class="list-left fl list-width">
+            <div class="list-hd cl">
+                <div class="list-title fl">
+                    最新动态
+                </div>
+                <div class="list-more fr">
+                    <a href="{:url('News/index',array('id'=>$v['id']))}">
+                        更多
+                    </a>
+                </div>
+            </div>
+            <div class="list-cont">
+                <ul class="list-list">
+                   {volist name="$v['list']" id="vd"}
+                        <li class="list-item">
+                            <a title="{$vd.title}" href="{:url('News/detail',array('nid'=>$vd['id']))}" target="_blank">
+                                <span class="sp1" >{$vd.title}</span><span class="sp2"style="float:right">[{$vd.createtime|mb_substr=5,5,'utf8'}]</span>
+                            </a>
+                        </li>
+                    {/volist}
+                </ul>
+            </div>
+        </div>
+        {/volist}
+        {volist name="titles" id="vs" offset="1" length="1"}
+        <div class="list-right fr list-width">
+            <div class="list-hd cl">
+                <div class="list-title fl">
+                    边督边改
+                </div>
+                <div class="list-more fr">
+                    <a href="{:url('News/index',array('id'=>$vs['id']))}">
+                        更多
+                    </a>
+                </div>
+            </div>
+            <div class="list-cont">
+                <ul class="list-list">
+                        {volist name="$vs['list']" id="vds"}
+                        <li class="list-item">
+                            <a title="{$vds.title}" href="{:url('News/detail',array('nid'=>$vds['id']))}" target="_blank">
+                                 <span class="sp1">{$vds.title}</span><span class="sp2" style="float:right">[{$vds.createtime|mb_substr=5,5,'utf8'}]</span>
+                            </a>
+                        </li>
+                        {/volist}
+                   
+                </ul>
+            </div>
+        </div>
+        {/volist}
+    </div>
+	{include file="public:footers"}
+
+
+    <input name="ScrollTop" type="hidden" id="ScrollTop" />
+	
+<!--<script language='javascript' src='/js/transform.js'></script>-->
+    
+    <script type="text/javascript">
+        $(function () {
+			setCodeValue(); 
+            $("a[href^='http']").each(function () {
+                var oldHref = $(this).attr("href");
+                var notJump = $(this).attr("noJump")
+                if (oldHref.indexOf("hazhoukou.gov.cn") < 0) {
+                    var notJump = $(this).attr("noJump")
+                    if (typeof (notJump) == "undefined") {
+                        $(this).attr("href", "/home/jump?returnurl=" + encodeURIComponent(oldHref));
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>             

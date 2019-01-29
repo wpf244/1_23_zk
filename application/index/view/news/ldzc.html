@@ -14,9 +14,9 @@
 	}
 </style>
 
-<body>
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
 	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
-		<header class="header_container">
+		<div class="header_container">
 			<div class="common_wrap">
 				{include file="public:top"}
 <!-- 中间切换盒子 -->
@@ -75,7 +75,7 @@
 											<ul>
 											 <?php $id=$vv['id']; $ress=db("article_category")->alias("a")->field("a.categoryid as categoryids ,subtitle,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$id])->join("article_info b","a.articleid=b.id")->order("id desc")->select();?>		
 										  {volist name="ress" id="vss"}		
-											 <li><a href="{:url('News/detail',array('nid'=>$vss['id']))}" target="_blank">
+											 <li><a href="{:url('News/detail',array('nid'=>$vss['id']))}" target="_blank" title="{$vss.subtitle}">
 									<i class="iconfont icon-gerenshixin"></i>
 									<span>{$vss.subtitle}</span>
 								</a></li>
@@ -95,7 +95,7 @@
 					</div>
 				</div>
 			</div>
-		</header>
+		</div>
 	</div>
 
 	{include file="public:footer"}

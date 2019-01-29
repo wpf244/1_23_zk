@@ -361,6 +361,16 @@ class News extends BaseAdmin
         $re=db("article_info")->where("id",$id)->find();
         if($re){
            $del=db("article_info")->where("id",$id)->delete();
+           $uid=session("uid");
+           $user=db("manager_info")->where("id=$uid")->find();
+           $log['userid']=$user['id'];
+           $log['realname']=$user['realname'];
+           $log['createtime']=date("Y-m-d H:i:s");
+           $log['actionname']="删除";
+           $log['newsid']=$re['id'];
+           $log['newstitle']=$re['title'];
+
+           db("article_log")->insert($log);
            if($del){
                echo '0';
            }else{

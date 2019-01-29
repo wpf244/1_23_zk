@@ -16,7 +16,7 @@
 	}
 </style>
 
-<body>
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
 	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
 		<header class="header_container">
 			<div class="common_wrap">
@@ -103,7 +103,7 @@
 						</div>
 					</div>
 				</div>
-		</header>
+		</div>
 	</div>
 
 	{include file="public:footer"}

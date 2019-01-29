@@ -13,11 +13,77 @@ class Index extends BaseAdmin
         $siteid=$rolesjson->SiteId;
         
         //全部文章数量
-        $qcou=db("article_info")->where("siteid",$siteid)->count();
+        $qcou=db("article_info")->where(["arttype"=>"xinwen"])->count();
         $this->assign("qcou",$qcou);
+
+        //已审核
+        $ycou=db("article_info")->where(["arttype"=>"xinwen","reviewstatus"=>1])->count();
+        $this->assign("ycou",$ycou);
+
+        $ybai=round($ycou/$qcou*100,1);
+        $this->assign("ybai",$ybai);
+
+        //待审核
+        $dcou=db("article_info")->where(["arttype"=>"xinwen","reviewstatus"=>0])->count();
+        $this->assign("dcou",$dcou);
+
+        $dbai=round($dcou/$qcou*100,1);
+        $this->assign("dbai",$dbai);
+
+        //被退回
+        $bcou=db("article_info")->where(["arttype"=>"xinwen","reviewstatus"=>2])->count();
+        $this->assign("bcou",$bcou);
+
+        $bbai=round($bcou/$qcou*100,1);
+        $this->assign("bbai",$bbai);
+
+        //热门文章
+        $hot=db("article_info")->field("id,title,clicks")->where(["arttype"=>"xinwen","reviewstatus"=>1])->order("clicks desc")->limit("0,10")->select();
+        $this->assign("hot",$hot);
+
+        //折线图
+        $dates=$this->get_weeks();
+        $dates=array_values($dates);
+       
+        $data=$this->get_cou();
+
+        
+        $this->assign("dates",json_encode($dates));
+        $this->assign("data",json_encode($data));
+
 
         return view('index');
     }
+    public function get_cou()
+    {
+        $data = array();
+        $data[] = db("article_info")->whereTime("createtime","-6 days")->count();
+        $data[] = db("article_info")->whereTime("createtime","-5 days")->count();
+        $data[] = db("article_info")->whereTime("createtime","-4 days")->count();
+        $data[] = db("article_info")->whereTime("createtime","-3 days")->count();
+        $data[] = db("article_info")->whereTime("createtime","-2 days")->count();
+        $data[] = db("article_info")->whereTime("createtime","-1 days")->count();
+        
+        $data[] = db("article_info")->whereTime("createtime","d")->count();
+        
+       
+        
+       
+       
+        
+     
+        return $data;
+    }
+    function get_weeks($time = '', $format='m-d'){
+        $time = $time != '' ? $time : time();
+        //组合数据
+        $date = [];
+        for ($i=1; $i<=7; $i++){
+          $date[$i] = date($format ,strtotime( '+' . $i-7 .' days', $time));
+        }
+        return $date;
+      }
+      
     private function _deleteDir($R){
         $handle = opendir($R);
         while(($item = readdir($handle)) !== false){

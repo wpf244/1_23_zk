@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+{include file="public:header"}
+
+<body class="no-skin">
+<!--头部-->
+{include file="public:nav"}
+
+<div class="main-container ace-save-state" id="main-container">
+  <!--菜单-->
+  <script type="text/javascript">
+  try{ace.settings.loadState('main-container')}catch(e){}
+</script>
+
+{include file="public:left"}
+
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="{:url('Index/index')}">首页</a>
+          </li>
+          <li class="active">访问记录</li>
+        </ul><!-- /.breadcrumb -->
+
+      </div>
+
+      <div class="page-content">
+        {include file="public:set"}
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="col-sm-10 col-sm-offset-1">
+              <div class="page-header">
+                <div class="row">
+              
+                </div>
+              </div>
+              <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    
+                  <th>序号</th>
+                  <th>ip</th>                  
+                  <th class="hidden-480">地区</th>
+                  <th class="hidden-480">运营商</th>
+                  <th class="hidden-480">最后访问日期</th>
+                  <th class="hidden-480">访问次数</th>
+                  <th style="border-right:#ddd solid 1px;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="list" id="v"}
+                <tr class="ace-thumbnails">
+                  
+                  <td><span class="badge badge-grey">{$v.id}</span></td>
+                  <td>{$v.ip}</td>
+                  <td>{$v.addrs}</td>
+                  <td class="hidden-480">{$v.isp}</td>
+                  <td class="hidden-480">{$v.time|date="Y-m-d",###}</td>
+                  <td>{$v.times}</td>
+                  <td>
+                 
+                    <button class="btn btn-xs btn-danger" type="button" onclick="dels({$v.id})" title="删除">
+                      <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                    </button>
+                  </td>
+                </tr>
+                {/volist}
+                {empty name="list"}<tr><td colspan="11" class="text-center">暂无数据</td></tr>{/empty}
+                </tbody>
+
+              </table>
+              <div class="text-center">
+                <ul class="pagination">
+                  {$page}
+                </ul>
+              </div>
+            </div>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.page-content -->
+    </div>
+  </div><!-- /.main-content -->
+
+{include file="public:footer"}
+
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+  <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+
+<script>
+  jQuery(function($) {
+    $('[data-rel=tooltip]').tooltip();
+
+    $( "#hide-option" ).tooltip({
+      hide: {
+        effect: "explode",
+        delay: 250
+      }
+    });
+
+  })
+</script>
+<script type="text/javascript">
+		function dels(id){
+			layer.confirm('你确定删除吗？', {icon: 3}, function(index){
+		    layer.close(index);
+		    $.ajax({
+            type:"post",
+            url:"{:url('sys/delete')}",
+              data:{id:id},
+              datatype:"text",
+              success:function(re){
+                if(re == 2 || re == 1){
+                    layer.msg("系统繁忙请稍后再试");
+                    setTimeout("location.reload()",2000);
+                  
+                }
+                
+                if(re == 0){
+                  layer.msg("删除成功")
+                  setTimeout("location.reload()",2000);
+                }
+              }
+          })
+		  });
+	    }
+		</script>
+<script>
+function change(id){
+	$.ajax({
+		type:"post",
+		url:"__URL__/change",
+	    data:{id:id},
+	    datatype:"text",
+	    success:function(re){
+	    	 if(re == 2){
+            layer.msg("系统繁忙请稍后再试");
+            location.href="{:url('User/lister')}";
+         }
+         if(re == 0){
+           layer.msg("超级管理员不需要配置权限"); return false;
+         }
+         if(re == 1){
+          location.href="{:url('User/power')}?id="+id;
+         }
+	    }
+	})
+}
+
+</script>
+
+
+  <script>
+  $("#change").click(function(){
+  	$("#sortForm").submit();
+  })
+
+  </script>
+</body>
+</html>

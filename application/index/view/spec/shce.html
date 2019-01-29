@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+
+{include file="public:header"}
+    <link rel="stylesheet" type="text/css" href="/static/ztzl/saohei2018/css/zhengfu.css" />
+
+
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+    <div class="max-wrap bg-img01">
+        <div class="top-banner">
+            <a class="a-link" href="https://www.henan.gov.cn/zt/2018/609943/index.html" target="_blank"></a>
+        </div>
+        <div class="main-wrap pd-50 bg-f">
+           {volist name="list" id="v"} 
+            <div class="box-01 pb-15" id="34296">
+                <div class="box-title clearfix">
+                    <span class="title-name">{$v.name}</span>
+                    <a href="{:url('News/index',array('id'=>$v['cid']))}" target="_blank" class="more">更多</a>
+                </div>
+                <div class="box-content">
+                    <ul class="news-list date-right">
+                        <!--扫黑除恶进行时驻马店动态开始-->
+                          {volist name="$v['list1']" id="vv"}
+                                <li>
+                                    {if condition="$vv.url eq '' "}
+                                    <a href="{:url('News/detail',array('nid'=>$vv['id']))}" target="_blank">
+                                    {else /}
+                                    <a href="{$vv.url}" target="_blank">
+                                        {/if}    
+                                        <em>{$vv.createtime|mb_substr=0,10,'utf8'}</em>
+                                        <h1>{$vv.title}</h1>
+                                    </a>
+                                </li>
+                       {/volist}
+
+                        <!--扫黑除恶进行时驻马店动态结束-->
+                    </ul>
+                </div>
+            </div>
+            {/volist}
+            <!-- <div class="box-01 pb-15" id="34296">
+                <div class="box-title clearfix">
+                    <span class="title-name">扫黑除恶问答</span>
+                    <a href="https://www.henan.gov.cn/2018/08-29/689442.html" target="_blank" class="more">更多</a>
+                </div>
+                <div class="box-content">
+                    <ul class="news-list date-right">
+                      
+                    
+                                <li>
+                                    <a href="/Article/Index?Id=@ViewBag.a2[j].Id" target="_blank">
+                                        <em>789</em>
+                                        <h1>213</h1>
+                                    </a>
+                                </li>
+                      
+
+
+                    </ul>
+                </div>
+            </div> -->
+      
+        </div>
+    </div>
+{include file="public:footers"}
+</body>
+
+</html>

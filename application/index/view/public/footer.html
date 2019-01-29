@@ -1,5 +1,5 @@
 
-<footer class="footer_box">
+<div class="footer_box">
         <div class="common_wrap">
             <div class="footer_top clearfix">
                {volist name="footer_link" id="vf"} 
@@ -25,7 +25,7 @@
                     <p>
                         <a href="{:url('News/detail',array('nid'=>$call['id']))}" target="_blank">联系我们</a> |<a href="{:url('News/detail',array('nid'=>$about['id']))}" target="_blank">关于我们</a> |<a href="{:url('News/detail',array('nid'=>$sm['id']))}"
                          target="_blank">网站声明</a>
-                        | <a href="http://www.hazhoukou.gov.cn/Article/zcpm" target="_blank">网站排行</a> | <a href="javascript:;" class="zh_click" onclick="zh_tran('s');">简体</a>
+                        | <a href="{:url('News/ranks')}" target="_blank">网站排行</a> | <a href="javascript:;" class="zh_click" onclick="zh_tran('s');">简体</a>
                         |
                         <a href="javascript:;" class="zh_click"  onclick="zh_tran('t');">繁体</a>
                     </p>
@@ -37,7 +37,16 @@
                 </div>
             </div>
         </div>
-    </footer>
+	</div>
+	
+	<!-- 右下角图片 -->
+	{if condition="$other.pstatus eq 1"}
+	<div class="fix_img" style="right:{$other['pright']}px;bottom:{$other.pfooter}px;">
+			<div class="fix_box">
+				<a href="javascript:;" class="out_link" data-url="{$other.purl}" target="_blank"><img src="/uploads/{$other.pimage}" alt=""></a>	
+			</div>
+		</div>
+		{/if}
     <!-- 外链跳转模态窗 -->
 <div class="model_bg" id="model_bg" style="display: none;"></div>
 <div class="model_box" id="model_box" style="display: none;">

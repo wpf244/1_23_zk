@@ -126,6 +126,43 @@ class Index extends BaseHome
         
         $zksqs=db("article_category")->alias("a")->field("a.categoryid as categoryids ,a.articleid,content")->where(["a.categoryid"=>$kid])->join("article_content b","a.articleid=b.articleid")->find();
         $this->assign("zksqs",$zksqs);
+
+        //历史概况
+        $lsgk=db("category_info")->field("id,code,status")->where(["code"=>"lsgk","status"=>0])->find();
+        $lid=$lsgk['id'];
+     
+        
+        $lsgks=db("article_category")->alias("a")->field("a.categoryid as categoryids ,a.articleid,content")->where(["a.categoryid"=>$lid])->join("article_content b","a.articleid=b.articleid")->find();
+        $this->assign("lsgks",$lsgks);
+
+        //自然资源
+        $zrzy=db("category_info")->field("id,code,status")->where(["code"=>"zrzy","status"=>0])->find();
+     
+        $zrzys=db("article_category")->alias("a")->field("a.categoryid as categoryids ,a.articleid,content")->where(["a.categoryid"=>$zrzy['id']])->join("article_content b","a.articleid=b.articleid")->find();
+        $this->assign("zrzys",$zrzys);
+
+        //行政区划
+        $xzqh=db("category_info")->field("id,code,status")->where(["code"=>"xzqh","status"=>0])->find();
+     
+       // $xzqhs=db("article_category")->alias("a")->field("a.categoryid as categoryids ,a.articleid,content")->where(["a.categoryid"=>$xzqh['id']])->join("article_content b","a.articleid=b.articleid")->order("a.id desc")->find();
+       $xzqhs=db("article_content")->where("articleid",6304)->find(); 
+       $this->assign("xzqhs",$xzqhs);
+
+       //发展周口
+       $fzzk=db("category_info")->field("id,code,status")->where(["code"=>"fzzk","status"=>0])->find();
+       $fzzks=db("category_info")->field("id,status")->where(["parentid"=>$fzzk['id'],"status"=>0])->select();
+       $arrf=array();
+       foreach($fzzks as $v){
+          $arrf[]=$v['id'];
+       }
+       $fzzkss=db("category_info")->field("id,name,status,iconname")->where(["parentid"=>["in",$arrf],"status"=>0])->order("orderid desc")->select();
+       $this->assign("fzzkss",$fzzkss);
+
+       //周口印象
+       $zkyx=db("category_info")->field("id,code,status")->where(["code"=>"zkyx","status"=>0])->find();
+       $zkyxs=db("category_info")->field("id,name,status")->where(["parentid"=>$zkyx['id'],"status"=>0])->order("orderid desc")->limit(0,4)->select();
+
+       $this->assign("zkyxs",$zkyxs);
        
         //人文周口
         $rwzk=db("category_info")->field("id,code,status")->where(["code"=>"rwzk","status"=>0])->find();
@@ -151,6 +188,10 @@ class Index extends BaseHome
          
          $lyjds=db("article_category")->alias("a")->field("a.categoryid as categoryids ,articleid,b.id,title,reviewstatus,b.coverimage")->where(['reviewstatus'=>1,"a.categoryid"=>$yid])->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,10)->select();
          $this->assign("lyjds",$lyjds);
+
+         //专题专栏
+         $ztzl=db("spec")->where("status",1)->order("id desc")->select();
+         $this->assign("ztzl",$ztzl);
 
 
         return $this->fetch();

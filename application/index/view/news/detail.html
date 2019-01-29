@@ -13,9 +13,9 @@
 	}
 </style>
 
-<body>
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
 	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
-		<header class="header_container">
+		<div class="header_container">
 			<div class="common_wrap">
 				{include file="public:top"}
 <!-- 中间切换盒子 -->
@@ -31,7 +31,7 @@
 					<div class="listing_crumb">
 						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="{:url('News/index',array('id'=>$rex['id']))}">新闻中心</a>&gt;<a href="{:url('News/index',array('id'=>$info['id']))}">{$info.name}</a>&gt;<a href="javascript:;">{$re.title}</a>
 					</div>
-					<section class="article_cont">
+					<div class="article_cont">
 						<h6 class="article_title">
 							{$re.title}
 						</h6>
@@ -98,10 +98,10 @@
 								</script>
 							</div>
 						</div>
-					</section>
+					</div>
 				</div>
 			</div>
-		</header>
+		</div>
 	</div>
 
 	{include file="public:footer"}

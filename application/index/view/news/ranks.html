@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<div class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 网站排行 -->
+				<div class="listing" id="article_cont">
+					<div class="listing_crumb">
+						当前位置：<a href="#">首页</a>&gt;<a href="javascript:;">网站排行</a>
+					</div>
+					<div class="ranks_box">
+						<div class="ranks_wrap">
+							<div class="ranks_title">
+								<h6>
+									<img src="__HOME__/img/icon_liuliang.png" width="24" height="24" alt="">发布量统计
+								</h6>
+							</div>
+							<div id="container" style="height: 500px;"></div>
+						</div>
+						<div class="ranks_container clearfix">
+							<div class="ranks_left float_lt">
+								<div class="ranks_title">
+									<h6>
+										<img src="__HOME__/img/icon_dianji.png" width="24" height="24" alt="">栏目点击量排行
+									</h6>
+								</div>
+								<div class="ranks_tb">
+									<table class="dianjiliang">
+										<colgroup>
+											<col style="width:60px;">
+											<col style="width:400px;">
+											<col style="">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>排行</th>
+												<th>栏目名称</th>
+												<th>数量</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3">
+													<table>
+														<colgroup>
+															<col style="width:60px;">
+															<col style="width:400px;">
+															<col style="">
+														</colgroup>
+														<tbody>
+													    {volist name="infos" key="key" id="v"}
+															<tr>
+																<td><span> {$key} </span></td>
+																<td> <a href="{:url('News/index',array('id'=>$v['id']))}"> {$v.name}</a> </td>
+																<td><i>{$v.clicks}</i></td>
+															</tr>
+													    {/volist}
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="ranks_left float_rt">
+								<div class="ranks_title">
+									<h6>
+										<img src="__HOME__/img/icon_hot.png" width="24" height="24" alt="">热点文章
+									</h6>
+								</div>
+								<div class="ranks_tb">
+									<table class="dianjiliang zk-rightdian">
+										<colgroup>
+											<col style="width:60px;">
+											<col style="width:400px;">
+											<col style="">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>排行</th>
+												<th>栏目名称</th>
+												<th>日期</th>
+						
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3">
+													<table>
+														<colgroup>
+															<col style="width:60px;">
+															<col style="width:400px;">
+															<col style="">
+														</colgroup>
+														<tbody>
+															
+															{volist name="hot" key="kt" id="vt"}
+															<tr>
+																<td><span> {$kt} </span></td>
+																<td> <a href="{:url('News/detail',array('nid'=>$vt['id']))}">{$vt.title}</a> </td>
+																<td><i>{$vt.createtime|mb_substr=0,10,'utf8'}</i></td>
+															</tr>
+														 {/volist}
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{include file="public:footer"}
+
+	
+
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+	<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+
+	<script>
+		var dom = document.getElementById("container");
+		var myChart = echarts.init(dom);
+		var app = {};
+		option = null;
+		var upColor = '#ec0000';
+		var upBorderColor = '#8A0000';
+		var downColor = '#00da3c';
+		var downBorderColor = '#008F28';
+
+       
+		var data0 = splitData([
+			['周口政府'],
+			['周口市食品药品监督管理局'],
+			['住建局'],
+			['周口市农机局'],
+			['周口市普法网', 456],
+			['扶沟县人民政府', 4123],
+			['周口市司法局', 12],
+			['商水县', 50],
+			['司法局', 40],
+			['科技局', 21],
+			['统计局', 150],
+			['周口市地方志', 596],
+			['周口教育局', 1],
+			['周口市粮食局', 456],
+			['林业局', 1655],
+			['周口市行政服务中心', 154],
+			['周口市交通运输局', 605],
+			['财政局', 12],
+			['周口市发展和改革委员会', 456],
+			['项城市人民政府', 502],
+			['西华县', 13],
+			['畜牧局', 90],
+			['周口市城市管理局', 233],
+			['四制工作', 227],
+			['周口市民族宗教事务委员会', 1]
+		]);
+
+
+		function splitData(rawData) {
+			var categoryData = [];
+			var values = []
+			for (var i = 0; i < rawData.length; i++) {
+				categoryData.push(rawData[i].splice(0, 1)[0]);
+				values.push(rawData[i])
+			}
+			return {
+				categoryData: categoryData,
+				values: values
+			};
+		}
+
+		function calculateMA(dayCount) {
+			var result = [];
+			for (var i = 0, len = data0.values.length; i < len; i++) {
+				if (i < dayCount) {
+					result.push('-');
+					continue;
+				}
+				var sum = 0;
+				for (var j = 0; j < dayCount; j++) {
+					sum += data0.values[i - j][1];
+				}
+				result.push(sum / dayCount);
+			}
+			return result;
+		}
+
+
+
+		option = {
+			title: {
+				text: '发布量',
+				left: 0
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			legend: {
+				data: ['部门', '周口政府', '周口市食品药品监督管理局', '住建局', '周口市农机局', '周口市普法网', '扶沟县人民政府', '周口市司法局', '商水县', '司法局', '科技局', '统计局',
+					'周口市地方志', '周口教育局', '周口市粮食局', '林业局', '周口市行政服务中心', '周口市交通运输局', '财政局', '周口市发展和改革委员会', '项城市人民政府', '西华县', '畜牧局',
+					'周口市城市管理局', '四制工作', '周口市民族宗教事务委员会'
+				]
+			},
+			grid: {
+				left: '5%',
+				right: '5%',
+				bottom: '15%'
+			},
+			xAxis: {
+				type: 'category',
+				data: data0.categoryData,
+				scale: true,
+				boundaryGap: true,
+				axisLine: {
+					onZero: false
+				},
+				splitLine: {
+					show: false
+				},
+				splitNumber: 20,
+				min: 'dataMin',
+				max: 'dataMax'
+			},
+			yAxis: {
+				scale: true,
+				splitArea: {
+					show: true
+				}
+			},
+			dataZoom: [{
+					type: 'inside',
+					start: 10,
+					end: 100
+				},
+				{
+					show: true,
+					type: 'slider',
+					y: '90%',
+					start: 50,
+					end: 100
+				}
+			],
+			series: [{
+				name: '发布量',
+				type: 'bar',
+				barWidth: '30%',
+				data: [15420, 1428, 989, 727, 650, 637, 513, 391, 322, 264, 245, 226, 211, 189, 141, 132, 130, 103, 82, 57, 52,
+					41, 33, 2, 1
+				],
+				markPoint: {
+					label: {
+						normal: {
+							formatter: function (param) {
+								return param != null ? Math.round(param.value) : '';
+							}
+						}
+					},
+					tooltip: {
+						formatter: function (param) {
+							return param.name + '<br>' + (param.data.coord || '');
+						}
+					}
+				}
+			}]
+		};
+
+		;
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+	</script>
+
+	<script>
+		$(function () {
+
+
+
+		})
+	</script>
+</body>
+
+</html>

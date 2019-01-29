@@ -72,6 +72,29 @@ class Sys extends BaseAdmin{
             $this->error("非法操作");
         }
     }
+    public function visit()
+    {
+        $list=db("visit")->order(["times desc","id desc"])->paginate(20);
+        $this->assign("list",$list);
+        $page=$list->render();
+        $this->assign("page",$page);
+        return $this->fetch();
+    }
+    public function delete()
+    {
+        $id=input("id");
+        $re=db("visit")->where("id=$id")->find();
+        if($re){
+            $del=db("visit")->where("id=$id")->delete();
+            if($del){
+                echo '0';
+            }else{
+                echo '2';
+            }
+        }else{
+            echo '1';
+        }
+    }
     
     
     

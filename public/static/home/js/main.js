@@ -25,6 +25,13 @@ $(function () {
 			"bottom": 0,
 			"left": 0
 		})
+		$('.huicui_list li:nth-child(3n+3)').css('marginRight', 0)
+		$('.zk-rightdian tbody tr td table td:last-child').css('width','114px')
+		$('.huicui_btm li:last-child').css('marginRight', 0)
+		$('.huicui_btm li:nth-child(1)').css('backgroundColor', '#d45757')
+		$('.huicui_btm li:nth-child(2)').css('backgroundColor', '#f0a920')
+		$('.huicui_btm li:nth-child(3)').css('backgroundColor', '#68c531')
+		$('.huicui_btm li:nth-child(4)').css('backgroundColor', '#5ea8dc')
 	}
 
 })

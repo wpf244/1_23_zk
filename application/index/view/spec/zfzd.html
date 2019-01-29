@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html>
+
+{include file="public:header"}
+<link rel="stylesheet" href="/static/ztzl/zfzd/css/style.css" />
+<style>
+    .cen_list1 {
+        width: 475px;
+        min-height: 180px;
+    }
+</style>
+<body>
+    <div class="zhuanti">
+        <div class="zf_head">
+            <img src="/static/ztzl/zfzd/img/zf_head.png" />
+        </div>
+        <!--<div class="nav">
+            <div class="nav_cen">
+                <ul>
+                    <li>
+                        <img src="/content/zfzd/img/line.png" />
+                        <a href="/home/gkml?id=1816"> 图片新闻</a>
+                    </li>
+                    <li>
+                        <img src="/content/zfzd/img/line.png" />
+                        <a href="/home/gkml?id=1817">最新动态</a>
+                    </li>
+                    <li>
+                        <img src="/content/zfzd/img/line.png" />
+                        <a href="/home/gkml?id=1818">工作方案</a>
+                    </li>
+                    <li>
+                        <img src="/content/zfzd/img/line.png" />
+                        <a href="/home/gkml?id=1819">监督检查</a>
+                        <img src="/content/zfzd/img/line.png" />
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+        <div class="clear" style="clear: both;"></div>
+        <div class="zhuanti_cen">
+            <div class="title">
+                <span>最新动态</span>
+            </div>
+            <div class="centent">
+                <div class="cen_fl">
+                    <div id="banner_tabs" class="flexslider">
+                        <ul class="slides">
+                           {volist name="res" id="v"}
+                                    <li>
+                                        <a href="{:url('News/detail',array('nid'=>$v['id']))}">
+                                            <img alt="" style="background: url(/uploads/{$v.coverimage}) no-repeat center;">
+                                        </a>
+                                    </li>
+                             {/volist}
+                        </ul>
+                        <ol id="bannerCtrl" class="flex-control-nav flex-control-paging"></ol>
+                    </div>
+                    <script src="/static/ztzl/zfzd/js/jquery-1.10.2.min.js"></script>
+                    <script src="/static/ztzl/zfzd/js/slider.js"></script>
+                    <script type="text/javascript">
+                        $(function () {
+                            var bannerSlider = new Slider($('#banner_tabs'), {
+                                time: 5000,
+                                delay: 400,
+                                event: 'hover',
+                                auto: true,
+                                mode: 'fade',
+                                controller: $('#bannerCtrl'),
+                                activeControllerCls: 'active',
+                                exchangeEnd: function (i) {
+                                    var len = $("ul.slides>li").length;
+                                    $(".bannerTitle").hide();
+                                    $($(".bannerTitle")[i % len]).show();
+                                }
+                            });
+                            $($(".bannerTitle")[0]).show();
+                        })
+                    </script>
+                     {volist name="res" id="vb"}
+                        <div class="cen bannerTitle" style="display:none">
+                            <div class="tit">
+                                {$vb.title}
+                            </div>
+                            <div class="neirong">
+                                <p>
+                                        {$vb.subtitle}
+                                </p>
+                                <a href="{:url('News/detail',array('nid'=>$vb['id']))}">[详细]</a>
+                            </div>
+                        </div>
+                  
+                     {/volist}
+
+                </div>
+                <div class="cen_fr">
+                    
+                    <div class="cen">
+                            {volist name="news" id="vs" offset="0" length="1"}
+                            <div class="tit">
+                                {$vs.title}
+                            </div>
+                            <div class="neirong">
+                                <p>
+                                        {$vs.subtitle}
+                                </p>
+                                <a href="{:url('News/detail',array('nid'=>$vs['id']))}">[详细]</a>
+                            </div>
+                        
+                        {/volist}
+                    </div>
+                    <div class="cen_list">
+                        <ul>
+                                {volist name="news" id="vss" offset="1" length="5"}
+                                <li>
+                                    <a href="{:url('News/detail',array('nid'=>$vss['id']))}"><span class="round">●</span> {$vss.title} </a><span class="time">{$vss.createtime|mb_substr=0,10,'utf8'}</span>
+                                </li>
+                                {/volist}
+                        </ul>
+                        <a class="more" style="" href="/Home/gkml?id=1817">更多>> </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear" style="clear: both;"></div>
+        </div>
+        <div class="bar">
+            <img src="/static/ztzl/zfzd/img/bar.jpg">
+        </div>
+        <div class="zhuanti_list">
+            <div class="list_fl">
+                <div class="tit">
+                    <span>指导思想</span>
+                </div>
+
+                <div class="cen_list">
+                    <ul>
+                        <!--@{ var news2 = MasterSiteDAL.HomeService.GetHotArticle(9, 1818, "");
+                            foreach (var item in news2)
+                            {
+                                <li>
+                                    <a href="/Article/Index?Id=@item.Id"><span class="round">●</span>@item.Title </a><span class="time">@item.CreateTime.ToString("yyyy-MM-dd")</span>
+                                </li>
+                            }
+                        }-->
+						<p>
+						  
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp以为民、高效、阳光、清廉为主题，以深入推进“四化三查”（职权清单化、用权规范化、监督立体化、问责常态化，中心工作落实督查、行政职权运行监查、群众投诉问题追查）为载体，以解决影响经济社会发展和人民群众反映强烈的干部工作作风突出问题为重点，建机制、抓典型、严处理，在全市市县乡三级党政机关，驻周单位及承担行政职能的事业单位中大打一场作风建设攻坚战。<br>
+                        </p>
+                    </ul>
+                   <!-- <a class="more" style="" href="/Home/gkml?id=1818">更多>> </a>-->
+                </div>
+
+            </div>
+
+            <div class="list_fr">
+                <div class="tit">
+                    <span>目标原则</span>
+                </div>
+
+                <div class="cen_list">
+                    <ul>
+					    <p>
+						
+						  1、围绕中心工作任务落实推动作风大转变。着力解决“三优三高”和“四大攻坚”“四大突破”等各项中心工作推进过程中个别部门和干部不担当、不履职、不作为问题，保证市委、市政府决策部署有效贯彻执行；<br>
+                          2、用以人民为中心的理念推动作风大转变。着力解决人民群众反响强烈的办事慢、办事难和办事过程中“吃拿卡要”等问题，健全完善为民、便民、惠民的服务措施，广泛动员群众参与，积极回应社会关切，做到为群众服务、受群众监督、请群众评议、让群众满意；<br>
+                          3、加强制度机制建设推动作风大转变。着力查找补齐公共权力依法、规范、公开运行中的制度短板，深化行政体制改革，加快政府职能转变，全面建立落实职权清单并依法依规公开，让权力在阳光下运行，接受各方面监督，做到标本兼治、惩防并举；
+						</p>
+                        <!--@{ var news3 = MasterSiteDAL.HomeService.GetHotArticle(9, 1819, "");
+                            foreach (var item in news3)
+                            {
+                                <li>
+                                    <a href="/Article/Index?Id=@item.Id"><span class="round">●</span>@item.Title </a><span class="time">@item.CreateTime.ToString("yyyy-MM-dd")</span>
+                                </li>
+                            }
+                        }-->
+
+
+                    </ul>
+                   <!-- <a class="more" style="" href="/Home/gkml?id=1819">更多>> </a>-->
+                </div>
+
+            </div>
+			<div class="list_fl1" style="margin-bottom: 20px;">
+                <div class="tit">
+                    <span>主要任务</span>
+                </div>
+
+                <div class="cen_list1">
+                    <ul>
+                        
+						<p> 
+						
+                          一是大力整顿尸位素餐、为官不为的问题。<br>
+                          二是大力整顿推诿扯皮、政令不通的问题。<br>
+                          三是大力整顿虚浮假躁、效率低下的问题。<br>
+                          四是大力整顿滥用职权、吃拿卡要的问题。<br>
+                          五是大力整顿作风散漫、纪律松懈的问题。
+
+                        </p>
+                    </ul>
+                </div>
+
+            </div>
+			<div class="list_fr1">
+                <div class="tit">
+                    <span>主要措施</span>
+                </div>
+
+                <div class="cen_list1">
+                    <ul>
+					    <p>
+                           1、探索建立统筹协调、有序衔接、统一公开的作风建设立体化监督机制<br>
+                           2、集中建立完善公开职权清单<br>
+                           3、组织开展持续不断、严格严厉、严肃深入的监督检查<br>
+                                &nbsp&nbsp&nbsp&nbsp●对市委、市政府中心工作任务落实情况督查。<br>
+                                &nbsp&nbsp&nbsp&nbsp●对市直各单位职权运行情况进行监查。<br>
+                                &nbsp&nbsp&nbsp&nbsp●对群众投诉问题进行追查。<br>
+                           4、严格落实工作责任追究制度
+
+						</p>
+                    
+
+                    </ul>
+                
+                </div>
+
+            </div>
+			<div class="list_fl11">
+                <div class="tit">
+                    <span> 组织领导</span>
+                </div>
+
+                <div class="cen_list11">
+                    <ul>
+                        
+						<p> 
+                          1、加强领导，精心组织实施。市委、市政府成立全市党政机关作风大整顿工作领导小组。<br>
+                          2、领导带头，发挥示范效应。各级领导干部自觉带头改作风、抓作风，树立鲜明导向，强化榜样引领，一级做给一级看，一级带着一级干，释放上行下效的正能量，汇聚成跨越发展的向心力。<br>
+                          3、广泛宣传，营造良好氛围。宣传好做法、好经验和好典型，营造良好的干事创业氛围。<br>
+						  4、统筹兼顾，促进各项工作。开展作风大整顿工作与推进“四大攻坚”，实现“四大突破”，完成“三高三优”工作目标相结合，与加快中心城区开发建设相结合，与推进“两学一做”制度化常态化相结合，与各单位具体业务相结合，以作风转变的实际成效促进各项工作的有力落实，确保两手抓、两促进、两不误。
+
+                        </p>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   {include file="public:footers"}
+
+</body>
+
+</html>

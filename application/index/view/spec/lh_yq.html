@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+
+{include file="public:header"}
+
+<link rel="stylesheet" type="text/css" href="/static/ztzl/2018lianghui/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/static/ztzl/2018lianghui/css/style.css" />
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="/static/ztzl/2018lianghui/js/jquery.SuperSlide.2.1.1.js" type="text/javascript" charset="utf-8"></script>
+<style>
+body{
+    font-size: 18px!important;
+}
+</style>
+<body>
+    <div class="banner">
+        <img src="/static/ztzl/2018lianghui/img/banner2017.png" />
+    </div>
+    <div class="nav">
+        <ul class="container">
+            <li class="nav-item">
+                <a href="###">
+                    首页
+                </a>
+            </li>
+          
+                {volist name="title" id="vt"}
+                    <li class="nav-item">
+                        <a href="{:url('News/index',array('id'=>$vt['id']))}" target="_blank">
+                            {$vt.name}
+                        </a>
+                    </li>
+                {/volist}
+
+        </ul>
+    </div>
+    <div class="container">
+        <div class="sec section1">
+            <div class="picScroll-left">
+                <div class="hd">
+                    <ul></ul>
+                    <!--<span class="pageState"></span>-->
+                </div>
+                <div class="bd">
+                    <ul class="picList">
+
+                      {volist name="res" id="v"}
+                                <li>
+                                    <div class="pic">
+                                        <a href="{:url('News/detail',array('nid'=>$v['id']))}" target="_blank"><img src="/uploads/{$v.coverimage}" /></a>
+                                    </div>
+                                    <div class="title">
+                                        <a href="{:url('News/detail',array('nid'=>$v['id']))}" target="_blank">{$v['title']}</a>
+                                    </div>
+                                </li>
+                      {/volist}
+                       
+
+                    </ul>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                jQuery(".picScroll-left").slide({
+                    titCell: ".hd ul",
+                    mainCell: ".bd ul",
+                    autoPage: true,
+                    effect: "left",
+                    autoPlay: true,
+                    vis: 1,
+                    trigger: "click"
+                });
+            </script>
+            <div class="list-new">
+                <ul>
+                  {volist name="ress" id="vs"}
+                            <li>
+                                <h3>
+                                    <a href="{:url('News/detail',array('nid'=>$vs['id']))}">
+                                        {$vs.title}
+                                    </a>
+                                </h3>
+                                <p>
+                                  {$vs.subtitle}[<a href="{:url('News/detail',array('nid'=>$vs['id']))}">详细</a>]
+                                </p>
+                            </li>
+
+                    {/volist}
+                     
+
+                </ul>
+            </div>
+        </div>
+        <div class="sec section2">
+            <div class="leftnew">
+                <div>
+                    <img src="/static/ztzl/2018lianghui/img/t2.jpg" />
+                </div>
+                <ul>
+                        {volist name="news" id="vn"}
+                            <li>
+                                <a href="{:url('News/detail',array('nid'=>$vn['id']))}">
+                                    {$vn.title}
+                                </a>
+                            </li>
+                     {/volist}
+
+                </ul>
+            </div>
+            <div class="rightnew">
+                <div>
+                    <img src="/static/ztzl/2018lianghui/img/t3.jpg" />
+                </div>
+                <ul>
+                        {volist name="yian" id="vy"}
+                            <li>
+                                <a href="{:url('News/detail',array('nid'=>$vy['id']))}">
+                                    {$vy.title}
+                                </a>
+                            </li>
+                            {/volist}
+
+                </ul>
+            </div>
+        </div>
+        <div class="sec section3">
+            <div class="title">
+                <img src="/static/ztzl/2018lianghui/img/title03.jpg" />
+            </div>
+            <div class="newCard">
+                    {volist name="zc" id="vc"}
+                        <div class="item">
+                            <h3>
+                                <a href="{:url('News/detail',array('nid'=>$vc['id']))}">
+                                    {$vc.title}
+                                </a>
+                            </h3>
+                            <!--<div class="con">
+                                <p>
+                                    @item.SubTitle
+                                </p>
+
+                            </div>-->
+                        </div>
+                        {/volist}
+            </div>
+        </div>
+        <div class="sec section4">
+            <div class="title">
+                <img src="/static/ztzl/2018lianghui/img/title1.jpg" />
+            </div>
+            <div class="imgs-list">
+                {volist name="tj" id="vj" offset="0" length="1"}
+                    <a class="big-img" href="{:url('News/detail',array('nid'=>$vj['id']))}">
+                        <img src="/uploads/{$vj.coverimage}" />
+                        <div class="tit">
+                            {$vj.title}
+                        </div>
+                    </a>
+              {/volist}
+
+                <div class="tuji_r">
+                        {volist name="tj" id="vjt" offset="1" length="4"}
+                            <a href="{:url('News/detail',array('nid'=>$vjt['id']))}">
+                                <img src="/uploads/{$vjt.coverimage}" />
+                                <div class="tit">
+                                        {$vjt.title}
+                                </div>
+                            </a>
+                            {/volist}
+                </div>
+            </div>
+        </div>
+        <div class="sec section5">
+            <div class="title">
+                <img src="/static/ztzl/2018lianghui/img/title-2.jpg" />
+            </div>
+            <div class="new-list">
+                <ul>
+                        {volist name="ft" id="vf"}
+                            <li>
+                                <a href="{:url('News/detail',array('nid'=>$vf['id']))}">{$vf.title}</a>
+                            </li>
+                            {/volist}
+
+
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="sec section6">
+            <div class="title">
+                <img src="/static/ztzl/2018lianghui/img/t01.jpg" />
+            </div>
+            <ul class="imgs-list">
+
+						<li class="item">
+                            <a href="{:url('Spec/lh_yl')}">
+                                <img src="__HOME__/img/lh123.jpg">
+                            </a>
+                            <p>
+                                <a href="{:url('Spec/lh_yl')}">2016年周口两会</a>
+                            </p>
+                        </li>
+
+            </ul>
+        </div> -->
+		
+    </div>
+
+ {include file="public:footers"}
+</body>
+
+</html>

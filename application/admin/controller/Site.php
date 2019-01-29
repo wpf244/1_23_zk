@@ -109,4 +109,52 @@ class Site extends BaseAdmin
         $this->assign("page",$page);
         return $this->fetch();
     }
+    public function other()
+    {
+        $re=db("other")->where("id=1")->find();
+        $this->assign("re",$re);
+        return $this->fetch();
+    }
+    public function osave()
+    {
+        $re=db("other")->where("id",1)->find();
+        if($re){
+            $data=input("post.");
+        //   var_dump($data);exit;
+             if(!is_string(input('pimage'))){
+                 $data['pimage']=uploads("pimage");
+             }else{
+                 $data['pimage']=$re['pimage'];
+             }
+             if(!is_string(input('jimage'))){
+                $data['jimage']=uploads("jimage");
+            }else{
+                $data['jimage']=$re['jimage'];
+            }
+            if(input("pstatus")){
+                $data['pstatus']=1;
+            }else{
+                $data['pstatus']=0;
+            }
+            if(input("qstatus")){
+                $data['qstatus']=1;
+            }else{
+                $data['qstatus']=0;
+            }
+            if(input("jstatus")){
+                $data['jstatus']=1;
+            }else{
+                $data['jstatus']=0;
+            }
+            $res=db("other")->where("id=1")->update($data);
+            if($res){
+                $this->success("修改成功");
+            }else{
+                $this->error("修改失败");
+            }
+
+        }else{
+            $this->error("系统繁忙，请稍后再试");
+        }
+    }
 }

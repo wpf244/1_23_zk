@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 {include file="public:header"}
-
+<script src="__ADMIN__/js/echarts.common.min.js"></script>
 <body class="no-skin">
   
   <!--头部-->
@@ -31,47 +31,51 @@
 									<div class="space-6"></div>
 
 									<div class="col-sm-7">
+                    <a href="{:url('News/lister',array('status'=>1))}">
 										<div class="infobox infobox-green">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-comments"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">32</span>
+												<span class="infobox-data-number">{$ycou}</span>
 												<div class="infobox-content">已审核</div>
 											</div>
 
-											<div class="stat stat-success">8%</div>
+											<div class="stat stat-success">{$ybai}%</div>
 										</div>
-
+                  </a>
+                  <a href="{:url('News/lister',array('status'=>0))}">
 										<div class="infobox infobox-blue">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-twitter"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">11</span>
+												<span class="infobox-data-number">{$dcou}</span>
 												<div class="infobox-content">待审核</div>
 											</div>
 
 											<div class="badge badge-success">
-												32%
+												{$dbai}%
 												<i class="ace-icon fa fa-arrow-up"></i>
 											</div>
 										</div>
-
+                  </a>
+                  <a href="{:url('News/lister',array('status'=>2))}">
 										<div class="infobox infobox-pink">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-shopping-cart"></i>
 											</div>
 
 											<div class="infobox-data">
-												<span class="infobox-data-number">8</span>
+												<span class="infobox-data-number">{$bcou}</span>
 												<div class="infobox-content">被退回</div>
 											</div>
-											<div class="stat stat-important">4%</div>
-										</div>
-
+											<div class="stat stat-important">{$bbai}%</div>
+                    </div>
+                  </a>
+                  <a href="{:url('News/lister',array('status'=>3))}">
 										<div class="infobox infobox-red">
 											<div class="infobox-icon">
 												<i class="ace-icon fa fa-flask"></i>
@@ -82,104 +86,62 @@
 												<div class="infobox-content">总发布数</div>
 											</div>
 										</div>
-
+                  </a>
 									
 
 
 										<div class="space-6"></div>
 
-									
+                
 
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<h5 class="widget-title bigger lighter">
-								<i class="ace-icon fa fa-area-chart"></i>
-								<span>热门文章统计</span>
-							</h5>
-											</div>
-											<div class="widget-body">
-												<div class="widget-main no-padding">
-													<table class="table table-bordered table-hover">
-														<thead>
-															<tr>
-																<th>标题</th>
-																<th><em>浏览量</em></th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td><span class="badge badge-pink">1</span>
-																	<a href="/home/news/index/id/43.html" target="_blank">2017中华杯国际少儿书画大赛征稿中</a>
-																</td>
-																<td>524</td>
-															</tr>
-															<tr>
-																<td><span class="badge badge-yellow">2</span>
-																	<a href="/home/news/index/id/2.html" target="_blank">发达国家儿童美术教育的现代化特征</a>
-																</td>
-																<td>355</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge badge-danger">3</span>
-																	<a href="/home/news/index/id/19.html" target="_blank">内画基本概述</a>
-																</td>
-																<td>334</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge badge-warning">4</span>
-																	<a href="/home/news/index/id/27.html" target="_blank">少儿学艺热中存在哪些误区？</a>
-																</td>
-																<td>322</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge badge-success">5</span>
-																	<a href="/home/news/index/id/32.html" target="_blank">2013中华杯国际少儿书画大赛征稿中</a>
-																</td>
-																<td>310</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge badge-inverse">6</span>
-																	<a href="/home/news/index/id/26.html" target="_blank">少儿绘画：色彩教学的方法与步骤</a>
-																</td>
-																<td>287</td>
-															</tr>
-															<tr>
-																<td>
-																	<span class="badge badge-purple">7</span>
-																	<a href="/home/news/index/id/35.html" target="_blank">2016中华杯国际少儿书画大赛征稿中</a>
-																</td>
-																<td>286</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge badge-info">8</span>
-																	<a href="/home/news/index/id/34.html" target="_blank">2015中华杯国际少儿书画大赛征稿中</a>
-																</td>
-																<td>282</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge badge-grey">9</span>
-																	<a href="/home/news/index/id/10.html" target="_blank">富贵有余</a>
-																</td>
-																<td>275</td>
-															</tr>
-															<tr>
-																<td height="25"><span class="badge">10</span>
-																	<a href="/home/news/index/id/25.html" target="_blank">钢笔字楷书笔画基础书写要领</a>
-																</td>
-																<td>273</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
+                    <div id="container" style="height: 400px;"></div>
+
 
 									</div>
 
 									<div class="vspace-12-sm"></div>
 
 									<div class="col-sm-5">
-										<div class="widget-box widget-color-pink">
+                     
+                      
+										<div class="widget-box widget-color-blue">
+                        <div class="widget-header">
+                          <h5 class="widget-title bigger lighter">
+                  <i class="ace-icon fa fa-area-chart"></i>
+                  <span>热门文章统计</span>
+                </h5>
+                        </div>
+                        <div class="widget-body">
+                          <div class="widget-main no-padding">
+                            <table class="table table-bordered table-hover">
+                              <thead>
+                                <tr>
+                                  <th>标题</th>
+                                  <th><em>浏览量</em></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                               {volist name="hot" key="key" id="v"}
+                                <tr>
+                                  <td><span class="badge badge-yellow">{$key}</span>
+                                    <a href="{:url('Index/News/detail',array('nid'=>$v['id']))}" target="_blank">{$v.title}</a>
+                                  </td>
+                                  <td>{$v.clicks}</td>
+                                </tr>
+                       
+                              {/volist}
+                        
+                           
+                         
+                           
+                           
+                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+										<!-- <div class="widget-box widget-color-pink">
 											<div class="widget-header widget-header-flat widget-header-small">
 												<h5 class="widget-title">
 													<i class="ace-icon fa fa-info"></i>
@@ -197,10 +159,10 @@
 														<br>
 													</p>
 												</div>
-												<!-- /.widget-main -->
+											
 											</div>
-											<!-- /.widget-body -->
-										</div>
+											
+										</div> -->
 										<!-- /.widget-box -->
 <div class="space-6"></div>
 										<div class="widget-box widget-color-dark">
@@ -314,8 +276,38 @@
       <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
   </div><!-- /.main-container -->
-
-
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+  <script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    
+    option = {
+        xAxis: {
+            type: 'category',
+            data: {$dates}
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: {$data},
+            type: 'line'
+        }]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+           </script>
 
   <script>
     jQuery(function ($) {
