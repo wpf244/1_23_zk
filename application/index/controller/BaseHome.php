@@ -66,10 +66,10 @@ class BaseHome extends Controller
       
  
       
-    // public function _empty()
-    // {
-    //     $this->redirect("Index/index");
-    // }
+    public function _empty()
+    {
+        $this->redirect("Index/index");
+    }
 
     
 

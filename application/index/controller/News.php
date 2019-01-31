@@ -79,28 +79,34 @@ class News extends BaseHome
 
         $nid=input("nid");
         $re=db("article_info")->where(["id"=>$nid,"reviewstatus"=>1])->find();
-
-        if($re){
-            db("article_info")->where(["id"=>$nid,"reviewstatus"=>1])->setInc("clicks",1);
-            $cate=db("article_category")->where("articleid",$nid)->find();
-            $cateid=$cate['categoryid'];
-            $info=db("category_info")->where("id",$cateid)->find();
-
-            $content=db("article_content")->where("articleid",$nid)->find();
-            $this->assign("content",$content);
-
-            $this->assign("re",$re);
-            $this->assign("info",$info);
-
-            //上一篇
-        $pre=db("article_category")->alias("a")->field("b.id,title")->where("articleid>$nid")->where("a.categoryid",$cateid)->join("article_info b","a.articleid=b.id")->order("a.id desc")->limit("1")->find();
-        $this->assign("pre",$pre);
         
-        //下一篇
-        $nre=db("article_category")->alias("a")->field("b.id,title")->where("articleid<$nid")->where("a.categoryid",$cateid)->join("article_info b","a.articleid=b.id")->order("a.id asc")->limit("1")->find();
-        $this->assign("nre",$nre);
+        if($re){
+           if(empty($re['url'])){
+                db("article_info")->where(["id"=>$nid,"reviewstatus"=>1])->setInc("clicks",1);
+                $cate=db("article_category")->where("articleid",$nid)->find();
+                $cateid=$cate['categoryid'];
+                $info=db("category_info")->where("id",$cateid)->find();
 
-            return $this->fetch();
+                $content=db("article_content")->where("articleid",$nid)->find();
+                $this->assign("content",$content);
+
+                $this->assign("re",$re);
+                $this->assign("info",$info);
+
+                //上一篇
+            $pre=db("article_category")->alias("a")->field("b.id,title")->where("articleid>$nid")->where("a.categoryid",$cateid)->join("article_info b","a.articleid=b.id")->order("a.id desc")->limit("1")->find();
+            $this->assign("pre",$pre);
+            
+            //下一篇
+            $nre=db("article_category")->alias("a")->field("b.id,title")->where("articleid<$nid")->where("a.categoryid",$cateid)->join("article_info b","a.articleid=b.id")->order("a.id asc")->limit("1")->find();
+            $this->assign("nre",$nre);
+
+                return $this->fetch();
+           }else{
+               $url=$re['url'];
+               $this->redirect("$url");
+           } 
+          
         }else{
             $this->redirect("Index/index");
         }

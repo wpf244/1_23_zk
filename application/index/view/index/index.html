@@ -30,7 +30,7 @@ html,
 			position: absolute;
 			bottom: 0;
 			left: 0;
-			height: 122px;
+			height: 140px;
 		}
 
 </style>
@@ -291,7 +291,10 @@ html,
 
 										<div class="index_tab_btm">
 											<div class="topic_box clearfix">
-												<h6 class="topic_title float_lt"><a href="{:url('News/index',array('id'=>941))}" target="_blank">专题专栏</a></h6>
+												<h6 class="topic_title float_lt">
+													<a href="{:url('News/index',array('id'=>941))}" target="_blank">专题专栏</a>
+													<!-- <a>专题专栏</a> -->
+												</h6>
 												<div class="topic_right float_rt">
 													<div class="bd">
 														<ul>
@@ -465,7 +468,7 @@ html,
 															<ul>
 																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按主题</a></li>
 																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按特定人群</a></li>
-																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按人生部门</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按人生事件</a></li>
 																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按部门</a></li>
 															</ul>
 															<ul>
@@ -557,6 +560,7 @@ html,
 													<iframe scrolling="no" src="http://www.zk12345.gov.cn/zkhotline/website/jsp/addsq.jsp" frameborder="0" height="760px" width="100%"></iframe>
 												</div>
 												</div>
+												<img class="zhengmin_down" src="__HOME__/img/icon_putdown.png" width="44" height="42" alt="">
 											</div>
 										</div>
 											<!-- <div class="index_box clearfix">
@@ -718,7 +722,9 @@ html,
 															</a></li>
 														 {/volist}
 													</ul>
-													<div class="huicui_pic" style="background-image:url(__HOME__/img/huicui_pic.jpg)"></div>
+													<div class="huicui_pic">
+														<img src="__HOME__/img/huicui_pic.jpg" width="264" height="82" alt="">
+													</div>
 												</div>
 											</div>
 											<div class="index_tab_btm">
@@ -978,19 +984,17 @@ html,
 				// console.log(href);
 				itm.removeAttr('href')
 		itm.attr('data-url',href)
-		})
-
-	
+		})	
 
 		// 头条新闻滚动
-		jQuery("#news_wrap").slide({
-			mainCell: ".bd ul",
-			autoPlay: true,
-			effect: "leftMarquee",
-			interTime: 50,
-			vis: 3,
-			trigger: "click"
-		});
+		// jQuery("#news_wrap").slide({
+		// 	mainCell: ".bd ul",
+		// 	autoPlay: true,
+		// 	effect: "leftMarquee",
+		// 	interTime: 50,
+		// 	vis: 3,
+		// 	trigger: "click"
+		// });
 
 		// 走进周口
 		jQuery(".walkin_lunbo").slide({

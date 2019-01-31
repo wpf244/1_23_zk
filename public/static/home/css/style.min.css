@@ -297,7 +297,6 @@ body {
 
 .banner_box .bd ul li,
 .bg_cover,
-.huicui_pic,
 .interact_left_banner,
 .walkin_lunbo .bd ul li {
     background-repeat: no-repeat;
@@ -468,6 +467,7 @@ body.discolorClass {
 
 .header_news_wrap {
     width: 1098px;
+    height: 30px;
     line-height: 30px;
     overflow: hidden
 }
@@ -487,10 +487,11 @@ body.discolorClass {
     float: left;
     overflow: hidden;
     font-size: 18px;
-    width: auto;
+    width: 25%;
     height: 30px;
     line-height: 30px;
-    margin-top: 6px
+    margin-top: 6px;
+    padding: 0 4px;
 }
 
 .header_news_cont a {
@@ -498,7 +499,9 @@ body.discolorClass {
     height: 30px;
     line-height: 30px;
     display: block;
-    margin-right: 30px
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .header_search {
@@ -1166,7 +1169,7 @@ body.discolorClass {
     left: 0;
     top: 0;
     padding: 0 20px;
-    background-color: #29cea2;
+    background-color: #2e8fd3;
     color: #fff
 }
 
@@ -1751,7 +1754,10 @@ body.discolorClass {
     overflow: hidden;
     width: 264px;
     height: 82px;
-    transition: all .3s
+    transition: all .3s;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
 }
 
 .huicui_pic:hover {
@@ -2509,11 +2515,11 @@ body.discolorClass {
 .fest_box {
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 230px;
     width: 1200px;
     height: 600px;
     margin-left: -600px;
-    margin-top: -300px;
+    /* margin-top: -300px; */
     text-align: center;
     z-index: 1000;
 }
@@ -2581,6 +2587,16 @@ body.discolorClass {
     padding-bottom: 6px;
     background-color: #ffecdb;
     display: none
+}
+
+.zhengmin_wrap {
+    position: relative;
+}
+
+.zhengmin_down {
+    position: absolute;
+    right: 190px;
+    bottom: 30px;
 }
 
 .zhengmin_cont.active {

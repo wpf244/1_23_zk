@@ -10,7 +10,7 @@ class Index extends BaseHome
         $this->assign("retop",$retop);
        
         //标题轮播
-        $reb=db("article_info")->where(['reviewstatus'=>1,'b_banner'=>1])->paginate(10);
+        $reb=db("article_info")->where(['reviewstatus'=>1,'b_banner'=>1])->order("id desc")->limit(0,4)->select();
         $this->assign("reb",$reb);
        
         //轮播图
