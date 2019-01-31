@@ -1328,7 +1328,6 @@ body.discolorClass {
     text-align: center;
     color: #fff;
     background-color: #b40002;
-    text-decoration: underline;
     cursor: pointer
 }
 
@@ -2816,6 +2815,39 @@ body.discolorClass {
 	height: 96px;
 	top: 216px;
 	left: 202px
+}
+
+.huicui_lunbo {
+    position: relative;
+    width: 264px;
+    height: 82px;
+}
+
+.huicui_lunbo .bd ul li {
+	width: 264px;
+    height: 82px;
+	float: left;
+}
+
+.huicui_lunbo .prev,
+.huicui_lunbo .next {
+	position: absolute;
+	top: 50%;
+	width: 20px;
+	height: 60px;
+	margin-top: -30px;
+	text-align: center;
+	line-height: 60px;
+	color: #fff;
+	background: url(../img/percent_3_bg.png) repeat;
+}
+
+.huicui_lunbo .prev {
+	left: 0;
+}
+
+.huicui_lunbo .next {
+	right: 0;
 }
 
 
