@@ -132,7 +132,7 @@ html,
 								<div class="header_news_wrap" id="news_wrap">
 									<div class="bd">
 										<ul>
-											{volist name="reb" id="vb"}
+											{volist name="rebs" id="vb"}
 											<li class="header_news_cont"><a href="{:url('News/detail',array('nid'=>$vb['id']))}" target="_blank" title="{$vb.title}">{$vb.title}</a></li>
 											
 											{/volist}
@@ -292,7 +292,7 @@ html,
 										<div class="index_tab_btm">
 											<div class="topic_box clearfix">
 												<h6 class="topic_title float_lt">
-													<a href="{:url('News/index',array('id'=>941))}" target="_blank">专题专栏</a>
+													<a href="{:url('News/ztzl',array('id'=>941))}" target="_blank">专题专栏</a>
 													<!-- <a>专题专栏</a> -->
 												</h6>
 												<div class="topic_right float_rt">

@@ -162,6 +162,87 @@ class News extends BaseHome
         
         return $this->fetch();
     }
+    public function ztzl()
+    {
+       
+        $id=input("id");
+        $re=db("category_info")->field("id,name,status,parentid")->where(["id"=>$id,"status"=>0])->find();
+       
+        $ids=$re['id'];
+        db("category_info")->where("id",$ids)->setInc("clicks",1);
+        $this->assign("ids",$ids);
+        
+        $pid=$re['id'];
+        $parentid=$re['parentid'];
+        $this->assign("re",$re);
+     //   var_dump($re);
+        //上级栏目
+        $rep=db("category_info")->field("id,name,status")->where(["id"=>$parentid,"status"=>0])->find();
+        
+        if(empty($rep)){
+            $rep=$re;
+        }
+        $this->assign("rep",$rep);
+
+        //新闻列表
+        $list=db("spec")->where("status",1)->order("id desc")->paginate(10);
+        $page=$list->render();
+        $this->assign("list",$list);
+        $this->assign("page",$page);
+
+        //侧边栏
+        $res=db("category_info")->field("id,name,status")->where(["parentid"=>$pid,"status"=>0])->order(["orderid desc","id asc"])->limit(0,2)->select();
+       
+        if(empty($res)){
+           
+            $res=db("category_info")->field("id,name,status")->where(["parentid"=>$parentid,"status"=>0])->order(["orderid desc","id asc"])->select();
+            //  var_dump($res,$parentid);exit;
+            if(empty($res)){
+                $res=db("category_info")->field("id,name,status")->where(["parentid"=>$rep['id'],"status"=>0])->order(["orderid desc","id asc"])->select();
+
+            }
+        }
+        $this->assign("res",$res);
+       
+        return $this->fetch();
+    }
+
+    public function ztzls()
+    {
+       
+        $id=input("id");
+        $re=db("category_info")->field("id,name,status,parentid")->where(["id"=>$id,"status"=>0])->find();
+       
+        $ids=$re['id'];
+        db("category_info")->where("id",$ids)->setInc("clicks",1);
+        $this->assign("ids",$ids);
+        
+        $pid=$re['id'];
+        $parentid=$re['parentid'];
+        $this->assign("re",$re);
+     //   var_dump($re);
+        //上级栏目
+        $rep=db("category_info")->field("id,name,status")->where(["id"=>$parentid,"status"=>0])->find();
+        
+        if(empty($rep)){
+            $rep=$re;
+        }
+        $this->assign("rep",$rep);
+
+        //新闻列表
+        $list=db("category_info")->where(["parentid"=>$id,"status"=>0])->order("id desc")->paginate(10);
+        $page=$list->render();
+        $this->assign("list",$list);
+        $this->assign("page",$page);
+
+        //侧边栏
+        $res=db("category_info")->field("id,name,status")->where(["parentid"=>$parentid,"status"=>0])->order(["orderid desc","id asc"])->limit(0,2)->select();
+       
+       
+        $this->assign("res",$res);
+       
+        return $this->fetch();
+    }
 
 
         

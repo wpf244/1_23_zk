@@ -6,22 +6,28 @@ class Spec extends BaseHome
     public function index()
     {
         $id=input("id");
-        $re=db("spec")->where("id",$id)->find();
-        if($re){
-           if($re['status'] == 1){
-               $assort=$re['assort'];
-               if($assort == "gkbg"){
-                   $this->redirect("News/index",array("id"=>181));
-               }else{
-                $this->redirect("$assort");
-               }
-              
-           }else{
-            $this->redirect('Index/index');
-           }
+        if(empty($id)){
+            $code=input("code");
+            $this->redirect("$code");
         }else{
-            $this->redirect('Index/index');
+            $re=db("spec")->where("id",$id)->find();
+            if($re){
+               if($re['status'] == 1){
+                   $assort=$re['assort'];
+                   if($assort == "gkbg"){
+                       $this->redirect("News/index",array("id"=>181));
+                   }else{
+                    $this->redirect("$assort");
+                   }
+                  
+               }else{
+                $this->redirect('Index/index');
+               }
+            }else{
+                $this->redirect('Index/index');
+            }
         }
+       
     }
     public function shce()
     {
@@ -87,7 +93,7 @@ class Spec extends BaseHome
     //2017年两会
     public function lh_yq()
     {
-        $id=input("id");
+        $id=945;
         $title=db("category_info")->where(["parentid"=>$id,"status"=>0])->order(["orderid desc","id asc"])->select();
         $this->assign("title",$title);
 

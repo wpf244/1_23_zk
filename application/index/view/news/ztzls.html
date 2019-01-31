@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<div class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="{:url('News/ztzl',array('id'=>$rep['id']))}">{$rep.name}</a>&gt;<a  >{$re.name}</a>
+					</div>
+					<div class="listing_box clearfix">
+						<div class="listing_left float_lt">
+							<div class="listing_left_title">
+								<!-- <i class="iconfont icon-shuben"></i> -->
+								<img src="__HOME__/img/icon_newslist.png" width="20" height="20" style="vertical-align:middle" alt="">
+								<span>{$re.name}</span>
+							</div>
+							<div class="listing_left_unit">
+								<div class="news_list">
+								{volist name="list" id="vs"}	
+								
+								<a href="{:url('Spec/index',array('code'=>$vs['code']))}" class="news_item" target="_blank" title="">
+								
+	<p title="{$vs.name}">{$vs.name}</p>
+	<span></span>
+</a>
+{/volist}
+		
+								</div>
+								<div class="listing_page">
+									{$page}
+								</div>
+							</div>
+						</div>
+						<div class="listing_right float_rt">
+							<div class="listing_right_title">
+								{$rep.name}
+							</div>
+							<div class="listing_right_menu">
+								<ul style="height:500px;overflow-y: scroll;">
+								  {volist name="res" id="v"}
+									<li {if condition="$ids eq $v['id']"} class="active" {/if} ><a href="{:url('News/ztzls',array('id'=>$v['id']))}" title="{$v.name}">
+											{$v.name}
+											<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+											<img src="__HOME__/img/sanjian_heng.png" width="24" height="24" alt="">
+										</a></li>
+								 {/volist}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{include file="public:footer"}
+</body>
+
+</html>

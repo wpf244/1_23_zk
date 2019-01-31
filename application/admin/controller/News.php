@@ -44,6 +44,9 @@ class News extends BaseAdmin
         $keywords=input("keywords");
         $name=input("name");
         $categoryid=input("categoryid");
+        if($status == null){
+            $status=3;
+        }
         if($categoryid != 0){
             
             $cate=db("article_category")->where("categoryid",$categoryid)->select();
@@ -59,7 +62,7 @@ class News extends BaseAdmin
         }else{
             $where=[];
         }
-       
+      
         if($start || $keywords || $status){
             if($start){
                 $end=$end.' 23:59:59';
@@ -75,27 +78,30 @@ class News extends BaseAdmin
                 $keywords="";
             }
             
-            if($status != 3 || $status != 4){
+            if($status != 3){
                 $where['reviewstatus']=array('eq',$status);
             }
-            if($status == 4){
-                $where['reviewstatus']=array('eq',0);
-            }
-
+            
           
 
         }else{
-            $status=3;
-            $start="";
+            if($status == 0){
+                $where['reviewstatus']=array('eq',0);
+            }else{
+                $status=3;
+                $start="";
             $end="";
             $keywords="";
             $name="全部";
             $categoryid=0;
             $where=[];
+            }
+            
+            
            
         }
-        
-     // var_dump($status,$where);
+
+  //  var_dump($status);
         $this->assign("start",$start);
         $this->assign("end",$end);
         $this->assign("status",$status);
@@ -105,7 +111,7 @@ class News extends BaseAdmin
 
         
 
-     //  var_dump($where);exit;
+    //  var_dump($where);exit;
 
        $list =db("article_info")->alias("a")->field("a.id,b_banner,title,author,createtime,top,reviewstatus,shenhename,name,articleid,b.categoryid")->where("arttype","xinwen")->where($where)->join("article_category b","a.id=b.articleid")->join("category_info c","c.id = b.categoryid")->group("b.articleid")->order(['top desc','id desc'])->paginate(20,false,['query'=>request()->param()]);
        $this->assign("list",$list);
