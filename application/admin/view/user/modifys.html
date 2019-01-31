@@ -46,36 +46,69 @@
                                                 <div class="widget-body">
                                                     <div class="widget-main">
                                                         <div class="form-group">
-                                                            <label class="col-sm-4 control-label no-padding-right" for="">账号</label>
+                                                            <label class="col-sm-4 control-label no-padding-right" for="">用户名</label>
                                                             <div class="col-sm-6">
-                                                                <input class="form-control" type="text" name="username" value="{$re.username}"
+                                                                <input class="form-control" type="text" name="loginname" value="{$re.loginname}" placeholder="请输入用户名" 
                                                                     required>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-sm-4 control-label no-padding-right" for="">密码</label>
                                                             <div class="col-sm-6">
-                                                                <input class="form-control" type="password" name="pwd" >
+                                                                <input class="form-control" type="password" name="password" value="{$re.password}"  placeholder="请输入密码"  required>
                                                             </div>
                                                         </div>
-                                                      
+
                                                         <div class="form-group">
-                                                            <label class="col-sm-4 control-label no-padding-right" for="">管理员类型</label>
+                                                                <label class="col-sm-4 control-label no-padding-right" for="">姓名</label>
+                                                                <div class="col-sm-6">
+                                                                    <input class="form-control" type="text" name="realname" value="{$re.realname}" placeholder="请输入姓名"  required>
+                                                                </div>
+                                                            </div>
+       
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label no-padding-right" for="">站点</label>
                                                             <div class="col-sm-6">
-                                                                <select class="form-control" id="fid" name="level" required>
-                                                                    <option value="0" {if condition="$re['level'] eq 0"}selected{/if} >超级管理员</option>
-                                                                    <option value="1" {if condition="$re['level'] eq 1"}selected{/if} >普通管理员</option>
+                                                                <select class="form-control"  name="siteid" required>
+                                                                  {volist name="res" id="v"}
+                                                                    <option value="{$v.id}" {if condition="$re['siteid'] eq $v['id']"}selected{/if} >{$v.sitename}</option>
+                                                                   {/volist}
                                                                 </select>
                                                             </div>
                                                         </div>
+
+                                                        <div class="form-group">
+                                                                <label class="col-sm-4 control-label no-padding-right" for="">发布权限</label>
+                                                                <label style="padding-top: 8px">
+                                                                    <input name="statu" class="ace ace-switch ace-switch-6" type="checkbox" {if condition="$re['actionid'] eq 1 OR $re['actionid'] eq 0"}checked{/if}  />
+                                                                    <span class="lbl"></span>
+                                                                  </label>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                    <label class="col-sm-4 control-label no-padding-right" for="">审核权限</label>
+                                                                    <label style="padding-top: 8px">
+                                                                        <input name="status" class="ace ace-switch ace-switch-6" type="checkbox" {if condition="$re['actionid'] eq 1 OR $re['actionid'] eq 2"}checked{/if} />
+                                                                        <span class="lbl"></span>
+                                                                    </label>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                    <label class="col-sm-4 control-label no-padding-right" for="">是否启用</label>
+                                                                    <label style="padding-top: 8px">
+                                                                        <input name="isenabled" class="ace ace-switch ace-switch-6" type="checkbox" {if condition="$re['isenabled'] eq 1"}checked{/if}/>
+                                                                        <span class="lbl"></span>
+                                                                    </label>
+                                                            </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <input name="id" type="hidden" value="{$re.id}" />
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-md-9">
-                                          <input name="id" type="hidden" value="{$re.id}" />
                                             <button class="btn btn-info" type="submit">
                                                 <i class="ace-icon fa fa-floppy-o bigger-110"></i>
                                                 保存
@@ -96,7 +129,7 @@
             </div>
         </div><!-- /.main-content -->
 
-        {include file="public:footer"}
+      {include file="public:footer"}
 
         <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
             <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
@@ -173,14 +206,11 @@
             });
 
             function checkForm() {
-               var pwd = $("input[name=pwd]").val();
-               if($.trim(pwd) != ''){
-                    var pwdlen=$.trim(pwd).length;
-                    if(pwdlen < 6 || pwdlen > 20 ){
-                        layer.msg("密码长度必须6-20位");return false;
-                    }
+               var pwd = $("input[name=password]").val();
+               var pwdlen=$.trim(pwd).length;
+               if(pwdlen < 6 || pwdlen > 20 ){
+                   layer.msg("密码长度必须6-20位");return false;
                }
-               
 
             }
 

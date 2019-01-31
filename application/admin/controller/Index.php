@@ -13,25 +13,25 @@ class Index extends BaseAdmin
         $siteid=$rolesjson->SiteId;
         
         //全部文章数量
-        $qcou=db("article_info")->where(["arttype"=>"xinwen"])->count();
+        $qcou=db("article_info")->alias("a")->where(["arttype"=>"xinwen"])->join("article_category b","a.id=b.articleid")->count();
         $this->assign("qcou",$qcou);
 
         //已审核
-        $ycou=db("article_info")->where(["arttype"=>"xinwen","reviewstatus"=>1])->count();
+        $ycou=db("article_info")->alias("a")->where(["arttype"=>"xinwen","reviewstatus"=>1])->join("article_category b","a.id=b.articleid")->count();
         $this->assign("ycou",$ycou);
 
         $ybai=round($ycou/$qcou*100,1);
         $this->assign("ybai",$ybai);
 
         //待审核
-        $dcou=db("article_info")->where(["arttype"=>"xinwen","reviewstatus"=>0])->count();
+        $dcou=db("article_info")->alias("a")->where(["arttype"=>"xinwen","reviewstatus"=>0])->join("article_category b","a.id=b.articleid")->count();
         $this->assign("dcou",$dcou);
 
         $dbai=round($dcou/$qcou*100,1);
         $this->assign("dbai",$dbai);
 
         //被退回
-        $bcou=db("article_info")->where(["arttype"=>"xinwen","reviewstatus"=>2])->count();
+        $bcou=db("article_info")->alias("a")->where(["arttype"=>"xinwen","reviewstatus"=>2])->join("article_category b","a.id=b.articleid")->count();
         $this->assign("bcou",$bcou);
 
         $bbai=round($bcou/$qcou*100,1);

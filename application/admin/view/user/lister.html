@@ -46,10 +46,11 @@
                 <tr>
                
                   <th>ID</th>
-                  <th>账号</th>                  
-                  <th class="hidden-480">账号类型</th>
-                  <th class="hidden-480">最后登录时间</th>
-                  <th class="hidden-480">最后登录IP</th>
+                  <th>用户名</th>                  
+                  <th class="hidden-480">姓名</th>
+                  <th class="hidden-480">管理站点</th>
+                  <th class="hidden-480">权限</th>
+                  <th class="hidden-480">栏目权限分配</th>
                   <th style="border-right:#ddd solid 1px;">操作</th>
                 </tr>
                 </thead>
@@ -58,14 +59,19 @@
                 <tr class="ace-thumbnails">
               
                   <td><span class="badge badge-grey">{$v.id}</span></td>
-                  <td>{$v.username}</td>
-                  <td>{if condition="$v.level eq 0"}超级管理员{/if}{if condition="$v.level eq 1"}普通管理员{/if}</td>
-                  <td class="hidden-480">{$v.curtime}</td>
-                  <td class="hidden-480">{$v.ip}</td>
+                  <td>{$v.loginname}</td>
+                  <td>{$v.realname}</td>
+                  <td>{$v.sitename}</td>
+                  <td>{if condition="$v.actionid eq 0"}发布文章{/if}
+                      {if condition="$v.actionid eq 1"}发布文章  审核文章{/if}</td>
+                  <td class="hidden-480">
+                      <a class="btn btn-xs btn-info" onclick="change({$v.id})" title="配置权限">
+                          <i class="ace-icon fa fa-gear bigger-120"></i>
+                        </a>
+                  </td>
+                 
                   <td>
-                    <a class="btn btn-xs btn-info" onclick="change({$v.id})" title="配置权限">
-                      <i class="ace-icon fa fa-gear bigger-120"></i>
-                    </a>
+                    
                     <a class="btn btn-xs btn-info" href="{:url('User/modifys',array('id'=>$v['id']))}" title="修改">
                       <i class="ace-icon fa fa-pencil bigger-120"></i>
                     </a>
@@ -79,6 +85,16 @@
                 </tbody>
 
               </table>
+
+              <div class="text-center">
+
+                <ul class="pagination" id="result">
+
+                  {$page}
+
+                </ul>
+
+              </div>
              
             </div>
           </div><!-- /.col -->

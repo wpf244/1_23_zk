@@ -99,19 +99,19 @@ html,
 								<!-- 切换头部 -->
 								<ul class="index_nav index">
 									<li class="index_nav_item on">
-										<a href="javascript:;" title="网站首页">网站首页</a>
+										<a   title="网站首页">网站首页</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:;" title="政务公开">政务公开</a>
+										<a   title="政务公开">政务公开</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:;" title="政务服务">政务服务</a>
+										<a   title="政务服务">政务服务</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:;" title="政民互动">政民互动</a>
+										<a   title="政民互动">政民互动</a>
 									</li>
 									<li class="index_nav_item">
-										<a href="javascript:;" title="走进周口">走进周口</a>
+										<a   title="走进周口">走进周口</a>
 									</li>
 									<!-- <li class="index_nav_item">
 										<a href="javascript:(0);" title="周口荟萃">周口荟萃</a>
@@ -119,7 +119,8 @@ html,
 								</ul>
 								<!-- 按钮仅首页有 -->
 								<div class="index_action">
-									<i class="iconfont icon-daohang-copy"></i>
+									<!-- <i class="iconfont icon-daohang-copy"></i> -->
+									<img src="__HOME__/img/btn.png" style="margin-top:14px;" width="20" height="20" alt="">
 								</div>
 							</div>
 
@@ -174,27 +175,37 @@ html,
 														<ul>
 															<li class="on">
 																<a href="{:url('News/index',array('code'=>'zkyw'))}" title="周口要闻">
-																	<i class="iconfont icon-xinwen"></i>周口要闻
+																	<!-- <i class="iconfont icon-xinwen"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_1.png)"></span>
+																	周口要闻
 																</a>
 															</li>
 															<li>
-																<a href="javascript:;" title="国务院信息" target="_blank" data-url="http://www.gov.cn/pushinfo/v150203/" class="out_link">
-																	<i class="iconfont icon-wendang"></i>国务院信息
+																<a  title="国务院信息" target="_blank" data-url="http://www.gov.cn/pushinfo/v150203/" class="out_link">
+																	<!-- <i class="iconfont icon-wendang"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_2.png)"></span>
+																	国务院信息
 																</a>
 															</li>
 															<li>
 																<a href="{:url('News/index',array('code'=>'bmdt'))}" title="部门动态" >
-																	<i class="iconfont icon-youjian"></i>部门动态
+																	<!-- <i class="iconfont icon-youjian"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_3.png)"></span>
+																	部门动态
 																</a>
 															</li>
 															<li>
 																<a href="{:url('News/index',array('code'=>'xqdt'))}" title="县区动态" >
-																	<i class="iconfont icon-wenjian"></i>县区动态
+																	<!-- <i class="iconfont icon-wenjian"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_4.png)"></span>
+																	县区动态
 																</a>
 															</li>
 															<li>
 																<a href="{:url('News/index',array('code'=>'tzgg'))}" title="通知公告" >
-																	<i class="iconfont icon-gonggao"></i>通知公告
+																	<!-- <i class="iconfont icon-gonggao"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_5.png)"></span>
+																	通知公告
 																</a>
 															</li>
 														</ul>
@@ -221,7 +232,7 @@ html,
 																	<div class="news_list">
 																			<script charset="utf-8" language="javascript" type="text/javascript" src="http://www.gov.cn/pushinfo/v150203/pushinfo.js"> </script>
 																		<!-- {volist name="reg" id="vg"}
-																			<a class="news_item out_link" href="javascript:;" data-url="http://www.gov.cn/premier/{$vg['Unix_timestamp(createtime)']|date='Y-m/d',###}/content_{$vg.zhongguogovid}" target="_blank">
+																			<a class="news_item out_link"   data-url="http://www.gov.cn/premier/{$vg['Unix_timestamp(createtime)']|date='Y-m/d',###}/content_{$vg.zhongguogovid}" target="_blank">
 																<p title="{$vy.title}">{$vg.title}</p>
 																<span>{$vg['Unix_timestamp(createtime)']|date="Y-m-d",###}</span>
 															</a>
@@ -289,7 +300,7 @@ html,
 																{if condition="$ztzls.url_status eq 0"}
 																<a href="{:url('Spec/index',array('id'=>$ztzls['id']))}" target="_blank" title="">
 																{else /}
-																<a href="javascript:;" class="out_link" data-url="{$ztzls.url}" target="_blank" title="">
+																<a   class="out_link" data-url="{$ztzls.url}" target="_blank" title="">
 																{/if}	
 																	<img src="/uploads/{$ztzls.image}" width="265" height="90" alt="">
 																</a>
@@ -309,11 +320,12 @@ html,
 											  {if condition="$vxs.categoryurl eq '' "}
 												<a class="affairs_left_item" href="{:url('News/index',array('id'=>$vxs['id']))}" target="_blank" title="{$vxs.name}">
 											 {else /}
-											 <a  class="affairs_left_item out_link" data-url="{$vxs.categoryurl}" href="javascript:;" target="_blank" title="{$vxs.name}" >
+											 <a  class="affairs_left_item out_link" data-url="{$vxs.categoryurl}"   target="_blank" title="{$vxs.name}" >
 
 													{/if}	
 													<div class="affairs_left_icon">
-														<i class="iconfont {$vxs.iconname}"></i>
+														<!-- <i class="iconfont {$vxs.iconname}"></i> -->
+														<img src="__HOME__/img/{$vxs.iconname}.png" width="48" height="48" alt="">
 													</div>
 													<p>{$vxs.name}</p>
 												 </a>
@@ -333,16 +345,16 @@ html,
 													<ul>
 													   
 														<li>
-															<h6 class="affairs_mid_title">
+															<!-- <h6 class="affairs_mid_title">
 															{volist name="$xst['list']" id="newtop" offset="0" length='1'}	
 															<a href="{:url('News/index',array('id'=>$newtop['id']))}" title="{$newtop.name}" target="_blank">
 																	{$newtop.name}
 															</a>
-														</h6>
+														</h6> -->
 														{/volist}
 															<div class="affairs_mid_box">
 																<div class="news_list">
-																		{volist name="$xst['list']" id="newtops" offset="1" length='5'}		
+																		{volist name="$xst['list']" id="newtops" offset="0" length='6'}		
 																	<a class="news_item" href="{:url('News/index',array('id'=>$newtops['id']))}" target="_blank">
 															<p title="{$newtops.name}">{$newtops.name}</p>
 															
@@ -367,9 +379,10 @@ html,
 														<a href="{:url('News/index',array('id'=>$vk['id']))}" target="_blank">
 															{/if}
 														{else /}
-														<a href="javascript:;" target="_blank" data-url="{$vk.categoryurl}" class="out_link">
+														<a   target="_blank" data-url="{$vk.categoryurl}" class="out_link">
 														{/if}
-															<i class="iconfont {$vk.iconname}"></i>
+															<!-- <i class="iconfont {$vk.iconname}"></i> -->
+															<img src="__HOME__/img/{$vk.iconname}.png" width="32" height="32" alt="">
 															<p>{$vk.name}</p>
 														</a>
 													</li>
@@ -383,7 +396,7 @@ html,
 															{if condition="$vks.categoryurl eq '' "}
 														<a href="{:url('News/index',array('id'=>$vks['id']))}" target="_blank">
 															{else /}
-														<a href="javascript:;" target="_blank" data-url="{$vks.categoryurl}" class="out_link">
+														<a   target="_blank" data-url="{$vks.categoryurl}" class="out_link">
 														{/if}
 															{$vks.name}
 														</a></li>
@@ -398,7 +411,8 @@ html,
 											{volist name="gkzhs" id="vns"} 
 												<li class="affairs_item">
 													<a href="{:url('News/index',array('id'=>$vns['id']))}" target="_blank">
-														<i class="iconfont {$vns.iconname}"></i>
+														<!-- <i class="iconfont {$vns.iconname}"></i> -->
+														<img src="__HOME__/img/{$vns.iconname}.png" width="30" height="30" alt="">
 														<span>{$vns.name}</span>
 													</a>
 												</li>
@@ -424,7 +438,7 @@ html,
 															<ul>
 															 {volist name="lb" id="lbv"}	
 																<li style="background-image: url(/uploads/{$lbv.image})">
-																	<a href="javascript:;" class="out_link" data-url="{$lbv.url}" target="_blank"></a>
+																	<a   class="out_link" data-url="{$lbv.url}" target="_blank"></a>
 																</li>
 																{/volist}
 															</ul>
@@ -436,27 +450,29 @@ html,
 														<div class="hd">
 															<ul>
 																<li class="on">
-																	<i class="iconfont icon-gerenshixin"></i>
+																		<i style="background-image:url(__HOME__/img/icon_person.png)"></i>
+																	<!-- <i class="iconfont icon-gerenshixin"></i> -->
 																	<span>个人办事</span>
 																</li>
 																<li>
-																	<i class="iconfont icon-falv"></i>
+																	<i style="background-image:url(__HOME__/img/icon_faren.png)"></i>
+																	<!-- <i class="iconfont icon-falv"></i> -->
 																	<span>法人办事</span>
 																</li>
 															</ul>
 														</div>
 														<div class="bd">
 															<ul>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按主题</a></li>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按特定人群</a></li>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按人生部门</a></li>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按部门</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按主题</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按特定人群</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按人生部门</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按部门</a></li>
 															</ul>
 															<ul>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按主题</a></li>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按经营活动</a></li>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按指定对象</a></li>
-																<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank">按部门</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按主题</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按经营活动</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按指定对象</a></li>
+																<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank">按部门</a></li>
 															</ul>
 														</div>
 													</div>
@@ -469,7 +485,8 @@ html,
 												<ul class="service_mid_list">
 												  {volist name="bmfu" id="vf"}	
 													<li><a href="{:url('Index/bmfu')}" target="_blank">
-															<i class="iconfont {$vf.iconname}"></i>
+															<!-- <i class="iconfont {$vf.iconname}"></i> -->
+															<i style="background-image: url(__HOME__/img/{$vf.iconname}.png)"></i>
 															<p>{$vf.title}</p>
 														</a></li>
 											        {/volist}
@@ -497,16 +514,16 @@ html,
 												<li><a href="{:url('News/index',array('id'=>512))}" target="_blank" title="权责清单">
 														<img src="__HOME__/img/service_btm_1.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="公共服务事项清单">
+												<li><a  date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank" title="公共服务事项清单">
 														<img src="__HOME__/img/service_btm_2.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="办事进度查询">
+												<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank" title="办事进度查询">
 														<img src="__HOME__/img/service_btm_3.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="便民查询">
+												<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank" title="便民查询">
 														<img src="__HOME__/img/service_btm_4.jpg" width="232" height="90" alt="">
 													</a></li>
-												<li><a href="http://zk.hnzwfw.gov.cn/" target="_blank" title="移动应用">
+												<li><a date-url="http://zk.hnzwfw.gov.cn/" class="out_link" target="_blank" title="移动应用">
 														<img src="__HOME__/img/service_btm_5.jpg" width="232" height="90" alt="">
 													</a></li>
 											</ul>
@@ -517,13 +534,13 @@ html,
 										<div class="zhengmin_box">
 											<div class="zhengmin_title">
 												<ul>
-													<li class="active"><a href="javascript:;" title="民生诉求">
+													<li class="active"><a   title="民生诉求">
 															民生诉求
 														</a></li>
-													<li><a href="javascript:;" title="我要诉求">
+													<li><a   title="我要诉求">
 															我要诉求
 														</a></li>
-													<div class="zhengmin_li"><a href="javascript:;" data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
+													<div class="zhengmin_li"><a   data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
 															阳光信访
 														</a></div>
 												</ul>
@@ -627,13 +644,13 @@ html,
 										</div>-->
 										<!-- <div class="index_tab_btm">
 											<ul class="interact_btm">
-												<li><a href="javascript:;" target="_blank" title="民生诉求">
+												<li><a   target="_blank" title="民生诉求">
 														民生诉求
 													</a></li>
-												<li><a href="javascript:;" target="_blank" title="我要诉求">
+												<li><a   target="_blank" title="我要诉求">
 														我要诉求
 													</a></li>
-												<li><a href="javascript:;" data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
+												<li><a   data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
 														阳光信访
 													</a></li>
 											</ul>
@@ -675,9 +692,18 @@ html,
 													</ul>
 												</div>
 												<div class="huicui_map">
-													<a href="javascript:;" target="_blank">
-														<img src="__HOME__/img/map.png" alt="">
-													</a>
+													<img src="__HOME__/img/map.png" alt="">
+													<a   class="out_link map_links_1" target="_blank" title="扶沟" data-url="http://www.fugou.gov.cn/">扶沟</a>
+													<a   class="out_link map_links_2" target="_blank" title="太康" data-url="http://www.taikang.gov.cn/">太康</a>
+													<a   class="out_link map_links_3" target="_blank" title="鹿邑" data-url="http://www.luyi.gov.cn/">鹿邑</a>
+													<a   class="out_link map_links_4" target="_blank" title="西华" data-url="http://www.xihua.gov.cn/">西华</a>
+													<a   class="out_link map_links_5" target="_blank" title="淮阳" data-url="http://www.hyzww.gov.cn/">淮阳</a>
+													<a   class="out_link map_links_6" target="_blank" title="郸城" data-url="http://www.dancheng.gov.cn">郸城</a>
+													<a href="{:url('Index/index')}" class="map_links_7" title="周口市">周口市</a>
+													<a   class="out_link map_links_8" target="_blank" title="商水" data-url="http://www.shangshui.gov.cn/">商水</a>
+													<a   class="out_link map_links_9" target="_blank" title="项城市" data-url="http://www.xiangcheng.gov.cn/">项城市</a>
+													<a   class="out_link map_links_10" target="_blank" title="沈丘" data-url="http://www.shenqiu.gov.cn/">沈丘</a>
+													
 												</div>
 												<div class="huicui_right float_rt">
 													<div class="walkin_top_title clearfix">
@@ -686,7 +712,8 @@ html,
 													<ul class="huicui_list clearfix">
 													  {volist name="fzzkss" id="vff"}
 														<li><a href="{:url('News/index',array('id'=>$vff['id']))}" target="_blank">
-																<i class="iconfont {$vff.iconname}"></i>
+																<!-- <i class="iconfont {$vff.iconname}"></i> -->
+																<img src="__HOME__/img/{$vff.iconname}.png" width="40" height="40" alt="">
 																<p>{$vff.name}</p>
 															</a></li>
 														 {/volist}
@@ -721,7 +748,7 @@ html,
 															<ul>
 																{volist name="lbz" id="lz"}
 																<li style="background-image: url(/uploads/{$lz.image})">
-																	<a class="banner_txt" href="javascript:;" title="{$lz.name}">
+																	<a class="banner_txt"   title="{$lz.name}">
 																		<span>{$lz.name}</span>
 																	</a>
 																</li>
@@ -752,8 +779,8 @@ html,
 											<div class="walkin_btm">
 												<div class="walkin_lunbo">
 													<div class="hd">
-														<a class="next" href="javascript:;">&gt;</a>
-														<a class="prev" href="javascript:;">&lt;</a>
+														<a class="next"  >&gt;</a>
+														<a class="prev"  >&lt;</a>
 													</div>
 													<div class="bd">
 														<ul>
@@ -884,11 +911,11 @@ html,
 				您访问的链接即将离开”周口市人民政府网“门户网站是否继续？
 			</div>
 			<div class="model_btn">
-				<a class="model_goon" href="javascript:;" onclick="go_to();" target="_blank">继续访问</a>
-				<a class="model_giveup" id="model_giveup" href="javascript:;">放弃</a>
+				<a class="model_goon"   onclick="go_to();" target="_blank">继续访问</a>
+				<a class="model_giveup" id="model_giveup"  >放弃</a>
 			</div>
 			<div class="model_close" id="model_close">
-				<a href="javascript:;">
+				<a  >
 					<i class="iconfont icon-guanbi1"></i>
 				</a>
 			</div>
@@ -897,9 +924,9 @@ html,
 		<div class="fest_box" id="fest_box">
 				<div class="fest_img">
 						
-					<a href="javascript:;" {if condition="$other['jurl'] neq '' "} class="out_link" data-url="{$other['jurl']}" {/if} >
+					<a   {if condition="$other['jurl'] neq '' "} class="out_link" data-url="{$other['jurl']}" {/if} >
 				
-					<img src="/uploads/{$other['jimage']}" width="800" height="400" alt="">
+					<img src="/uploads/{$other['jimage']}" width="{$other['jwidth']}" height="{$other['jheight']}" alt="">
 				</a>
 				</div>
 				<div class="fest_close" id="fest_close">X</div>
@@ -949,9 +976,11 @@ html,
 					href = itm.attr('href');
 					itm.attr('href','javascript:;')
 				// console.log(href);
-				
+				itm.removeAttr('href')
 		itm.attr('data-url',href)
 		})
+
+	
 
 		// 头条新闻滚动
 		jQuery("#news_wrap").slide({
@@ -1073,14 +1102,6 @@ html,
 		$('.zhengmin_title ul li').click(function(){
 				commonTab($(this), $('.zhengmin_cont'), 'active');
 			})
-
-			window.onload = function () {
-
-document.getElementById("iframe1").setAttribute("src", "http://www.zk12345.gov.cn/zkhotline/website/jsp/sqList.jsp");
-
-document.getElementById("iframe2").setAttribute("src", "http://www.zk12345.gov.cn/zkhotline/website/jsp/addsq.jsp");
-
-}
 
 	</script>
 </body>

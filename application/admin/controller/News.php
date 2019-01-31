@@ -59,7 +59,7 @@ class News extends BaseAdmin
         }else{
             $where=[];
         }
-        
+       
         if($start || $keywords || $status){
             if($start){
                 $end=$end.' 23:59:59';
@@ -75,10 +75,12 @@ class News extends BaseAdmin
                 $keywords="";
             }
             
-            if($status != 3){
+            if($status != 3 || $status != 4){
                 $where['reviewstatus']=array('eq',$status);
             }
-          
+            if($status == 4){
+                $where['reviewstatus']=array('eq',0);
+            }
 
           
 
@@ -92,7 +94,8 @@ class News extends BaseAdmin
             $where=[];
            
         }
-      
+        
+     // var_dump($status,$where);
         $this->assign("start",$start);
         $this->assign("end",$end);
         $this->assign("status",$status);
@@ -104,7 +107,7 @@ class News extends BaseAdmin
 
      //  var_dump($where);exit;
 
-       $list =db("article_info")->alias("a")->field("a.id,b_banner,title,author,createtime,top,reviewstatus,shenhename,name,articleid,b.categoryid")->where("arttype","xinwen")->where($where)->join("article_category b","a.id=b.articleid")->join("category_info c","c.id = b.categoryid")->order(['top desc','id desc'])->paginate(20,false,['query'=>request()->param()]);
+       $list =db("article_info")->alias("a")->field("a.id,b_banner,title,author,createtime,top,reviewstatus,shenhename,name,articleid,b.categoryid")->where("arttype","xinwen")->where($where)->join("article_category b","a.id=b.articleid")->join("category_info c","c.id = b.categoryid")->group("b.articleid")->order(['top desc','id desc'])->paginate(20,false,['query'=>request()->param()]);
        $this->assign("list",$list);
        
        $page=$list->render();
@@ -186,8 +189,8 @@ class News extends BaseAdmin
         $data['sourceurl']=input("sourceurl");
         $data['color']=input("color");
       //  $data['content']=input("content");
-        $data['reviewtime']=date("Y-m-d H:i:s");
-        $data['createtime']=date("Y-m-d H:i:s");
+        $data['reviewtime']=input("createtime");
+        $data['createtime']=input("createtime");
         $data['reviewstatus']=input("reviewstatus");
         $data['arttype']=input("pagetype");
         $data['siteid']=$siteid;
@@ -197,15 +200,18 @@ class News extends BaseAdmin
 
         $articleid=db("article_info")->getLastInsID();
         $categoryid=input("categoryid");
-        $info=db("category_info")->where("id=$categoryid")->find();
-        if($info){
-            $arr['category_code']=$info['name'];
+        $categoryid=explode(",",$categoryid);
+        foreach($categoryid as $v){
+            $info=db("category_info")->where("id",$v)->find();
+            if($info){
+                $arr['category_code']=$info['name'];
+            }
+            $arr['articleid']=$articleid;
+            $arr['categoryid']=$v;
+    
+            db("article_category")->insert($arr);
         }
-        $arr['articleid']=$articleid;
-        $arr['categoryid']=$categoryid;
-
-
-        db("article_category")->insert($arr);
+        
 
         $arrc['content']=$content;
         $arrc['articleid']=$articleid;
@@ -266,7 +272,7 @@ class News extends BaseAdmin
 
        $ids=input("id");
        
-       $rem=db("article_info")->field("id,title,subtitle,url,author,source,sourceurl,isbold,bannerid,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
+       $rem=db("article_info")->field("id,title,subtitle,createtime,endtime,url,author,source,sourceurl,isbold,bannerid,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
        
        $this->assign("re",$rem);
 
@@ -308,6 +314,8 @@ class News extends BaseAdmin
             $data['source']=input("source");
             $data['sourceurl']=input("sourceurl");
             $data['color']=input("color");
+            $data['createtime']=input("createtime");
+            $data['endtime']=input("endtime");
           //  $data['content']=input("content");
            
             $content=input("content");
@@ -640,9 +648,9 @@ class News extends BaseAdmin
         $data['summary']=input("summary");
        
         $data['color']=input("color");
-      //  $data['content']=input("content");
-        $data['reviewtime']=date("Y-m-d H:i:s");
-        $data['createtime']=date("Y-m-d H:i:s");
+      
+        $data['reviewtime']=input("createtime");
+        $data['createtime']=input("createtime");
         $data['reviewstatus']=input("reviewstatus");
         $data['arttype']=input("arttype");
       
@@ -652,15 +660,17 @@ class News extends BaseAdmin
 
         $articleid=db("article_info")->getLastInsID();
         $categoryid=input("categoryid");
-        $info=db("category_info")->where("id=$categoryid")->find();
-        if($info){
-            $arr['category_code']=$info['name'];
+        $categoryid=explode(",",$categoryid);
+        foreach($categoryid as $v){
+            $info=db("category_info")->where("id",$v)->find();
+            if($info){
+                $arr['category_code']=$info['name'];
+            }
+            $arr['articleid']=$articleid;
+            $arr['categoryid']=$v;
+    
+            db("article_category")->insert($arr);
         }
-        $arr['articleid']=$articleid;
-        $arr['categoryid']=$categoryid;
-
-
-        db("article_category")->insert($arr);
 
         $arrc['content']=$content;
         $arrc['articleid']=$articleid;
@@ -721,7 +731,7 @@ class News extends BaseAdmin
 
        $ids=input("id");
        
-       $rem=db("article_info")->field("id,title,subtitle,url,author,summary,sourceurl,isbold,description,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
+       $rem=db("article_info")->field("id,title,subtitle,url,author,createtime,summary,sourceurl,isbold,description,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
        
        $this->assign("re",$rem);
 
@@ -761,8 +771,8 @@ class News extends BaseAdmin
            
             $data['color']=input("color");
           //  $data['content']=input("content");
-            $data['reviewtime']=date("Y-m-d H:i:s");
-            $data['createtime']=date("Y-m-d H:i:s");
+      
+            $data['createtime']=input("createtime");
             $data['reviewstatus']=input("reviewstatus");
             $data['arttype']=input("arttype");
           
@@ -1064,9 +1074,8 @@ class News extends BaseAdmin
         $data['source']=input("source");
         $data['fabuzh']=input("fabuzh");
         $data['color']=input("color");
-      //  $data['content']=input("content");
-        $data['reviewtime']=date("Y-m-d H:i:s");
-        $data['createtime']=date("Y-m-d H:i:s");
+        $data['reviewtime']=input("reviewtime");
+        $data['createtime']=input("createtime");
         $data['reviewstatus']=input("reviewstatus");
         $data['arttype']=input("pagetype");
         $data['siteid']=$siteid;
@@ -1076,15 +1085,17 @@ class News extends BaseAdmin
 
         $articleid=db("article_info")->getLastInsID();
         $categoryid=input("categoryid");
-        $info=db("category_info")->where("id=$categoryid")->find();
-        if($info){
-            $arr['category_code']=$info['name'];
+        $categoryid=explode(",",$categoryid);
+        foreach($categoryid as $v){
+            $info=db("category_info")->where("id",$v)->find();
+            if($info){
+                $arr['category_code']=$info['name'];
+            }
+            $arr['articleid']=$articleid;
+            $arr['categoryid']=$v;
+    
+            db("article_category")->insert($arr);
         }
-        $arr['articleid']=$articleid;
-        $arr['categoryid']=$categoryid;
-
-
-        db("article_category")->insert($arr);
 
         $arrc['content']=$content;
         $arrc['articleid']=$articleid;
@@ -1145,7 +1156,7 @@ class News extends BaseAdmin
 
        $ids=input("id");
        
-       $rem=db("article_info")->field("id,title,subtitle,url,author,source,fabuzh,sourceurl,isbold,bannerid,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
+       $rem=db("article_info")->field("id,title,subtitle,url,createtime,reviewtime,author,source,fabuzh,sourceurl,isbold,bannerid,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
        
        $this->assign("re",$rem);
 
@@ -1181,7 +1192,8 @@ class News extends BaseAdmin
             $data['source']=input("source");
             $data['fabuzh']=input("fabuzh");
             $data['color']=input("color");
-          //  $data['content']=input("content");
+            $data['reviewtime']=input("reviewtime");
+            $data['createtime']=input("createtime");
            
             $content=input("content");
     

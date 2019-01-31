@@ -34,12 +34,13 @@
 					<!-- 新闻列表 -->
 					<div class="listing">
 						<div class="listing_crumb">
-							当前位置：<a href="news_list.html">中国周口</a>&gt;<a href="javascript:;">搜索结果</a>
+							当前位置：<a href="news_list.html">中国周口</a>&gt;<a  >搜索结果</a>
 						</div>
 						<div class="listing_box clearfix">
 							<div class="listing_left float_lt">
 								<div class="listing_left_title">
-									<i class="iconfont icon-xingtaiduICON_sousuo--"></i>
+									<!-- <i class="iconfont icon-xingtaiduICON_sousuo--"></i> -->
+									<img src="__HOME__/img/icon_search.png" width="20" height="20" style="vertical-align:middle" alt="">
 									<span>搜索结果</span>
 								</div>
 								<div class="listing_left_unit">
@@ -67,15 +68,18 @@
 										<ul>
 											<li class="active"><a href="{:url('Search/search_result',array('week'=>1))}" target="_blank">
 													过去一周以内
-													<i class="iconfont icon-sanjiaobiao"></i>
+													<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+													<img src="__HOME__/img/sanjiao.png" width="24" height="24" alt="">
 												</a></li>
 											<li class=""><a href="{:url('Search/search_result',array('mouth'=>1))}" target="_blank">
 													过去一月以内
-													<i class="iconfont icon-sanjiaobiao"></i>
+													<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+													<img src="__HOME__/img/sanjiao.png" width="24" height="24" alt="">
 												</a></li>
 											<li class=""><a href="{:url('Search/search_result',array('year'=>1))}" target="_blank">
 													过去一年以内
-													<i class="iconfont icon-sanjiaobiao"></i>
+													<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+													<img src="__HOME__/img/sanjiao.png" width="24" height="24" alt="">
 												</a></li>
 										</ul>
 									</div>
@@ -91,7 +95,8 @@
 											<li class="">
 												<a href="{:url('Search/search_result',array('hid'=>$v['id']))}" target="_blank">
 													{$v.title}
-													<i class="iconfont icon-sanjiaobiao"></i>
+													<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+													<img src="__HOME__/img/sanjiao.png" width="24" height="24" alt="">
 												</a>
 											</li>
 											{/volist}

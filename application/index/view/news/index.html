@@ -30,12 +30,13 @@
 				<!-- 新闻列表 -->
 				<div class="listing">
 					<div class="listing_crumb">
-						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="{:url('News/index',array('id'=>$rep['id']))}">{$rep.name}</a>&gt;<a href="javascript:;">{$re.name}</a>
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="{:url('News/index',array('id'=>$rep['id']))}">{$rep.name}</a>&gt;<a  >{$re.name}</a>
 					</div>
 					<div class="listing_box clearfix">
 						<div class="listing_left float_lt">
 							<div class="listing_left_title">
-								<i class="iconfont icon-shuben"></i>
+								<!-- <i class="iconfont icon-shuben"></i> -->
+								<img src="__HOME__/img/icon_newslist.png" width="20" height="20" style="vertical-align:middle" alt="">
 								<span>{$re.name}</span>
 							</div>
 							<div class="listing_left_unit">
@@ -62,7 +63,8 @@
 								  {volist name="res" id="v"}
 									<li {if condition="$ids eq $v['id']"} class="active" {/if} ><a href="{:url('News/index',array('id'=>$v['id']))}" title="{$v.name}">
 											{$v.name}
-											<i class="iconfont icon-sanjiaobiao"></i>
+											<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+											<img src="__HOME__/img/sanjian_heng.png" width="24" height="24" alt="">
 										</a></li>
 								 {/volist}
 								</ul>

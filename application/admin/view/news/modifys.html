@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="__ADMIN__/js/themes/default/style.min.css">
 <script src="__ADMIN__/js/jstree.min.js"></script>
 <script src="__ADMIN__/js/jscolor.js"></script>
+
 <body class="no-skin">
 <!--头部-->
 {include file="public:nav"}
@@ -132,6 +133,20 @@
                               <input class="form-control" type="text" value="{$re.sourceurl}"  name="sourceurl">
                             </div>
                           </div>
+
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">发布时间</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text"  id="test1" name="createtime" value="{$re.createtime}" placeholder="发布时间">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right" for="">到期时间</label>
+                            <div class="col-sm-10">
+                              <input class="form-control" type="text"  id="test2" name="endtime" value="{$re.endtime}" placeholder="到期时间">
+                            </div>
+                          </div>
                           <div class="form-group">                                                                            
                             <label class="col-sm-2 control-label no-padding-right" for="">是否加粗</label>
                              <div class="col-sm-2">
@@ -168,7 +183,7 @@
                             <label class="col-sm-2 control-label no-padding-right" for="">轮播图</label>
                           <div class="col-sm-10 col-sm-offset-2">
                             <input multiple="" type="file" id="thumb" name="coverimage"/>
-                            <img src="{$re.coverimage}" id="image" class="img-responsive" />
+                            <img src="/uploads/{$re.coverimage}" id="image" class="img-responsive" />
                           </div>
                         </div>
 
@@ -238,6 +253,22 @@
       inputs.value= '#'+picker.toString();
   }
 </script>
+<script>
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#test1', //指定元素
+    format: 'yyyy-MM-dd HH:mm:ss',
+    type: 'datetime',
+  });
+  </script>
+  <script>
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#test2', //指定元素
+      format: 'yyyy-MM-dd HH:mm:ss',
+      type: 'datetime',
+    });
+    </script>
 <script>
   jQuery(function($) {
 

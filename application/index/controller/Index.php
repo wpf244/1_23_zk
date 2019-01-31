@@ -14,7 +14,8 @@ class Index extends BaseHome
         $this->assign("reb",$reb);
        
         //轮播图
-        $ret=db("article_category")->alias("a")->field("a.id as aid,articleid,category_code,b.id,reviewstatus,bannerid,title,coverimage")->where(['reviewstatus'=>1,'bannerid'=>1])->where("category_code","zkyw")->join("article_info b","a.articleid=b.id")->order("id desc")->limit(0,5)->select();        
+       $ret=db("article_category")->alias("a")->field("a.id as aid,articleid,category_code,b.id,reviewstatus,bannerid,title,coverimage")->where(['reviewstatus'=>1,'bannerid'=>1])->where("category_code","zkyw")->join("article_info b","a.articleid=b.id")->group("articleid")->order("a.articleid desc")->limit(0,5)->select();        
+      //  $ret=db("article_info")->where(['reviewstatus'=>1,'bannerid'=>1])->order("id desc")->limit("0,5")->select();
         $this->assign("ret",$ret);
         
         
