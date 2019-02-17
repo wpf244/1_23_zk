@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<script src="https://cdn.bootcss.com/html5media/1.1.8/html5media.js"></script>
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<div class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing" id="article_cont">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a  >走进周口</a>
+					</div>
+					<div class="article_cont" style="min-height: 500px;">
+						<video src="http://www.hazhoukou.gov.cn/images/23.mp4"  controls="controls" autoplay="autoplay" width="1000" height="500">
+							<source src="http://www.hazhoukou.gov.cn/images/23.mp4" type="video/mp4">
+						</video>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{include file="public:footer"}
+
+	<script>
+		$(function(){
+
+			// 关闭窗口按钮
+			$('.article_close').click(function(){
+				window.close();
+			})
+
+			// 改变背景色
+			$('.article_color').on('click','i',function(){
+				var bgColor = $(this).css('backgroundColor')
+				$('#article_cont').css('backgroundColor',bgColor)
+			})
+
+			// 改变字体大小
+			$('.article_font').on('click','i',function(){
+				var fontSize = $(this).data('size')
+				$('#article_details').attr('class','article_details' + ' ' + fontSize)
+			})
+
+		})
+	</script>
+</body>
+
+</html>

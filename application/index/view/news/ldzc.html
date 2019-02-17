@@ -59,7 +59,7 @@
 										<div class="leader_item">
 											<h6>{$v.title}</h6>
 											<ul>
-												<li><a href="{:url('News/detail',array('nid'=>$v['id']))}" target="_blank">
+												<li><a href="{:url('News/detailz',array('nid'=>$v['id']))}" target="_blank">
 		<i class="iconfont icon-gerenshixin"></i>
 		<span>{$v.subtitle}</span>
 	</a></li>
@@ -75,7 +75,7 @@
 											<ul>
 											 <?php $id=$vv['id']; $ress=db("article_category")->alias("a")->field("a.categoryid as categoryids ,subtitle,articleid,b.id,title,createtime,reviewstatus")->where(['reviewstatus'=>1,"a.categoryid"=>$id])->join("article_info b","a.articleid=b.id")->order("id desc")->select();?>		
 										  {volist name="ress" id="vss"}		
-											 <li><a href="{:url('News/detail',array('nid'=>$vss['id']))}" target="_blank" title="{$vss.subtitle}">
+											 <li><a href="{:url('News/detailz',array('nid'=>$vss['id']))}" target="_blank" title="{$vss.subtitle}">
 									<i class="iconfont icon-gerenshixin"></i>
 									<span>{$vss.subtitle}</span>
 								</a></li>
@@ -104,6 +104,7 @@
 		$(function () {
 			$('.leader_wrap_title li').click(function () {
 				commonTab($(this), $('.leader_wrap_cont'), 'active')
+				$('.leader_wrap_body').scrollTop(0)
 			})
 
 		})

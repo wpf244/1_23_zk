@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+{include file="public:header"}
+<script src="__ADMIN__/js/echarts.common.min.js"></script>
+<body class="no-skin">
+  
+  <!--头部-->
+  {include file="public:navs"}
+  <div class="main-container ace-save-state" id="main-container">
+    <!--菜单-->
+    <script type="text/javascript">
+      try { ace.settings.loadState('main-container') } catch (e) { }
+    </script>
+
+    {include file="public:lefts"}
+    <div class="main-content">
+      <div class="main-content-inner">
+        
+
+        <div class="page-content">
+          {include file="public:set"}
+
+          <div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="alert alert-block alert-success">
+									
+								</div>
+
+								<div class="row">
+									<div class="space-6"></div>
+
+									<div class="col-sm-7">
+                    <a href="{:url('Newss/lister',array('status'=>1))}">
+										<div class="infobox infobox-green">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-comments"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number">{$ycou}</span>
+												<div class="infobox-content">已审核</div>
+											</div>
+
+											<div class="stat stat-success">{$ybai}%</div>
+										</div>
+                  </a>
+                  <a href="{:url('Newss/lister',array('status'=>0))}">
+										<div class="infobox infobox-blue">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-twitter"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number">{$dcou}</span>
+												<div class="infobox-content">待审核</div>
+											</div>
+
+											<div class="badge badge-success">
+												{$dbai}%
+												<i class="ace-icon fa fa-arrow-up"></i>
+											</div>
+										</div>
+                  </a>
+                  <a href="{:url('Newss/lister',array('status'=>2))}">
+										<div class="infobox infobox-pink">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-shopping-cart"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number">{$bcou}</span>
+												<div class="infobox-content">被退回</div>
+											</div>
+											<div class="stat stat-important">{$bbai}%</div>
+                    </div>
+                  </a>
+                  <a href="{:url('Newss/lister',array('status'=>3))}">
+										<div class="infobox infobox-red">
+											<div class="infobox-icon">
+												<i class="ace-icon fa fa-flask"></i>
+											</div>
+
+											<div class="infobox-data">
+												<span class="infobox-data-number">{$qcou}</span>
+												<div class="infobox-content">总发布数</div>
+											</div>
+										</div>
+                  </a>
+									
+
+
+										<div class="space-6"></div>
+
+                
+
+                    <div id="container" style="height: 400px;"></div>
+
+
+									</div>
+
+									<div class="vspace-12-sm"></div>
+
+									<div class="col-sm-5">
+                     
+                      
+										<div class="widget-box widget-color-blue">
+                        <div class="widget-header">
+                          <h5 class="widget-title bigger lighter">
+                  <i class="ace-icon fa fa-area-chart"></i>
+                  <span>热门文章统计</span>
+                </h5>
+                        </div>
+                        <div class="widget-body">
+                          <div class="widget-main no-padding">
+                            <table class="table table-bordered table-hover">
+                              <thead>
+                                <tr>
+                                  <th>标题</th>
+                                  <th><em>浏览量</em></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                               {volist name="hot" key="key" id="v"}
+                                <tr>
+                                  <td><span class="badge badge-yellow">{$key}</span>
+                                    <a href="{:url('Index/News/detail',array('nid'=>$v['id']))}" target="_blank">{$v.title}</a>
+                                  </td>
+                                  <td>{$v.clicks}</td>
+                                </tr>
+                       
+                              {/volist}
+                        
+                           
+                         
+                           
+                           
+                              
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+										<!-- <div class="widget-box widget-color-pink">
+											<div class="widget-header widget-header-flat widget-header-small">
+												<h5 class="widget-title">
+													<i class="ace-icon fa fa-info"></i>
+													框架信息
+												</h5>
+
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<p class="alert alert-danger sl-line-height25">
+														系统信息：基于 <strong>朵朵科技CMF内容管理框架</strong> 定制开发.<br> 系统版本：v_1.0 &nbsp;<br> 内核版本：ThinkPHP5.0.4
+														<br> 上传附件限制：200M
+														<br> 服务器系统：Microsoft-IIS/8.0
+														<br>
+													</p>
+												</div>
+											
+											</div>
+											
+										</div> -->
+										<!-- /.widget-box -->
+<div class="space-6"></div>
+										<div class="widget-box widget-color-dark">
+											<div class="widget-header widget-header-flat">
+												<h4 class="widget-title smaller">
+													服务器信息
+												</h4>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+                          <table class="table table-striped table-bordered table-hover">
+                         
+                            <tbody>
+                              <tr>
+                                <td class="">服务器操作系统</td>
+                                <td>
+                                  <a href="javascript:;">{$system_config['os']}</a>
+                                </td>
+                             
+                              </tr>
+                              <tr>
+                                <td class="">服务器域名</td>
+                                <td>
+                                  <a href="javascript:;">{$system_config['dns']}</a>
+                                </td>
+                              
+                              </tr>
+                           
+                              <tr>
+                                <td class="">服务器环境</td>
+                                <td>
+                                  <a href="javascript:;">{$system_config['server_software']}</a>
+                                </td>
+                              
+                              </tr>
+                              <tr>
+                                <td class="">PHP版本</td>
+                                <td>
+                                  <a href="javascript:;">{$system_config['php_version']}</a>
+                                </td>
+                              
+                              </tr>
+                              <tr>
+                                <td class="">文件上传限制</td>
+                                <td>
+                                  <a href="javascript:;">{$system_config['upload_max_filesize']}</a>
+                                </td>
+                              
+                              </tr>
+                              <tr>
+                                <td class="">curl支持</td>
+                                <td>
+                                  <a href="javascript:;">{if condition="$system_config['curl'] eq true"}支持{else/}<span style="color:red;">不支持，微信和支付宝等功能将无法正常使用</span>{/if}</a>
+                                </td>
+                              
+                              </tr>
+  
+                              <tr>
+                                <td class="">openssl支持</td>
+                                <td>
+                                  <a href="javascript:;">{if condition="$system_config['openssl'] eq true"}已开启{else/}<span style="color:red;">未开启，不支持https</span>{/if}</a>
+                                </td>
+                              
+                              </tr>
+                              <tr>
+                                <td class="">uploads目录权限</td>
+                                <td>
+                                  <a href="javascript:;">{if condition="$system_config['upload_dir_jurisdiction'] eq 1"}可读可写{else/}<span style="color:red;">不可读不可写，会造成图片无法上传和访问</span>{/if}</a>
+                                </td>
+                              
+                              </tr>
+                              <tr>
+                                <td class="">runtime目录权限</td>
+                                <td>
+                                  <a href="javascript:;">{if condition="$system_config['runtime_dir_jurisdiction'] eq 1"}可读可写{else/}<span style="color:red;">不可读不可写，会造成编译文件缓存文件无法生成读取，是网站访问出错</span>{/if}</a>
+                                </td>
+                              
+                              </tr>
+  
+                           
+                            </tbody>
+                          </table>
+											
+												
+
+												
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+
+								<div class="hr hr32 hr-dotted"></div>
+
+								<!-- PAGE CONTENT ENDS -->
+							</div>
+							<!-- /.col -->
+						</div>
+
+      
+      
+    </div><!-- /.main-content -->
+
+    {include file="public:footer"}
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+      <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+  </div><!-- /.main-container -->
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+  <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+  <script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    
+    option = {
+        xAxis: {
+            type: 'category',
+            data: {$dates}
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: {$data},
+            type: 'line'
+        }]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+           </script>
+
+  <script>
+    jQuery(function ($) {
+      $('[data-rel=tooltip]').tooltip();
+
+      $("#hide-option").tooltip({
+        hide: {
+          effect: "explode",
+          delay: 250
+        }
+      });
+
+    })
+  </script>
+
+</body>
+
+</html>

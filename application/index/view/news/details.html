@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+</style>
+
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<div class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing" id="article_cont">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="{:url('News/index',array('id'=>$rex['id']))}">新闻中心</a>&gt;<a href="{:url('News/zfjg',array('id'=>509))}">政府机构</a>&gt;<a>{$re.title}</a>
+					</div>
+					<div class="article_cont">
+						<h6 class="article_title">
+							{$re.title}
+						</h6>
+						<div class="article_tips">
+							<span>发布日期：{$re.createtime|mb_substr=0,10,'utf8'}</span>
+							<span>来源：{$re.source}</span>
+							<span>编辑：{$re.author}</span>
+							<span class="article_font">【字号：<i class="font_size_small" data-size="small">小</i><i class="font_size_middle" data-size="middle">中</i><i class="font_size_large" data-size="large">大</i>】</span>
+							<span class="article_color">背景颜色：<i class="bg_color_yellow"></i><i class="bg_color_blue"></i><i class="bg_color_red"></i><i
+								 class="bg_color_gray"></i><i class="bg_color_white"></i></span>
+						</div>
+						<div class="article_details" id="article_details">
+							{$content.content}
+						</div>
+						<div class="article_pages">
+							{if condition="$pre.id neq '' "}
+							<a href="{:url('News/detail',array('nid'=>$pre['id']))}" class="prev " title="{$pre.title}">上一篇：{$pre.title}</a>
+							{else /}
+							<a href="#" class="prev " title="没有了">上一篇：没有了</a>
+
+							{/if}
+							<span>||</span>
+							{if condition="$nre.id neq '' "}
+							<a href="{:url('News/detail',array('nid'=>$nre['id']))}" class="prev " title="{$nre.title}">下一篇：{$nre.title}</a>
+							{else /}
+							<a href="#" class="prev " title="没有了">下一篇：没有了</a>
+
+							{/if}						</div>
+						<div class="article_function clearfix">
+							<div class="article_function_left float_lt">
+								<a class="article_print" href="javascript:print()" title="打印本页">【打印本页】</a>
+								<a class="article_close"   title="关闭窗口">【关闭窗口】</a>
+							</div>
+							<div class="article_share float_rt">
+								<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_mshare"
+									 data-cmd="mshare" title="分享到一键分享"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a
+									 href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_tsina" data-cmd="tsina"
+									 title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_copy"
+									 data-cmd="copy" title="分享到复制网址"></a></div>
+								<script>
+									window._bd_share_config = {
+										"common": {
+											"bdSnsKey": {},
+											"bdText": "",
+											"bdMini": "2",
+											"bdMiniList": false,
+											"bdPic": "",
+											"bdStyle": "0",
+											"bdSize": "24"
+										},
+										"share": {},
+										"image": {
+											"viewList": ["weixin", "sqq", "tsina", "qzone", "copy"],
+											"viewText": "分享到：",
+											"viewSize": "24"
+										},
+										"selectShare": {
+											"bdContainerClass": null,
+											"bdSelectMiniList": ["weixin", "sqq", "tsina", "qzone", "copy"]
+										}
+									};
+									with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src =
+										'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{include file="public:footer"}
+
+	<script>
+		$(function(){
+
+			// 关闭窗口按钮
+			$('.article_close').click(function(){
+				window.close();
+			})
+
+			// 改变背景色
+			$('.article_color').on('click','i',function(){
+				var bgColor = $(this).css('backgroundColor')
+				$('#article_cont').css('backgroundColor',bgColor)
+			})
+
+			// 改变字体大小
+			$('.article_font').on('click','i',function(){
+				var fontSize = $(this).data('size')
+				$('#article_details').attr('class','article_details' + ' ' + fontSize)
+			})
+
+		})
+	</script>
+</body>
+
+</html>

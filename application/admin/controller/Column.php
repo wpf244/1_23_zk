@@ -7,10 +7,9 @@ class Column extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
-        $res=db("category_info")->field("id,name,parentid,level,status")->where("siteid=$siteid and status=1")->select();
+        $res=db("category_info")->field("id,name,parentid,level,status")->where("siteid=63 and status=1")->select();
         \makeArr($res,$arr);
         $arr=array();
         foreach($res as $k=> $v){
@@ -35,8 +34,7 @@ class Column extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -55,7 +53,9 @@ class Column extends BaseAdmin
         
         \makeArr($res,$arr);
         $arr=array();
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");    
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -86,9 +86,14 @@ class Column extends BaseAdmin
         $id=input("id");
         
         $re=db("category_info")->where("id=$id")->find();
-        
+        $uid=session("uid");
+        $user=db("manager_info")->where("id",$uid)->find();
+        $siteid=$user['siteid'];
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+      
         if($re['parentid'] == 0){
-            $re['parentname']="周口政府";
+            $re['parentname']="$sitename";
         }else{
             $rep=db("category_info")->where("id",$re['parentid'])->find();
             $re['parentname']=$rep['name'];
@@ -125,8 +130,7 @@ class Column extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -145,7 +149,9 @@ class Column extends BaseAdmin
         
         \makeArr($res,$arr);
         $arr=array();
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -169,9 +175,9 @@ class Column extends BaseAdmin
        $this->assign("data",$datas);
 
        $id=input("parentid");
-       if($id == 0){
+       if(empty($id)){
            $re["id"]=0;
-           $re['name']="周口政府";
+           $re['name']="$sitename";
        }else{
            $re=db("category_info")->where("id=$id")->find();
        }
@@ -190,8 +196,7 @@ class Column extends BaseAdmin
         $data=input("post.");
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         $data['siteid']=$siteid;
         if(!is_string(\input("coverimage"))){
             $data['coverimage']=uploads("coverimage");

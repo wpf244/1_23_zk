@@ -283,7 +283,7 @@
  {
    var id = $("#id").val();
    if(id == ''){
-     layer.msg("请先选择上级栏目");return false;
+    location.href="__URL__/add";
    }else{
       location.href="__URL__/add/parentid/"+id;
    }

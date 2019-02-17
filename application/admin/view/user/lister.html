@@ -63,7 +63,9 @@
                   <td>{$v.realname}</td>
                   <td>{$v.sitename}</td>
                   <td>{if condition="$v.actionid eq 0"}发布文章{/if}
-                      {if condition="$v.actionid eq 1"}发布文章  审核文章{/if}</td>
+                      {if condition="$v.actionid eq 1"}发布文章  审核文章{/if}
+                      {if condition="$v.actionid eq 2"}审核文章{/if}
+                    </td>
                   <td class="hidden-480">
                       <a class="btn btn-xs btn-info" onclick="change({$v.id})" title="配置权限">
                           <i class="ace-icon fa fa-gear bigger-120"></i>

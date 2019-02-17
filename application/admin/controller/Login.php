@@ -40,8 +40,18 @@ class Login extends Common
                 
                 //增加操作日志
                 db("loginlog")->insert($data);
-                
-                $this->success('登陆成功 ^_^',url('Index/index'));
+                if($re['isadmin'] == 1){
+                    $this->success('登陆成功 ^_^',url('Index/index'));
+                }else{
+                    if($re['siteid'] == 4){
+                        $this->success('登陆成功 ^_^',url('Admins/index'));
+                    }else{
+                        $this->success('登陆成功 ^_^',url('Other/Index/index'));
+                    }
+                    
+                }
+               
+
             }else{
                 $this->error("此账号未启用",url("Login/index"));
             }

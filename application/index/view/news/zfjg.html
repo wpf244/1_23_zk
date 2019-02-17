@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	html {filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);}
+	</style>
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+
+	.jigou_item {
+		margin-bottom: 16px;
+		border: 1px solid #ccc;
+		border-top: 2px solid #2e8fd3;
+	}
+
+	.jigou_title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		font-size: 16px;
+		height: 40px;
+		line-height: 40px;
+		text-indent: 18px;
+		background-color: #f5f5f5;
+	}
+	.jigou_unit {
+		overflow: hidden;
+		padding-bottom: 8px;
+	}
+	.jigou_cell {
+		position: relative;
+		float: left;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 25%;
+		height: 28px;
+		font-size: 16px;
+		line-height: 28px;
+		text-indent: 12px;
+	}
+	.jigou_cell:before {
+		content: '·';
+		display: inline-block;
+		margin-right: 10px;
+		font-weight: bold;
+	}
+	.jigou_cell:hover {
+		color: #e3393a;
+	}
+	
+</style>
+
+<body>
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<header class="header_container">
+			<div class="common_wrap">
+				{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 新闻列表 -->
+				<div class="listing">
+					<div class="listing_crumb">
+						当前位置：<a href="{:url('Index/index')}">中国周口</a>&gt;<a href="javascript:;">政府机构</a>
+					</div>
+					<div class="listing_box clearfix">
+						<div class="listing_left float_lt">
+							<div class="listing_left_title">
+								<i class="iconfont icon-shuben"></i>
+								<span>政府机构</span>
+							</div>
+							<div class="listing_left_unit">
+								<div class="jigou_box">
+									<div class="jigou_list">
+                                    {volist name="list" id="v"}
+										<div class="jigou_item">
+											<h6 class="jigou_title">
+												{$v.name}
+											</h6>
+											<ul class="jigou_unit">
+													{volist name="$v['lists']" id="vs"}	
+												<li class="jigou_cell">
+													<a href="{:url('News/details',array('nid'=>$vs['id']))}">
+															{$vs.title}
+													</a>
+												</li>
+												{/volist}
+											</ul>
+										</div>
+                                    {/volist}
+										
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="listing_right float_rt">
+							<div class="listing_right_title">
+									{$rep.name}
+							</div>
+							<div class="listing_right_menu">
+								<ul>
+									{volist name="res" id="v"}
+									<li {if condition="$ids eq $v['id']"} class="active" {/if} ><a href="javascript:;" title="{$v.name}">
+											{$v.name}
+											<!-- <i class="iconfont icon-sanjiaobiao"></i> -->
+											<img src="__HOME__/img/sanjian_heng.png" width="24" height="24" alt="">
+										</a></li>
+								 {/volist}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+
+	{include file="public:footer"}
+
+<!-- 右下角图片 -->
+<!-- <div class="fix_img">
+	<div class="fix_box">
+		<a href="#" target="_blank"><img src="img/fix_pic.jpg" alt=""></a>
+	</div>
+</div> -->
+</body>
+
+</html>

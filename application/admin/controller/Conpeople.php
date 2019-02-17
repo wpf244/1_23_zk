@@ -16,8 +16,7 @@ class Conpeople extends BaseAdmin
         $this->assign("keywords",$keywords);
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         $list=db("link_info")->alias("a")->field("a.id,title,realname,managerid,createtime,linktype,parentid,orderid")->where($map)->where(["parentid"=>0,"linktype"=>"bmfw","siteid"=>$siteid])->join("manager_info b","a.managerid=b.id")->order(["orderid desc","id asc"])->paginate(10,false,['query'=>request()->param()]);
         $this->assign("list",$list);
         $page=$list->render();
@@ -29,8 +28,7 @@ class Conpeople extends BaseAdmin
         $id=\input("id");
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         $data['createtime']=date("Y-m-d H:i:s");
         
         if($id){
@@ -101,8 +99,7 @@ class Conpeople extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         $res=db("link_info")->field("id,title,orderid")->where(["parentid"=>0,"linktype"=>"bmfw","siteid"=>$siteid])->order(["orderid desc","id asc"])->select();
         $this->assign("res",$res);
 
@@ -127,8 +124,7 @@ class Conpeople extends BaseAdmin
         $id=\input("id");
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
       
         $data['createtime']=date("Y-m-d H:i:s");
         if($id){

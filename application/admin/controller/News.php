@@ -8,8 +8,7 @@ class News extends BaseAdmin
         
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -17,7 +16,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
         
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -110,11 +111,20 @@ class News extends BaseAdmin
         $this->assign("categoryid",$categoryid);
 
         
+        $arra=array();
+        foreach($res as $va){
+            if($va['id'] != 0){
+                $arra[]=$va['id'];
+            }
+          
+        }
 
-    //  var_dump($where);exit;
+        
 
-       $list =db("article_info")->alias("a")->field("a.id,b_banner,title,author,createtime,top,reviewstatus,shenhename,name,articleid,b.categoryid")->where("arttype","xinwen")->where($where)->join("article_category b","a.id=b.articleid")->join("category_info c","c.id = b.categoryid")->group("b.articleid")->order(['top desc','id desc'])->paginate(20,false,['query'=>request()->param()]);
+       $list =db("article_info")->alias("a")->field("a.id,b_banner,title,author,createtime,top,reviewstatus,shenhename,name,articleid,b.categoryid")->where("arttype","xinwen")->where($where)->where("c.id","in",$arra)->join("article_category b","a.id=b.articleid")->join("category_info c","c.id = b.categoryid")->group("b.articleid")->order(['top desc','id desc'])->paginate(20,false,['query'=>request()->param()]);
        $this->assign("list",$list);
+
+   
        
        $page=$list->render();
        $this->assign("page",$page);
@@ -125,8 +135,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $this->assign("user",$user);
 
@@ -136,7 +145,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
        
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -173,8 +184,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
       //  $data=input("post.");
         if(!is_string(input("coverimage"))){
@@ -244,8 +254,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -253,7 +262,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
         
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -446,15 +457,17 @@ class News extends BaseAdmin
     public function adopt()
     {
         $id=\input("id");
-       
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
         $arr=explode(",",$id);
         foreach($arr as $v){
             $re=db("article_info")->where("id",$v)->find();
+            $data['shenhename']=$user['realname'];
+            $data['reviewstatus']=1;
             if($re){
-                $del=db("article_info")->where("id",$v)->setField("reviewstatus",1); 
+                $del=db("article_info")->where("id",$v)->update($data); 
 
-                $uid=session("uid");
-                $user=db("manager_info")->where("id=$uid")->find();
+                
                 $log['userid']=$user['id'];
                 $log['realname']=$user['realname'];
                 $log['createtime']=date("Y-m-d H:i:s");
@@ -504,8 +517,7 @@ class News extends BaseAdmin
         
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -513,7 +525,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
         
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -583,7 +597,7 @@ class News extends BaseAdmin
 
       //  var_dump($where);exit;
 
-       $list =db("article_info")->where("arttype","lingdao")->where("subtitle != '' ")->where($where)->order(['top desc','id desc'])->paginate(20,false,['query'=>request()->param()]);
+       $list =db("article_info")->where("arttype","lingdao")->where("subtitle != '' ")->where($where)->order(['orderid desc','reviewstatus desc','id asc'])->paginate(20,false,['query'=>request()->param()]);
        $this->assign("list",$list);
        
        $page=$list->render();
@@ -595,8 +609,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $this->assign("user",$user);
 
@@ -606,7 +619,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
        
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");    
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -636,8 +651,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
       //  $data=input("post.");
         if(!is_string(input("coverimage"))){
@@ -659,6 +673,7 @@ class News extends BaseAdmin
         $data['createtime']=input("createtime");
         $data['reviewstatus']=input("reviewstatus");
         $data['arttype']=input("arttype");
+        $data['orderid']=input("orderid");
       
         $content=input("content");
 
@@ -703,8 +718,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -712,7 +726,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
         
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -737,7 +753,7 @@ class News extends BaseAdmin
 
        $ids=input("id");
        
-       $rem=db("article_info")->field("id,title,subtitle,url,author,createtime,summary,sourceurl,isbold,description,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
+       $rem=db("article_info")->field("id,title,subtitle,url,author,createtime,orderid,summary,sourceurl,isbold,description,color,coverimage")->where("id",$ids)->order("id desc")->limit(1)->find();
        
        $this->assign("re",$rem);
 
@@ -776,6 +792,7 @@ class News extends BaseAdmin
             $data['summary']=input("summary");
            
             $data['color']=input("color");
+            $data['orderid']=input("orderid");
           //  $data['content']=input("content");
       
             $data['createtime']=input("createtime");
@@ -903,8 +920,7 @@ class News extends BaseAdmin
         
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -912,7 +928,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
         
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -1014,8 +1032,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $this->assign("user",$user);
 
@@ -1025,7 +1042,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
        
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");    
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -1062,8 +1081,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
      
         if(input("isbold")){
@@ -1128,8 +1146,7 @@ class News extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
          
@@ -1137,7 +1154,9 @@ class News extends BaseAdmin
         $arr=array();
         \makeArr($res,$arr);
         
-        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");    
         $res=array_values($res);
        
         foreach($res as $kk => $vv){
@@ -1326,8 +1345,7 @@ class News extends BaseAdmin
         
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
        
 

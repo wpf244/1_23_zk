@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+html,
+		body {
+			height: 100%;
+		}
+		body {
+			overflow: hidden;
+			
+		}
+		.body_bg {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url(__HOME__/img/wrap_bg.jpg);
+			background-position: 0 -120px;
+			background-size: cover;
+			background-repeat: no-repeat;
+		}
+
+		
+		.footer_box {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 140px;
+		}
+
+</style>
+<style>
+		.news_list ul {
+			float: left;
+			width: 700px;
+			height: 286px;
+			background-color: #f5f5f5;
+		}
+		.news_box .news_list .govpushinfo150203 {
+			width: 100%;
+		}
+		.news_box .news_list .govpushinfo150203 li {
+			position: relative;
+			padding-left: 20px;
+			padding-right: 0;
+			overflow: hidden;
+			line-height: 32px;
+			border-bottom: 1px dashed #b4b4b4;
+		}
+		.news_list ul li:before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 13px;
+    width: 4px;
+    height: 4px;
+    display: block;
+    background-color: #b40002;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+		.news_list ul li a {
+			
+			display: block;
+			float: left;
+			width: 75%;
+			font-size: 16px;
+			height: 35px;
+			
+			
+			
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.govpushinfo150203  li span {
+			float: right;
+			font-size: 14px;
+			/* line-height: 36px; */
+			color: #999;
+		}
+	</style>
+<body {if condition="$other['qstatus'] eq 1"} class="discolorClass" {/if} >
+<div class="body_bg"></div>
+			<div class="wrap_container">
+				<div class="header_container">
+					<div class="common_wrap">
+					   {include file="public:top"}
+						<!-- 撑起的div -->
+						<div class="cheng_div"></div>
+						<!-- 中间切换盒子 -->
+						<div class="index_tab">
+							<div class="index_wrap">
+								<!-- 切换头部 -->
+								<ul class="index_nav index">
+									<li class="index_nav_item">
+										<a   title="网站首页">网站首页</a>
+									</li>
+									<li class="index_nav_item">
+										<a   title="政务公开">政务公开</a>
+									</li>
+									<li class="index_nav_item">
+										<a   title="政务服务">政务服务</a>
+									</li>
+									<li class="index_nav_item on">
+										<a   title="政民互动">政民互动</a>
+									</li>
+									<li class="index_nav_item">
+										<a   title="走进周口">走进周口</a>
+									</li>
+									<!-- <li class="index_nav_item">
+										<a href="javascript:(0);" title="周口荟萃">周口荟萃</a>
+									</li> -->
+								</ul>
+								<!-- 按钮仅首页有 -->
+								<div class="index_action">
+									<!-- <i class="iconfont icon-daohang-copy"></i> -->
+									<img src="__HOME__/img/btn.png" style="margin-top:14px;" width="20" height="20" alt="">
+								</div>
+							</div>
+
+							<!-- 头条新闻 -->
+							<div class="header_news">
+								<h3 class="header_news_title">
+									<a href="{:url('News/detail',array('nid'=>$retop['id']))}" target="_blank" title="{$retop.title}">{$retop.title}</a>
+								</h3>
+								<div class="header_news_wrap" id="news_wrap">
+									<div class="bd">
+										<ul>
+											{volist name="reb" id="vb"}
+											<li class="header_news_cont"><a href="{:url('News/detail',array('nid'=>$vb['id']))}" target="_blank" title="{$vb.title}">{$vb.title}</a></li>
+											
+											{/volist}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="index_tab_list">
+
+								<div class="index_tab_wrap">
+									<!-- 网站首页 -->
+									<div class="index_tab_item">
+										<div class="index_box clearfix">
+											<div class="index_box_banner float_lt">
+												<div class="banner_tab banner_box">
+													<div class="hd">
+														<ul>
+														{volist name="ret" key="k" id="vt"}
+															<li {if condition="$k eq 0"} class="on" {/if} ></li>
+														{/volist}	
+														</ul>
+													</div>
+													<div class="bd">
+														<ul>
+														   {volist name="ret" id="vt"}	
+															<li style="background-image: url(/uploads/{$vt.coverimage})">
+																<a class="banner_txt" href="{:url('News/detail',array('nid'=>$vt['id']))}" target="_blank" title="{$vt.title}">
+																	<span>{$vt.title}</span>
+																</a>
+															</li>
+															{/volist}
+														</ul>
+													</div>
+												</div>
+											</div>
+											<div class="index_box_news float_rt">
+												<div class="news_box">
+													<div class="hd">
+														<ul>
+															<li class="on">
+																<a href="{:url('News/index',array('code'=>'zkyw'))}" title="周口要闻">
+																	<!-- <i class="iconfont icon-xinwen"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_1.png)"></span>
+																	周口要闻
+																</a>
+															</li>
+															<li>
+																<a  title="国务院信息" target="_blank" data-url="http://www.gov.cn/pushinfo/v150203/" class="out_link">
+																	<!-- <i class="iconfont icon-wendang"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_2.png)"></span>
+																	国务院信息
+																</a>
+															</li>
+															<li>
+																<a href="{:url('News/index',array('code'=>'bmdt'))}" title="部门动态" >
+																	<!-- <i class="iconfont icon-youjian"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_3.png)"></span>
+																	部门动态
+																</a>
+															</li>
+															<li>
+																<a href="{:url('News/index',array('code'=>'xqdt'))}" title="县区动态" >
+																	<!-- <i class="iconfont icon-wenjian"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_4.png)"></span>
+																	县区动态
+																</a>
+															</li>
+															<li>
+																<a href="{:url('News/index',array('code'=>'tzgg'))}" title="通知公告" >
+																	<!-- <i class="iconfont icon-gonggao"></i> -->
+																	<span class="news_beijing" style="background-image:url(__HOME__/img/icon_news_5.png)"></span>
+																	通知公告
+																</a>
+															</li>
+														</ul>
+													</div>
+													<div class="bd">
+														<ul>
+															<li>
+																<div class="news_wrap">
+																	<div class="news_list">
+																			{volist name="rey" id="vy"}
+																			<a class="news_item" href="{:url('News/detail',array('nid'=>$vy['id']))}" target="_blank">
+																<p title="{$vy.title}">{$vy.title}</p>
+																<span>{$vy.createtime|mb_substr=0,10,'utf-8'}</span>
+															</a>
+															{/volist}
+																	</div>
+																</div>
+															</li>
+														</ul>
+														
+														<ul>
+															<li>
+																<div class="news_wrap">
+																	<div class="news_list">
+																			<script charset="utf-8" language="javascript" type="text/javascript" src="http://www.gov.cn/pushinfo/v150203/pushinfo.js"> </script>
+																		<!-- {volist name="reg" id="vg"}
+																			<a class="news_item out_link"   data-url="http://www.gov.cn/premier/{$vg['Unix_timestamp(createtime)']|date='Y-m/d',###}/content_{$vg.zhongguogovid}" target="_blank">
+																<p title="{$vy.title}">{$vg.title}</p>
+																<span>{$vg['Unix_timestamp(createtime)']|date="Y-m-d",###}</span>
+															</a>
+															{/volist} -->
+					
+																	</div>
+																</div>
+															</li>
+														</ul>
+														<ul>
+															<li>
+																<div class="news_wrap">
+																	<div class="news_list">
+																		{volist name="reb" id="vb"}
+																			<a class="news_item" href="{:url('News/detail',array('nid'=>$vb['id']))}" target="_blank">
+																<p title="{$vb.title}">{$vb.title}</p>
+																<span>{$vb.createtime|mb_substr=0,10,'utf-8'}</span>
+															</a>
+															{/volist}	
+															</div>
+																</div>
+															</li>
+														</ul>
+														<ul>
+															<li>
+																<div class="news_wrap">
+																	<div class="news_list">
+																		{volist name="rex" id="vx"}
+																			<a class="news_item" href="{:url('News/detail',array('nid'=>$vx['id']))}" target="_blank">
+																<p title="{$vb.title}">{$vx.title}</p>
+																<span>{$vx.createtime|mb_substr=0,10,'utf-8'}</span>
+															</a>
+															{/volist}
+																	</div>
+																</div>
+															</li>
+														</ul>
+														<ul>
+															<li>
+																<div class="news_wrap">
+																	<div class="news_list">
+																		{volist name="rets" id="vts"}
+																			<a class="news_item" href="{:url('News/detail',array('nid'=>$vts['id']))}" target="_blank">
+																<p title="{$vts.title}">{$vts.title}</p>
+																<span>{$vts.createtime|mb_substr=0,10,'utf-8'}</span>
+															</a>
+															{/volist}
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="index_tab_btm">
+											<div class="topic_box clearfix">
+												<h6 class="topic_title float_lt">
+													<a href="{:url('News/ztzl',array('id'=>941))}" target="_blank">专题专栏</a>
+													<!-- <a>专题专栏</a> -->
+												</h6>
+												<div class="topic_right float_rt">
+													<div class="bd">
+														<ul>
+														 {volist name="ztzl" id="ztzls"}	
+															<li>
+																{if condition="$ztzls.url_status eq 0"}
+																<a href="{:url('Spec/index',array('id'=>$ztzls['id']))}" target="_blank" title="">
+																{else /}
+																<a   class="out_link" data-url="{$ztzls.url}" target="_blank" title="">
+																{/if}	
+																	<img src="/uploads/{$ztzls.image}" width="265" height="90" alt="">
+																</a>
+															</li>
+														{/volist}
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- 政务公开 -->
+									<div class="index_tab_item">
+										<div class="index_box clearfix">
+											<div class="affairs_left float_lt">
+											 {volist name="zdxxs" id="vxs"  offset="0" length='8'}	
+											  {if condition="$vxs.categoryurl eq '' "}
+												<a class="affairs_left_item" href="{:url('News/index',array('id'=>$vxs['id']))}" target="_blank" title="{$vxs.name}">
+											 {else /}
+											 <a  class="affairs_left_item out_link" data-url="{$vxs.categoryurl}"   target="_blank" title="{$vxs.name}" >
+
+													{/if}	
+													<div class="affairs_left_icon">
+														<!-- <i class="iconfont {$vxs.iconname}"></i> -->
+														<img src="__HOME__/img/{$vxs.iconname}.png" width="48" height="48" alt="">
+													</div>
+													<p>{$vxs.name}</p>
+												 </a>
+												 {/volist}
+											
+											</div>
+											<div class="affairs_mid float_lt">
+												<div class="hd">
+													<ul>
+													{volist name="zdxxs" id="xs" key="ks" offset="9" length='3'}	
+														<li {if condition="$ks eq 0"} class="on" {/if} >{$xs.name}</li>
+												      {/volist}
+													</ul>
+												</div>
+												<div class="bd">
+														{volist name="newss" id="xst" offset="9" length='3'}	
+													<ul>
+													   
+														<li>
+															<!-- <h6 class="affairs_mid_title">
+															{volist name="$xst['list']" id="newtop" offset="0" length='1'}	
+															<a href="{:url('News/index',array('id'=>$newtop['id']))}" title="{$newtop.name}" target="_blank">
+																	{$newtop.name}
+															</a>
+														</h6> -->
+														{/volist}
+															<div class="affairs_mid_box">
+																<div class="news_list">
+																		{volist name="$xst['list']" id="newtops" offset="0" length='6'}		
+																	<a class="news_item" href="{:url('News/index',array('id'=>$newtops['id']))}" target="_blank">
+															<p title="{$newtops.name}">{$newtops.name}</p>
+															
+														</a>
+														{/volist}
+																</div>
+															</div>
+														</li>
+													</ul>
+													{/volist}
+												</div>
+											</div>
+
+											<div class="affairs_right float_rt">
+												<ul class="affairs_right_top">
+														{volist name="jcxxgks" id="vk"  offset="0" length='6'}	
+													<li>
+															{if condition="$vk.categoryurl eq '' "}
+															{if condition="$vk.code eq 'ldzc' "}
+															<a href="{:url('News/ldzc',array('id'=>$vk['id']))}" target="_blank">
+																{elseif condition="$vk.code eq 'zfjg' " /}
+																<a href="{:url('News/zfjg',array('id'=>$vk['id']))}" target="_blank">
+																	{else }
+														<a href="{:url('News/index',array('id'=>$vk['id']))}" target="_blank">
+															{/if}
+														{else /}
+														<a   target="_blank" data-url="{$vk.categoryurl}" class="out_link">
+														{/if}
+															<!-- <i class="iconfont {$vk.iconname}"></i> -->
+															<img src="__HOME__/img/{$vk.iconname}.png" width="32" height="32" alt="">
+															<p>{$vk.name}</p>
+														</a>
+													</li>
+
+														{/volist}
+											
+												</ul>
+												<ul class="affairs_right_tips">
+														{volist name="jcxxgks" id="vks"  offset="6" length='5'}	
+													<li>
+															{if condition="$vks.categoryurl eq '' "}
+														<a href="{:url('News/index',array('id'=>$vks['id']))}" target="_blank">
+															{else /}
+														<a   target="_blank" data-url="{$vks.categoryurl}" class="out_link">
+														{/if}
+															{$vks.name}
+														</a></li>
+														{/volist}
+												</ul>
+											</div>
+										</div>
+										<div class="index_tab_btm">
+											<ul class="affairs_menu">
+												
+												
+											{volist name="gkzhs" id="vns"} 
+												<li class="affairs_item">
+													<a href="{:url('News/index',array('id'=>$vns['id']))}" target="_blank">
+														<!-- <i class="iconfont {$vns.iconname}"></i> -->
+														<img src="__HOME__/img/{$vns.iconname}.png" width="30" height="30" alt="">
+														<span>{$vns.name}</span>
+													</a>
+												</li>
+											{/volist}
+											</ul>
+										</div>
+									</div>
+									<!-- 政务服务 -->
+									<div class="index_tab_item">
+										<div class="index_box clearfix">
+											<div class="service_left float_lt">
+												<div class="service_left_top">
+													<div class="banner_tab banner_box service_tab">
+														<div class="hd">
+															<ul>
+																	{volist name="lb" id="lbvs"}
+																<li class="on"></li>
+																
+																{/volist}
+															</ul>
+														</div>
+														<div class="bd">
+															<ul>
+															 {volist name="lb" id="lbv"}	
+																<li style="background-image: url(/uploads/{$lbv.image})">
+																	<a   class="out_link" data-url="{$lbv.url}" target="_blank" style="display: block;width:100%;height:100%;"></a>
+																</li>
+																{/volist}
+															</ul>
+														</div>
+													</div>
+												</div>
+												<div class="service_left_btm">
+													<div class="service_do">
+														<div class="hd">
+															<ul>
+																<li class="on">
+																		<i style="background-image:url(__HOME__/img/icon_person.png)"></i>
+																	<!-- <i class="iconfont icon-gerenshixin"></i> -->
+																	<span>个人办事</span>
+																</li>
+																<li>
+																	<i style="background-image:url(__HOME__/img/icon_faren.png)"></i>
+																	<!-- <i class="iconfont icon-falv"></i> -->
+																	<span>法人办事</span>
+																</li>
+															</ul>
+														</div>
+														<div class="bd">
+															<ul>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/gr_front.do?webId=18" class="out_link" target="_blank">按主题</a></li>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/gr_front.do?webId=18" class="out_link" target="_blank">按特定人群</a></li>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/gr_front.do?webId=18" class="out_link" target="_blank">按人生事件</a></li>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/gr_front.do?webId=18" class="out_link" target="_blank">按部门</a></li>
+															</ul>
+															<ul>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/fr_front.do?webId=18" class="out_link" target="_blank">按主题</a></li>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/fr_front.do?webId=18" class="out_link" target="_blank">按经营活动</a></li>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/fr_front.do?webId=18" class="out_link" target="_blank">按指定对象</a></li>
+																<li><a data-url="http://zk.hnzwfw.gov.cn/hnzw/sxcx/itemlist/fr_front.do?webId=18" class="out_link" target="_blank">按部门</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="service_mid float_lt">
+												<div class="service_title">
+													<span>便民服务</span>
+												</div>
+												<ul class="service_mid_list">
+												  {volist name="bmfu" id="vf"}	
+													<li><a href="{:url('Index/bmfu')}" target="_blank">
+															<!-- <i class="iconfont {$vf.iconname}"></i> -->
+															<i style="background-image: url(__HOME__/img/{$vf.iconname}.png)"></i>
+															<p>{$vf.title}</p>
+														</a></li>
+											        {/volist}
+													<li></li>
+													<li></li>
+												</ul>
+											</div>
+											<div class="service_right float_rt">
+												<div class="service_title">
+													<span>重点项目</span>
+												</div>
+												<div class="service_right_list">
+													<div class="news_list">
+													{volist name="zdyws" id="yws"}	
+														<a class="news_item ful" href="{:url('News/detail',array('nid'=>$yws['id']))}" target="_blank">
+															<p title="{$yws.title}">{$yws.title}</p>
+														</a>
+													{/volist}
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="index_tab_btm">
+											<ul class="service_btm_list">
+												<li><a href="{:url('News/index',array('id'=>536))}" target="_blank" title="权责清单">
+														<img src="__HOME__/img/service_btm_1.jpg" width="232" height="90" alt="">
+													</a></li>
+												<li><a  data-url="http://zw.hazhoukou.gov.cn/web/index.html" class="out_link" target="_blank" title="公共服务事项清单">
+														<img src="__HOME__/img/service_btm_2.jpg" width="232" height="90" alt="">
+													</a></li>
+												<li><a data-url="http://zw.hazhoukou.gov.cn/web/index.html" class="out_link" target="_blank" title="办事进度查询">
+														<img src="__HOME__/img/service_btm_3.jpg" width="232" height="90" alt="">
+													</a></li>
+												<li><a data-url="http://zw.hazhoukou.gov.cn/web/index.html" class="out_link" target="_blank" title="便民查询">
+														<img src="__HOME__/img/service_btm_4.jpg" width="232" height="90" alt="">
+													</a></li>
+												<li><a data-url="http://zw.hazhoukou.gov.cn/web/index.html" class="out_link" target="_blank" title="移动应用">
+														<img src="__HOME__/img/service_btm_5.jpg" width="232" height="90" alt="">
+													</a></li>
+											</ul>
+										</div>
+									</div>
+									<!-- 政民互动 -->
+									<div class="index_tab_item on">
+										<div class="zhengmin_box">
+											<div class="zhengmin_title">
+												<ul>
+													<li class="active"><a   title="民生诉求">
+															民生诉求
+														</a></li>
+													<li><a   title="我要诉求">
+															我要诉求
+														</a></li>
+													<div class="zhengmin_li"><a   data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
+															阳光信访
+														</a></div>
+												</ul>
+											</div>
+
+											<div class="zhengmin_wrap">
+												<div class="zhengmin_cont active">
+													<div class="zhengmin_width">
+													<iframe scrolling="no" src="http://www.zk12345.gov.cn/zkhotline/website/jsp/sqList.jsp" frameborder="0" height="1120px" width="100%"></iframe>
+												</div>
+												</div>
+												<div class="zhengmin_cont">
+														<div class="zhengmin_width">
+													<iframe scrolling="no" src="http://www.zk12345.gov.cn/zkhotline/website/jsp/addsq.jsp" frameborder="0" height="760px" width="100%"></iframe>
+												</div>
+												</div>
+												<img class="zhengmin_down" src="__HOME__/img/icon_putdown.png" width="44" height="42" alt="">
+											</div>
+										</div>
+											<!-- <div class="index_box clearfix">
+											<div class="interact_left float_lt">
+												<div class="interact_left_banner" style="background-image: url(__HOME__/img/interact_banner.jpg)"></div>
+												<div class="interact_news_box">
+													<div class="interact_news_title clearfix">
+														<h5 class="red float_lt"><i class="iconfont icon-xinfengkai"></i>阳光信访</h5>
+														<a class="float_rt common_more" href="news_list.html" target="_blank" title="查看更多">
+	<i class="iconfont icon-jia"></i>
+</a>
+													</div>
+													<div class="interact_news_list">
+														<div class="news_list">
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="interact_right float_rt">
+												<div class="interact_news_box">
+													<div class="interact_news_title clearfix">
+														<h5 class="blue float_lt"><i class="iconfont icon-suqiushouli"></i>全部诉求</h5>
+														<a class="float_rt common_more" href="news_list.html" target="_blank" title="查看更多">
+	<i class="iconfont icon-jia"></i>
+</a>
+													</div>
+													<div class="interact_news_list">
+														<div class="news_list">
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+														</div>
+													</div>
+												</div>
+												<div class="interact_news_box">
+													<div class="interact_news_title clearfix">
+														<h5 class="blue float_lt"><i class="iconfont icon-xuqiuzhengji"></i>已回复诉求</h5>
+														<a class="float_rt common_more" href="news_list.html" target="_blank" title="查看更多">
+	<i class="iconfont icon-jia"></i>
+</a>
+													</div>
+													<div class="interact_news_list">
+														<div class="news_list">
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+															<a class="news_item" href="news_detail.html" target="_blank">
+	<p title="陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命“">陈润儿主持召开省政府常务会议贯彻大力推进农村居民家庭“厕所革命”</p>
+	<span>2018-12-27</span>
+</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>-->
+										<!-- <div class="index_tab_btm">
+											<ul class="interact_btm">
+												<li><a   target="_blank" title="民生诉求">
+														民生诉求
+													</a></li>
+												<li><a   target="_blank" title="我要诉求">
+														我要诉求
+													</a></li>
+												<li><a   data-url="http://www.hnxf.gov.cn" class="out_link" target="_blank" title="阳光信访">
+														阳光信访
+													</a></li>
+											</ul>
+										</div>  -->
+									</div>
+									<!-- 走进周口 -->
+									<div class="index_tab_item">
+											<div class="index_box clearfix">
+												<div class="huicui_left float_lt">
+													<ul class="huicui_title">
+														<li class="active">
+															周口市情
+														</li>
+														<li class="">
+															历史概况
+														</li>
+														<li class="">
+															自然资源
+														</li>
+														<li class="">
+															行政区划
+														</li>
+													</ul>
+													<ul class="huicui_body">
+														<li class="active">
+															<div>{:strip_tags(mb_substr($zksqs['content'],0,450,'utf8'))}<a
+																 href="{:url('News/detail',array('nid'=>$zksqs['articleid']))}" target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+														<li>
+															<div>{:strip_tags(mb_substr($lsgks['content'],0,806,'utf8'))}...<a href="{:url('News/detail',array('nid'=>$lsgks['articleid']))}" target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+														<li>
+															<div>{:strip_tags(mb_substr($zrzys['content'],0,806,'utf8'))}...<a href="{:url('News/detail',array('nid'=>$zrzys['articleid']))}"
+																 target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+														<li>
+															<div>{:strip_tags(mb_substr($xzqhs['content'],0,422,'utf8'))}...<a href="{:url('News/detail',array('nid'=>$xzqhs['articleid']))}" target="_blank" title="查看详情">【详细】</a></div>
+														</li>
+													</ul>
+												</div>
+												<div class="huicui_map">
+													<img src="__HOME__/img/map.png" alt="">
+													<a   class="out_link map_links_1" target="_blank" title="扶沟" data-url="http://www.fugou.gov.cn/">扶沟</a>
+													<a   class="out_link map_links_2" target="_blank" title="太康" data-url="http://www.taikang.gov.cn/">太康</a>
+													<a   class="out_link map_links_3" target="_blank" title="鹿邑" data-url="http://www.luyi.gov.cn/">鹿邑</a>
+													<a   class="out_link map_links_4" target="_blank" title="西华" data-url="http://www.xihua.gov.cn/">西华</a>
+													<a   class="out_link map_links_5" target="_blank" title="淮阳" data-url="http://www.hyzww.gov.cn/">淮阳</a>
+													<a   class="out_link map_links_6" target="_blank" title="郸城" data-url="http://www.dancheng.gov.cn">郸城</a>
+													<a href="{:url('Index/index')}" class="map_links_7" title="周口市">周口市</a>
+													<a   class="out_link map_links_8" target="_blank" title="商水" data-url="http://www.shangshui.gov.cn/">商水</a>
+													<a   class="out_link map_links_9" target="_blank" title="项城市" data-url="http://www.xiangcheng.gov.cn/">项城市</a>
+													<a   class="out_link map_links_10" target="_blank" title="沈丘" data-url="http://www.shenqiu.gov.cn/">沈丘</a>
+													
+												</div>
+												<div class="huicui_right float_rt">
+													<div class="walkin_top_title clearfix">
+														<h6 class="float_lt">发展周口</h6>
+													</div>
+													<ul class="huicui_list clearfix">
+													  {volist name="fzzkss" id="vff"}
+														<li><a href="{:url('News/index',array('id'=>$vff['id']))}" target="_blank">
+																<!-- <i class="iconfont {$vff.iconname}"></i> -->
+																<img src="__HOME__/img/{$vff.iconname}.png" width="40" height="40" alt="">
+																<p>{$vff.name}</p>
+															</a></li>
+														 {/volist}
+													</ul>
+													<div class="huicui_pic">
+														<div class="huicui_lunbo">
+															<div class="bd">
+																<ul>
+																	<li><a href="{:url('News/shipin')}">
+																			<img src="__HOME__/img/huicui_pic1.jpg" width="264" height="82" alt="">
+																		</a></li>
+																	<li><a href="{:url('News/shipins')}">
+																			<img src="__HOME__/img/huicui_pic2.jpg" width="264" height="82" alt="">
+																		</a></li>
+																</ul>
+															</div>
+															<a href="javascript:;" class="prev">&lt;</a>
+															<a href="javascript:;" class="next">&gt;</a>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="index_tab_btm">
+												<ul class="huicui_btm">
+												  {volist name="zkyxs" id="vzs"}
+													<li><a href="{:url('News/index',array('id'=>$vzs['id']))}" target="_blank" title="{$vzs.name}">
+															{$vzs.name}
+														</a></li>
+												{/volist}
+												</ul>
+											</div>
+										</div>
+									<!-- <div class="index_tab_item">
+										<div class="index_box">
+											<div class="walkin_top clearfix">
+												<div class="walkin_top_left float_lt">
+													<div class="banner_tab banner_box walkin_tab float_lt">
+														<div class="hd">
+															<ul>
+																	{volist name="lbz" id="lz"}
+																
+																<li></li>
+																{/volist}
+															</ul>
+														</div>
+														<div class="bd">
+															<ul>
+																{volist name="lbz" id="lz"}
+																<li style="background-image: url(/uploads/{$lz.image})">
+																	<a class="banner_txt"   title="{$lz.name}">
+																		<span>{$lz.name}</span>
+																	</a>
+																</li>
+															 {/volist}
+															</ul>
+														</div>
+													</div>
+													<div class="walkin_top_txt float_rt">
+														<h5>周口简介</h5>
+														<p>{:strip_tags(mb_substr($zksqs['content'],0,310,'utf8'))}...<a
+															 href="{:url('News/detail',array('nid'=>$zksqs['articleid']))}" target="_blank" title="查看详情">【详细】</a></p>
+													</div>
+												</div>
+												<div class="walkin_top_right float_rt">
+													<div class="walkin_top_title clearfix">
+														<h6 class="float_lt">人文周口</h6>
+														<a class="float_rt common_more" href="{:url('News/index',array('id'=>$rid))}" target="_blank" title="查看更多">
+	<i class="iconfont icon-jia"></i>
+</a>
+													</div>
+													<ul class="walkin_person">
+													  {volist name="rwzks" id="vr"}	
+														<li><a href="{:url('News/detail',array('nid'=>$vr['id']))}" target="_blank" title="{$vr.title}">{$vr.title}</a></li>
+														{/volist}
+													</ul>
+												</div>
+											</div>
+											<div class="walkin_btm">
+												<div class="walkin_lunbo">
+													<div class="hd">
+														<a class="next"  >&gt;</a>
+														<a class="prev"  >&lt;</a>
+													</div>
+													<div class="bd">
+														<ul>
+														{volist name="lyjds" id="yv"}	
+															<li style="background-image: url(/uploads/{$yv.coverimage})"><a href="{:url('News/detail',array('nid'=>$yv['id']))}" target="_blank" title="{$yv.title}">
+		<p>{$yv.title}</p>
+	</a></li>
+	{/volist}
+	
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="index_tab_btm">
+											<div class="walkin_map">
+												<div class="bd">
+													<ul>
+														{volist name="jczks" id="vk"}
+														<li style="background-image: url(/uploads/{$vk.coverimage})"><a href="{:url('News/detail',array('nid'=>$vk['id']))}" target="_blank">
+		{$vk.title}
+	</a></li>
+												{/volist}		
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div> -->
+									<!-- 周口荟萃 -->
+									<!-- <div class="index_tab_item">
+										<div class="index_box clearfix">
+											<div class="huicui_left float_lt">
+												<ul class="huicui_title">
+													<li class="active">
+														<i class="iconfont icon-shezhi"></i>历史概况
+													</li>
+													<li class="">
+														<i class="iconfont icon-diqiu"></i>自然资源
+													</li>
+													<li class="">
+														<i class="iconfont icon-hangzhengqu"></i>行政区划
+													</li>
+												</ul>
+												<ul class="huicui_body">
+													<li class="active">
+														<div>市内历史上多以淮阳为中心建制，1965年成立周口专员公署后，驻周口镇(今川汇区)。原政治、经济、文化中心淮阳，古为宛丘，太昊之墟，据传，神农所都之地。夏为豫州之域,
+															殷为虞遂封地，厉(今鹿邑东)系活动中心。周武王封舜后妫满于陈，是周首封十大诸侯国之一。春秋仍为陈国。战国时期，公元前479年楚灭陈，以陈为县。前278年楚顷襄王徙都于此，为“郢陈”称“西楚”。秦统一全国后，置陈郡,二世元年(前209年)陈胜、吴广在陈定都，国号“张楚”西汉初为淮阳郡，高帝十一年(前196年)置淮阳国，属豫州刺史部。三国魏置陈郡，属豫州。西晋初沿旧制，武帝合陈郡于梁国，惠帝复置陈郡仍属豫州。南朝宋初属南豫州南梁郡,后置陈郡和南顿郡，均治项县(今沈丘槐店)。南齐仍置陈、南顿二郡，南顿郡移治南顿。北魏置陈郡南顿郡和汝阳郡。武定元年(543年)侨置丹阳郡和秣陵县。丹阳郡属北扬州，州、郡均治项县(今沈丘槐店)。北齐百姓不附侯景改北扬州为信州，置陈郡属信州，州、郡均治项县今沈丘槐店)。北齐百姓不附侯景改北扬州为信州，置陈郡属信州，州、郡均治项县(今淮阳县城)，又置淮阳郡，治阳夏(今太康)，淮阳郡、丹阳郡亦属信州。北周改信州为陈州。隋初为淮<a
+															 href="news_detail.html" target="_blank" title="查看详情">【详细】</a></div>
+													</li>
+													<li>
+														<div>市内历史上多以淮阳为中心建制，1965年成立周口专员公署后，驻周口镇(今川汇区)。原政治、经济、文化中心淮阳，古为宛丘，太昊之墟，据传，神农所都之地。夏为豫州之域,
+															殷为虞遂封地，厉(今鹿邑东)系活动中心。周武王封舜后妫满于陈，是周首封十大诸侯国之一。春秋仍为陈国...<a href="news_detail.html" target="_blank" title="查看详情">【详细】</a></div>
+													</li>
+													<li>
+														<div>市内历史上多以淮阳为中心建制，1965年成立周口专员公署后，驻周口镇(今川汇区)。原政治、经济、文化中心淮阳，古为宛丘，太昊之墟，据传，神农所都之地。夏为豫州之域...<a href="news_detail.html"
+															 target="_blank" title="查看详情">【详细】</a></div>
+													</li>
+												</ul>
+											</div>
+											<div class="huicui_right float_rt">
+												<div class="walkin_top_title clearfix">
+													<h6 class="float_lt">发展周口</h6>
+												</div>
+												<ul class="huicui_list clearfix">
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-nongye"></i>
+															<p>农业概况</p>
+														</a></li>
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-gongyeqitahangyeqiye"></i>
+															<p>工业概况</p>
+														</a></li>
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-jianzhu"></i>
+															<p>城镇建设</p>
+														</a></li>
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-shehuishiye"></i>
+															<p>社会事业</p>
+														</a></li>
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-jichusheshi"></i>
+															<p>基础设施</p>
+														</a></li>
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-touzi"></i>
+															<p>投资贸易</p>
+														</a></li>
+													<li><a href="news_list.html" target="_blank">
+															<i class="iconfont icon-16000"></i>
+															<p>开发区建设</p>
+														</a></li>
+												</ul>
+												<div class="huicui_pic" style="background-image:url(__HOME__/img/huicui_pic.jpg)"></div>
+											</div>
+										</div>
+										<div class="index_tab_btm">
+											<ul class="huicui_btm">
+												<li><a href="news_list.html" target="_blank" title="人文周口">
+														人文周口
+													</a></li>
+												<li><a href="news_list.html" target="_blank" title="美食特产">
+														美食特产
+													</a></li>
+												<li><a href="news_list.html" target="_blank" title="精彩周口">
+														精彩周口
+													</a></li>
+												<li><a href="news_list.html" target="_blank" title="旅游景点">
+														旅游景点
+													</a></li>
+											</ul>
+										</div>
+									</div> -->
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		
+
+		<!-- 外链跳转模态窗 -->
+		<!-- <div class="model_bg" id="model_bg"></div>
+		<div class="model_box" id="model_box">
+			<div class="model_title">
+				您访问的链接即将离开”周口市人民政府网“门户网站是否继续？
+			</div>
+			<div class="model_btn">
+				<a class="model_goon"   onclick="go_to();" target="_blank">继续访问</a>
+				<a class="model_giveup" id="model_giveup"  >放弃</a>
+			</div>
+			<div class="model_close" id="model_close">
+				<a  >
+					<i class="iconfont icon-guanbi1"></i>
+				</a>
+			</div>
+		</div> -->
+
+		{include file="public:footer"}
+
+
+	<script>
+		// 轮播图
+		jQuery(".banner_tab").slide({
+			mainCell: ".bd ul",
+			effect: "left",
+			autoPlay: true,
+			delayTime: 700
+		});
+
+		// 选项卡
+		jQuery(".news_box").slide({
+			effect: "fade",
+			trigger: "mouseover"
+		});
+
+		jQuery(".affairs_mid").slide({
+			effect: "fade",
+			trigger: "click"
+		});
+
+		jQuery(".service_do").slide({
+			effect: "fade",
+			trigger: "click"
+		});
+
+		//图片
+		jQuery(".topic_right").slide({
+			mainCell: ".bd ul",
+			autoPage: true,
+			effect: "leftLoop",
+			autoPlay: true,
+			scroll: 1,
+			delayTime: 2000,
+			vis: 4
+		});
+		// data-url="{$other['jurl']}"
+		$('.govpushinfo150203 a').addClass('out_link');
+		$('.govpushinfo150203 a').each(function(i,item) {
+				var itm = $(item),
+					href = itm.attr('href');
+					itm.attr('href','javascript:;')
+				// console.log(href);
+				itm.removeAttr('href')
+		itm.attr('data-url',href)
+		})	
+
+		jQuery(".huicui_lunbo").slide({
+			mainCell: ".bd ul",
+			effect: "left",
+			autoPlay: true,
+			delayTime: 700
+		});
+
+		// 头条新闻滚动
+		// jQuery("#news_wrap").slide({
+		// 	mainCell: ".bd ul",
+		// 	autoPlay: true,
+		// 	effect: "leftMarquee",
+		// 	interTime: 50,
+		// 	vis: 3,
+		// 	trigger: "click"
+		// });
+
+		// 走进周口
+		jQuery(".walkin_lunbo").slide({
+			titCell: ".hd ul",
+			mainCell: ".bd ul",
+			autoPage: true,
+			effect: "left",
+			autoPlay: true,
+			trigger: "click",
+			vis: 8
+		});
+
+		// 县市轮播
+		jQuery(".walkin_map").slide({
+			mainCell: ".bd ul",
+			autoPlay: true,
+			effect: "leftMarquee",
+			vis: 9,
+			interTime: 50,
+			trigger: "click"
+		});
+
+		var bg = {
+			isOpen: true,
+			cheng_div_height: $('.cheng_div').height(),
+			header_logo_left: $('.header_logo').position().left,
+			header_logo_top: $('.header_logo').position().top,
+			header_other_left: $('.header_other').position().left,
+			header_other_top: $('.header_other').position().top
+		}
+
+		function moveDiv(speed) {
+			$('.header_logo').animate({
+				left: '350px',
+				top: '100px'
+			}, speed, function () {
+				bg.header_logo_left = $(this).position().left
+				bg.header_logo_top = $(this).position().top
+			})
+			$('.header_other').animate({
+				left: '340px',
+				top: '250px'
+			}, speed, function () {
+				bg.header_other_left = $(this).position().left
+				bg.header_other_top = $(this).position().top
+			})
+		}
+
+		moveDiv(1000)
+
+		var initTime = setTimeout("bgchange()", 3000)
+
+		// 背景特效
+		function bgchange(speed) {
+
+			var index_nav = $('.index_nav'),
+				header_logo = $('.header_logo'),
+				header_other = $('.header_other'),
+				header_news = $('.header_news')
+
+			header_logo.animate({
+				left: bg.isOpen ? 0 : bg.header_logo_left + 'px',
+				top: bg.isOpen ? 0 : bg.header_logo_top + 'px'
+			}, speed)
+
+			header_other.animate({
+				left: bg.isOpen ? '708px' : bg.header_other_left + 'px',
+				top: bg.isOpen ? 0 : bg.header_other_top + 'px'
+			}, speed)
+
+			index_nav.toggleClass('transparent')
+
+			cheng_div()
+
+			$('.index_tab_list').slideToggle(1500)
+			$('.header_news').slideToggle(1500)
+
+			bg.isOpen = !bg.isOpen
+		}
+
+		function cheng_div() {
+			var cheng_div = $('.cheng_div'),
+				cheng_height = bg.isOpen ? 0 : bg.cheng_div_height + 'px'
+
+			cheng_div.animate({
+				height: cheng_height
+			}, 1500)
+		}
+
+		$('.index_action').click(function () {
+			bgchange(1200)
+			clearTimeout(initTime)
+		})
+
+		// 节日展示
+		var showType = 'slideDown'  // fadeIn,show
+			var closeType = "{$other.jtype}" ;
+			var colseTime = "{$other.jtime}"*1000;
+			if ($('#fest_box')) {
+				setTimeout(function () {
+							$('#fest_box')[closeType]()
+						}, colseTime)
+			}
+
+			$('#fest_close').click(function () {
+				$(this).parents('#fest_box')[closeType]()
+			})
+		// 政民互动选项卡
+		$('.zhengmin_title ul li').click(function(){
+				commonTab($(this), $('.zhengmin_cont'), 'active');
+			})
+
+	</script>
+</body>
+
+</html>

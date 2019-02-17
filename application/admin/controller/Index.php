@@ -9,8 +9,7 @@ class Index extends BaseAdmin
 
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         
         //全部文章数量
         $qcou=db("article_info")->alias("a")->where(["arttype"=>"xinwen"])->join("article_category b","a.id=b.articleid")->count();
@@ -57,21 +56,21 @@ class Index extends BaseAdmin
     public function get_cou()
     {
         $data = array();
-        $data[] = db("article_info")->whereTime("createtime","-6 days")->count();
-        $data[] = db("article_info")->whereTime("createtime","-5 days")->count();
-        $data[] = db("article_info")->whereTime("createtime","-4 days")->count();
-        $data[] = db("article_info")->whereTime("createtime","-3 days")->count();
-        $data[] = db("article_info")->whereTime("createtime","-2 days")->count();
-        $data[] = db("article_info")->whereTime("createtime","-1 days")->count();
+        $time2=date("Y-m-d",strtotime("-2 day"));
+        $time3=date("Y-m-d",strtotime("-3 day"));
+        $time4=date("Y-m-d",strtotime("-4 day"));
+        $time5=date("Y-m-d",strtotime("-5 day"));
+        $time6=date("Y-m-d",strtotime("-6 day"));
+     
+        $data[] = db("article_info")->whereTime("createtime",'between',["$time6","$time6"."23:59:59"])->count();
+        $data[] = db("article_info")->whereTime("createtime",'between',["$time5","$time5"."23:59:59"])->count();
+        $data[] = db("article_info")->whereTime("createtime",'between',["$time4","$time4"."23:59:59"])->count();
+        $data[] = db("article_info")->whereTime("createtime",'between',["$time3","$time3"."23:59:59"])->count();
+        $data[] = db("article_info")->whereTime("createtime",'between',["$time2","$time2"."23:59:59"])->count();
+        $data[] = db("article_info")->whereTime("createtime","yesterday")->count();
         
         $data[] = db("article_info")->whereTime("createtime","d")->count();
-        
        
-        
-       
-       
-        
-     
         return $data;
     }
     function get_weeks($time = '', $format='m-d'){
@@ -133,17 +132,17 @@ class Index extends BaseAdmin
             define('ACTION_NAME', $this->request->action());
         }
         $id=\session('uid');
-        $re=db("Admin")->where("id=$id")->find();
+        $re=db("manager_info")->where("id=$id")->find();
         $this->assign("re",$re);
         return view('modify');
     }
     function save(){
-        $ob=db("Admin");
-        $old_pwd=md5(input('old_pwd'));
+        $ob=db("manager_info");
+        $old_pwd=input('old_pwd');
         $id=input('id');
-        $re=$ob->where("id=$id and pwd='$old_pwd'")->find();
+        $re=$ob->where("id=$id and password='$old_pwd'")->find();
         if($re){
-            $data['pwd']=md5(input('pwd'));
+            $data['password']=input('pwd');
             $res=$ob->where("id=$id")->update($data);
             if($res){
                 $this->success("修改成功,请重新登录！",url('Login/logout'));

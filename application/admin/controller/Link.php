@@ -16,9 +16,8 @@ class Link extends BaseAdmin
         $this->assign("keywords",$keywords);
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
-        $list=db("link_info")->alias("a")->field("a.id,title,realname,managerid,createtime,linktype,parentid,orderid")->where($map)->where(["parentid"=>0,"linktype"=>"youlian","siteid"=>$siteid])->join("manager_info b","a.managerid=b.id")->order(["orderid desc","id asc"])->paginate(10,false,['query'=>request()->param()]);
+        $siteid=$user['siteid'];
+        $list=db("link_info")->alias("a")->field("a.id,title,realname,managerid,createtime,linktype,parentid,orderid")->where($map)->where(["parentid"=>0,"linktype"=>"youlian","a.siteid"=>$siteid])->join("manager_info b","a.managerid=b.id")->order(["orderid desc","id asc"])->paginate(10,false,['query'=>request()->param()]);
         $this->assign("list",$list);
         $page=$list->render();
         $this->assign("page",$page);
@@ -35,8 +34,7 @@ class Link extends BaseAdmin
         $id=\input("id");
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         $data['createtime']=date("Y-m-d H:i:s");
         if($id){
             $data['title']=input("title");
@@ -109,8 +107,7 @@ class Link extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
         $res=db("link_info")->field("id,title,orderid")->where(["parentid"=>0,"linktype"=>"youlian","siteid"=>$siteid])->order(["orderid desc","id asc"])->select();
         $this->assign("res",$res);
 
@@ -124,7 +121,7 @@ class Link extends BaseAdmin
         
         $this->assign("keywords",$keywords);
 
-        $list=db("link_info")->alias("a")->field("a.id,title,url,murl,realname,managerid,createtime,linktype,parentid,orderid")->where($map)->where("parentid != 0")->where(["linktype"=>"youlian","siteid"=>$siteid])->join("manager_info b","a.managerid=b.id")->order(["orderid desc","id asc"])->paginate(20,false,['query'=>request()->param()]);
+        $list=db("link_info")->alias("a")->field("a.id,title,url,murl,realname,managerid,createtime,linktype,parentid,orderid")->where($map)->where("parentid != 0")->where(["linktype"=>"youlian","a.siteid"=>$siteid])->join("manager_info b","a.managerid=b.id")->order(["orderid desc","id asc"])->paginate(20,false,['query'=>request()->param()]);
         $this->assign("list",$list);
         $page=$list->render();
         $this->assign("page",$page);
@@ -135,8 +132,7 @@ class Link extends BaseAdmin
         $id=\input("id");
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
       
         $data['createtime']=date("Y-m-d H:i:s");
         if($id){

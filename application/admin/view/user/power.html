@@ -1,226 +1,379 @@
 <!DOCTYPE html>
 <html>
 {include file="public:header"}
+<link rel="stylesheet" href="__ADMIN__/js/themes/default/style.min.css">
+<script src="__ADMIN__/js/jstree.min.js"></script>
+<script src="__ADMIN__/js/jscolor.js"></script>
 
 <body class="no-skin">
-    <!--头部-->
-    {include file="public:nav"}
+<!--头部-->
+{include file="public:nav"}
 
-    <div class="main-container ace-save-state" id="main-container">
-        <!--菜单-->
-        <script type="text/javascript">
-            try {
-                ace.settings.loadState('main-container')
-            } catch (e) {}
-        </script>
+<div class="main-container ace-save-state" id="main-container">
+  <!--菜单-->
+  <script type="text/javascript">
+  try{ace.settings.loadState('main-container')}catch(e){}
+</script>
 
-        {include file="public:left"}
+{include file="public:left"}
 
-        <div class="main-content">
-            <div class="main-content-inner">
-                <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-                    <ul class="breadcrumb">
-                        <li>
-                            <i class="ace-icon fa fa-home home-icon"></i>
-                            <a href="{:url('Index/index')}">首页</a>
-                        </li>
-                        <li class="active">权限控制</li>
-                    </ul><!-- /.breadcrumb -->
+  <div class="main-content">
+    <div class="main-content-inner">
+      <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="ace-icon fa fa-home home-icon"></i>
+            <a href="{:url('Index/index')}">首页</a>
+          </li>
+          <li class="active">添加栏目</li>
+        </ul><!-- /.breadcrumb -->
 
+      </div>
+
+      <div class="page-content">
+        {include file="public:set"}
+        <div class="row">
+          <div class="col-sm-10 col-sm-offset-1">
+          <div class="col-sm-3">
+              <!-- <div class="widget-box ui-sortable-handle" id="widget-box-1"> -->
+              <div class="widget-box transparent" id="widget-box-1">
+                  <div class="widget-header">
+                  <h5 class="widget-title">栏目</h5>
+                  <div class="widget-toolbar">
+                  <div class="widget-menu">
+                  <a href="#" data-action="settings" data-toggle="dropdown">
+                  <i class="ace-icon fa fa-bars"></i>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-right dropdown-light-blue dropdown-caret dropdown-closer">
+                  <li>
+                  <a data-toggle="tab" href="#dropdown1">Option#1</a>
+                  </li>
+                  <li>
+                  <a data-toggle="tab" href="#dropdown2">Option#2</a>
+                  </li>
+                  </ul>
+                  </div>
+                  <a href="#" data-action="fullscreen" class="orange2">
+                  <i class="ace-icon fa fa-expand"></i>
+                  </a>
+                  <a href="#" data-action="reload">
+                  <i class="ace-icon fa fa-refresh"></i>
+                  </a>
+                  <a href="#" data-action="collapse">
+                  <i class="ace-icon fa fa-chevron-up"></i>
+                  </a>
+                  <a href="#" data-action="close">
+                  <i class="ace-icon fa fa-times"></i>
+                  </a>
+                  </div>
+                  </div>
+                  <div class="widget-body">
+                    <div class="widget-main">
+                      <div id="column"></div>
+                    </div>
+                  </div>
+                  </div>
+          </div>
+           <div class="col-sm-9">
+              <form id="modal-form" class="form-horizontal" action="{:url('User/power_save')}" method="post" enctype="multipart/form-data">
+        
+                <input name="categoryid" id="duiyingid" type="hidden" value="{$user.category}" />
+                <input name="id" type="hidden" value="{$user['id']}" >
+                <div class="clearfix form-actions">
+                  <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="submit">
+                      <i class="ace-icon fa fa-floppy-o bigger-110"></i>
+                      保存
+                    </button>
+                    <button class="btn" type="button">
+                      <i class="ace-icon fa fa-undo bigger-110"></i>
+                      重置
+                    </button>
+                  </div>
                 </div>
+              </form>
+          </div> 
+        </div>
+        </div><!-- /.row -->
+      </div><!-- /.page-content -->
+    </div>
+  </div><!-- /.main-content -->
 
-                <div class="page-content">
+{include file="public:footer"}
 
-                    {include file="public:set"}
-
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="col-sm-10 col-sm-offset-1">
-                                <form id="logoForm" class="form-horizontal" action="{:url('User/power_save')}" method="post" enctype="multipart/form-data">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="widget-box transparent">
-                                                <div class="widget-header widget-header-flat">
-                                                    <h4 class="widget-title"><i class="ace-icon fa fa-leaf green"></i>权限选择</h4>
-                                                </div>
-                                                <div class="widget-body">
-                                                    <div class="widget-main">
-                                                        {volist name="list" id="m"}
-                                                      
-                                                        <div class="form-group">
-                                                            <label class="col-sm-2 control-label no-padding-right" for=""><b>{$m.c_name}</b></label>
-                                                            <div class="col-sm-10">
-                                                                <label style="padding-top: 8px">
-                                                                    <input id="statu{$m.cid}" name="controller[{$m.cid}]" class="ace ace-switch ace-switch-6 finput" type="checkbox" {if condition="in_array($m.cid,$control_arr)"}checked{/if} >
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                       
-                                                        {volist name="$m['lists']" id="m2"}
-                                                       
-                                                            <label class="col-sm-2 control-label no-padding-right" for="">{$m2.c_name}</label>
-                                                            <div class="col-sm-2">
-                                                                <label style="padding-top: 8px">
-                                                                    <input id="statu{$m2.cid}" name="function[{$m2.cid}]" class="ace ace-switch ace-switch-6" type="checkbox" {if condition="in_array($m2.cid,$way_arr)"}checked{/if} >
-                                                                    <span class="lbl"></span>
-                                                                </label>
-                                                            </div>
-                                                      
-                                                        {/volist}
-                                                    
-                                                        </div>
-                                                        <hr/>
-                                                  
-                                                        {/volist}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="hidden" name="id" value="{$admin.id}"/>
-                                    <div class="clearfix form-actions">
-                                        <div class="col-md-offset-3 col-md-9">
-                                            <button class="btn btn-info" type="submit">
-                                                <i class="ace-icon fa fa-floppy-o bigger-110"></i>
-                                                保存
-                                            </button>
-                                            <a class="btn" href="{:url('User/lister')}">
-                                                <i class="ace-icon fa fa-undo bigger-110"></i>
-                                                返回
-                                            </a>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- PAGE CONTENT BEGINS -->
-                            </div>
-                            <!-- PAGE CONTENT ENDS -->
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.page-content -->
-            </div>
-        </div><!-- /.main-content -->
-
-       {include file="public:footer"}
-
-        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
-            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
-        </a>
-    </div><!-- /.main-container -->
-
-
-    <script>
-        jQuery(function ($) {
-            $('[data-rel=tooltip]').tooltip();
-
-            $("#hide-option").tooltip({
-                hide: {
-                    effect: "explode",
-                    delay: 250
-                }
-            });
-
-        })
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+  <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<script>
+  function setTextColor(picker) {
+      var inputs=document.getElementById('inputss');
+      inputs.value= '#'+picker.toString();
+  }
+</script>
+<script>
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#test1', //指定元素
+    format: 'yyyy-MM-dd HH:mm:ss',
+    type: 'datetime',
+    value: new Date()
+  });
+  </script>
+  <script>
+    //执行一个laydate实例
+    laydate.render({
+      elem: '#test2', //指定元素
+      format: 'yyyy-MM-dd HH:mm:ss',
+      type: 'datetime',
+    });
     </script>
+<script>
+  jQuery(function($) {
 
+  
 
-    <script>
-        $(function () {
-            // 全选
-            $('.finput').click(function() {
-                var sta = $(this).prop('checked'),
-                group = $(this).parents('.form-group')
-                group.next().find('.ace-switch').prop('checked', sta)
-            })
-            
-            // 单选
-            $('.ace-switch').click(function() {
-                var group = $(this).parents('.form-group'),
-                    bol = group.find('.ace-switch:checked').length === 0
-                group.prev().find('.finput').prop('checked', !bol)
-            })
-
-
-
-            $('#thumb').ace_file_input({
-                style: 'well',
-                btn_choose: '封面图',
-                btn_change: null,
-                no_icon: 'ace-icon fa fa-picture-o',
-                droppable: true,
-                thumbnail: 'fit' //large | fit
-                    //,icon_remove:null//set null, to hide remove/reset button
-                    /**,before_change:function(files, dropped) {
+    $('#thumb').ace_file_input({
+        style: 'well',
+        btn_choose: '封面图',
+        btn_change: null,
+        no_icon: 'ace-icon fa fa-picture-o',
+        droppable: true,
+        thumbnail: 'fit'//large | fit
+        //,icon_remove:null//set null, to hide remove/reset button
+        /**,before_change:function(files, dropped) {
 						//Check an example below
 						//or examples/file-upload.html
 						return true;
 					}*/
-                    /**,before_remove : function() {
+        /**,before_remove : function() {
 						return true;
 					}*/
-                    ,
-                preview_error: function (filename, error_code) {
-                    //name of the file that failed
-                    //error_code values
-                    //1 = 'FILE_LOAD_FAILED',
-                    //2 = 'IMAGE_LOAD_FAILED',
-                    //3 = 'THUMBNAIL_FAILED'
-                    //alert(error_code);
-                }
-
-            }).on('change', function () {
-                //console.log($(this).data('ace_input_files'));
-                //console.log($(this).data('ace_input_method'));
-            });
-
-            $("#article").ajaxForm({
-                // url: 'links.html',
-                // type: 'post',
-                // success: fun
-            })
-        });
-
-        //响应请求回调
-        function fun() {
-
+        ,
+        preview_error: function (filename, error_code) {
+          //name of the file that failed
+          //error_code values
+          //1 = 'FILE_LOAD_FAILED',
+          //2 = 'IMAGE_LOAD_FAILED',
+          //3 = 'THUMBNAIL_FAILED'
+          //alert(error_code);
         }
-    </script>
-    <script>
-        $(function () {
-            $('#logoForm').ajaxForm({
-                beforeSubmit: checkForm, // 此方法主要是提交前执行的方法，根据需要设置
-                success: complete, // 这是提交后的方法
-                dataType: 'json'
-            });
 
-            function checkForm() {
+      }).on('change', function () {
+        //console.log($(this).data('ace_input_files'));
+        //console.log($(this).data('ace_input_method'));
+      });
 
 
-            }
+    $('.input-daterange').datepicker({
+		  autoclose:true,
+		  language:"zh-CN",
+          format:"yyyy-mm-dd"
+          });
+   
+    $('[data-rel=tooltip]').tooltip();
 
-            function complete(data) {
-                if (data.status == 1) {
-                    layer.alert(data.msg, {
-                        icon: 5
-                    }, function (index) {
-                        layer.close(index);
-                        window.location.href = data.url;
-                    });
+    $( "#hide-option" ).tooltip({
+      hide: {
+        effect: "explode",
+        delay: 250
+      }
+    });
+    // 获取节点数组
+    function getList(id,texts) {
+      if(idarr.indexOf(id) == -1) {
+        strarr.push(texts)
+        idarr.push(id)
+      }else {
+        strarr.splice(strarr.indexOf(texts),1)
+        idarr.splice(idarr.indexOf(id),1)
+      }
+      
+      return {
+        names: strarr,
+        ids: idarr
+      }
+    }
+    var strarr = [],
+    idarr = []
+    // jstree
+    var columData = {$data};
+    var oldname = ''
+   // console.log(columData)
+    $('#column').jstree({'core': {
+      'data':columData
+    },
+    "checkbox": {
+      "keep_selected_style": true
+    },
+    'plugins': ['state', 'types', 'dnd', 'checkbox'],
+    }).on('loaded.jstree', function(e,data) {
+      data.instance.clear_state()
+    }).on("ready.jstree", function(e, data) {
+      // console.log('load',e);
+      data.instance.close_all()
+      
+    }).on("activate_node.jstree", function (e, data) {
+     
+       var node = data.node,
+          id = node.id,
+          text = node.text
+          checked = node.state.selected,
+         
+          uid ="{$user['id']}",
+          val = $('#duiyingid').val();
+          duiyingid = $('#duiyingid');
 
-                } else {
-                    layer.alert(data.msg, {
-                        icon: 6
-                    }, function (index) {
-                        layer.close(index);
-                        window.location.href = data.url;
-                    });
+          console.log(checked);
+          if(checked){
+             $.ajax({
+              type:"post",
+              url:"{:url('User/find')}",
+              data:{id:id,uid:uid},
+              datatype:"json",
+              success:function(re)
+              {
+                  var re = JSON.parse(re);
+                
+                  
+                  
+                  duiyingid.val(re);
+        
+              }
 
+            })
+          }else{
+              $.ajax({
+                type:"post",
+                url:"{:url('User/finds')}",
+                data:{id:id,uid:uid},
+                datatype:"json",
+                success:function(re)
+                {
+                    var re = JSON.parse(re);
+          
+                    duiyingid.val(re);
+          
                 }
-            }
 
-        });
+              })
+          }
+        
+       
+    
+    });
+    $('#column').jstree('close_all')
+  })
+</script>
+<script>
+ $("#add").click(function()
+ {
+   var id = $("#id").val();
+   if(id == ''){
+     layer.msg("请先选择上级栏目");return false;
+   }else{
+      location.href="__URL__/add/parentid/"+id;
+   }
+ })
+</script>
+<script type="text/javascript">
+		function dels(id){
+			layer.confirm('你确定删除吗？', {icon: 3}, function(index){
+		    layer.close(index);
+		    $.ajax({
+            type:"post",
+            url:"{:url('Message/delete')}",
+              data:{id:id},
+              datatype:"text",
+              success:function(re){
+                if(re == 2 || re == 1){
+                    layer.msg("系统繁忙请稍后再试");
+                    setTimeout("location.reload()",2000);
+                }
+                
+                if(re == 0){
+                  layer.msg("删除成功")
+                  setTimeout("location.reload()",2000);
+                }
+              }
+          })
+		  });
+	    }
     </script>
-</body>
+    
+    <script>
+       
+  $(".del-btnt").on(ace.click_event,function(){
+	var valarr = [];
+	var checkitem = $(".check:checked")
+    var len = checkitem.length;
+    if(len>0){
+    	for(let i = 0; i < len;i++){
+    		valarr.push(checkitem.eq(i).val())
+    	}
+      layer.confirm('你确定通过审核?',{icon: 3},function (index) {
+        layer.close(index);
+        window.location.href="adopt/id/"+valarr;
+      });
+    }else{
+      layer.msg("请先选择数据");
+    }
+  });
+    </script>
 
+<script>
+   
+$(".del-btnj").on(ace.click_event,function(){
+var valarr = [];
+var checkitem = $(".check:checked")
+var len = checkitem.length;
+if(len>0){
+  for(let i = 0; i < len;i++){
+    valarr.push(checkitem.eq(i).val())
+  }
+  layer.confirm('你确定拒绝审核?',{icon: 3},function (index) {
+    layer.close(index);
+    window.location.href="refuse/id/"+valarr;
+  });
+}else{
+  layer.msg("请先选择数据");
+}
+});
+</script>
+<script>
+  $(function(){
+    $('#modal-form').ajaxForm({
+      beforeSubmit: checkForm, // 此方法主要是提交前执行的方法，根据需要设置
+      success: complete, // 这是提交后的方法
+      dataType: 'json'
+    });
+    
+    function checkForm(){
+           if($("#duiyingname").val() == ''){
+             layer.msg("请选择要发布的栏目");return false;
+           }
+      
+      }
+  
+    function complete(data){
+      if(data.status==1){
+        layer.alert(data.msg, {icon: 5}, function(index){
+         layer.close(index);
+         window.location.href=data.url;
+        });
+        
+      }else{
+        layer.alert(data.msg, {icon: 6}, function(index){
+         layer.close(index);
+         window.location.href=data.url;
+        });
+        
+      }
+    }
+   
+  });
+  
+  </script>
+
+</body>
 </html>

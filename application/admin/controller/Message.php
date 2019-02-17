@@ -7,8 +7,7 @@ class Message extends BaseAdmin
     {
         $uid=session("uid");
         $user=db("manager_info")->where("id=$uid")->find();
-        $rolesjson=json_decode($user['rolesjson']);
-        $siteid=$rolesjson->SiteId;
+        $siteid=$user['siteid'];
 
         $status=input("status");
         $start=input("start");
@@ -106,10 +105,10 @@ class Message extends BaseAdmin
     }
     public function consult()
     {
-        // $uid=session("uid");
-        // $user=db("manager_info")->where("id=$uid")->find();
-        // $rolesjson=json_decode($user['rolesjson']);
-        // $siteid=$rolesjson->SiteId;
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+       
+        $siteid=$user['siteid'];
 
         $status=input("status");
         $start=input("start");
@@ -148,7 +147,7 @@ class Message extends BaseAdmin
         $this->assign("status",$status);
         $this->assign("keywords",$keywords);
 
-        $list=db("msg_info")->where("typeid=1")->where($where)->order("id desc")->paginate(20,false,['query'=>request()->param()]);
+        $list=db("msg_info")->where("typeid=1 and siteid=$siteid")->where($where)->order("id desc")->paginate(20,false,['query'=>request()->param()]);
         $this->assign("list",$list);
         $page=$list->render();
         $this->assign("page",$page);

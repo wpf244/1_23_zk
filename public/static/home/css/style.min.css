@@ -153,7 +153,7 @@ table {
 }
 
 body {
-    font-size: 14px;
+    font-size: 16px;
     color: #333;
     font-family: "Microsoft YaHei";
     line-height: 1.42857143;
@@ -406,7 +406,7 @@ body.discolorClass {
     height: 28px;
     line-height: 26px;
     text-align: center;
-    font-size: 12px;
+    font-size: 15px;
     border-width: 1px;
     border-style: solid;
     border-radius: 2px
@@ -738,7 +738,7 @@ body.discolorClass {
     height: 54px;
     line-height: 54px;
     padding-left: 14px;
-    font-size: 14px;
+    font-size: 16px;
     width: 100%;
     color: #fff;
     background-color: rgba(0, 0, 0, .7)
@@ -799,8 +799,8 @@ body.discolorClass {
 
 .affairs_item a span {
     float: left;
-    width: 90px;
-    font-size: 14px;
+    width: 104px;
+    font-size: 16px;
     color: #666
 }
 
@@ -836,7 +836,7 @@ body.discolorClass {
 }
 
 .affairs_left_item p {
-    font-size: 14px
+    font-size: 16px
 }
 
 .affairs_left_item:nth-child(3n+3) {
@@ -971,7 +971,7 @@ body.discolorClass {
 }
 
 .affairs_right_top li p {
-    font-size: 14px;
+    font-size: 16px;
     color: #666
 }
 
@@ -1007,8 +1007,8 @@ body.discolorClass {
     float: left;
     margin-right: 8px;
     margin-bottom: 10px;
-    padding: 6px 16px;
-    font-size: 13px;
+    padding: 4px 16px;
+    font-size: 15px;
     color: #666;
     background-color: #f5f5f5;
     border: 1px solid #ccc;
@@ -1141,7 +1141,7 @@ body.discolorClass {
 }
 
 .service_mid_list li p {
-    font-size: 14px
+    font-size: 16px
 }
 
 .service_mid_list li:hover {
@@ -1281,7 +1281,7 @@ body.discolorClass {
 .news_item {
     position: relative;
     display: block;
-    font-size: 14px;
+    font-size: 16px;
     height: 36px;
     line-height: 36px;
     padding-left: 20px;
@@ -1289,7 +1289,7 @@ body.discolorClass {
 }
 
 .news_item.ful p {
-    width: 100%
+    width: 100%;
 }
 
 .news_item:before {
@@ -1336,6 +1336,28 @@ body.discolorClass {
     width: 265px;
     height: 90px;
     margin-left: 4px
+}
+
+.topic_right {
+    position: relative;
+}
+.topic_right .prev,.topic_right .next {
+    position: absolute;
+    top: 50%;
+    width: 24px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: -25px;
+    text-align: center;
+    color: #fff;
+    background: url(../img/percent_3_bg.png);
+    z-index: 10;
+}
+.topic_right .prev {
+    left: 4px;
+}
+.topic_right .next {
+    right: 0;
 }
 
 .topic_wrap {
@@ -1472,7 +1494,7 @@ body.discolorClass {
 }
 
 .walkin_top_txt p {
-    font-size: 14px;
+    font-size: 16px;
     text-indent: 2em;
     line-height: 24px;
     text-align: justify
@@ -1522,7 +1544,7 @@ body.discolorClass {
     text-align: center;
     color: #fff;
     background-color: #89b3ec;
-    font-size: 14px
+    font-size: 16px
 }
 
 .walkin_person li a {
@@ -1582,7 +1604,7 @@ body.discolorClass {
     height: 28px;
     line-height: 28px;
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
     background-color: rgba(0, 0, 0, .4)
 }
@@ -1630,7 +1652,7 @@ body.discolorClass {
     width: 100px;
     height: 36px;
     line-height: 36px;
-    font-size: 15px;
+    font-size: 16px;
     border-right: 1px solid #ccc;
     background: #efefef;
     text-align: center;
@@ -1674,7 +1696,7 @@ body.discolorClass {
 
 .huicui_body li p,
 .huicui_body li>div {
-    font-size: 13px;
+    font-size: 15px;
     line-height: 22px;
     text-indent: 2em;
     text-align: justify;
@@ -2220,6 +2242,24 @@ body.discolorClass {
     opacity: 1
 }
 
+.leader_wrap_body::-webkit-scrollbar {
+    display: inherit;
+    width: 8px;
+    height: 8px
+}
+
+.leader_wrap_body::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    background: rgba(0, 0, 0, .2)
+}
+
+.leader_wrap_body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+    border-radius: 0;
+    background: rgba(0, 0, 0, .1)
+}
+
 .leader_item {
     margin-bottom: 24px;
     line-height: 42px
@@ -2229,14 +2269,17 @@ body.discolorClass {
     float: left;
     width: 140px;
     height: 42px;
+    white-space: normal;
+    overflow: hidden;
     text-align: center;
     color: #2e8fd3;
     background-color: #d7e9f6
 }
 
 .leader_item ul {
-    float: right;
-    width: 994px;
+    float: left;
+    margin-left: 6px;
+    width: 978px;
     padding-left: 16px;
     background-color: #f5f5f5
 }
@@ -2268,7 +2311,7 @@ body.discolorClass {
 
 .footer_cell {
     position: relative;
-    width: 186px;
+    width: 226px;
     z-index: 200;
     float: left;
     margin-right: 16px;
@@ -2294,7 +2337,7 @@ body.discolorClass {
 }
 
 .footer_txt {
-    width: 186px;
+    width: 226px;
     height: 32px;
     line-height: 32px;
     padding-left: 8px;
@@ -2353,7 +2396,7 @@ body.discolorClass {
 
 .footer_mid {
     width: 800px;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 26px;
     text-align: center
 }
@@ -2382,7 +2425,7 @@ body.discolorClass {
     height: 32px;
     line-height: 32px;
     text-align: center;
-    font-size: 13px;
+    font-size: 15px;
     border: 1px solid #efefef;
     border-radius: 5px;
     color: #999
@@ -2442,7 +2485,7 @@ body.discolorClass {
 }
 
 .dianjiliang table {
-    font-size: 14px
+    font-size: 16px
 }
 
 .dianjiliang thead th {
@@ -2670,7 +2713,7 @@ body.discolorClass {
 }
 
 .article_details.small p {
-    font-size: 14px !important
+    font-size: 16px !important
 }
 
 .article_pages {

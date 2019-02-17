@@ -32,7 +32,7 @@ class User extends BaseAdmin
            }else{
                if(input("statu")){
                    $data['actionid']=0;
-               }elseif(input("statis")){
+               }elseif(input("status")){
                    $data['actionid']=2;
                }else{
                 $data['actionid']=3;
@@ -58,7 +58,7 @@ class User extends BaseAdmin
        $id=input('id');
        $re=db("manager_info")->where("id=$id")->find();
        if($re){
-           if($re['id'] == 1){
+           if($re['isadmin'] == 1){
                echo '0';
            }else{
                echo '1';
@@ -94,7 +94,7 @@ class User extends BaseAdmin
                 }else{
                     if(input("statu")){
                         $data['actionid']=0;
-                    }elseif(input("statis")){
+                    }elseif(input("status")){
                         $data['actionid']=2;
                     }else{
                      $data['actionid']=3;
@@ -136,6 +136,118 @@ class User extends BaseAdmin
     }
     public function power()
     {
+        // $uid=session("uid");
+        // $user=db("manager_info")->where("id=$uid")->find();
+        // $rolesjson=json_decode($user['rolesjson']);
+        // $siteid=$rolesjson->SiteId;
+
+        $id=\input("id");
+        $user=db("manager_info")->where("id=$id")->find();
+        $siteid=$user['siteid'];
+
+        $this->assign("user",$user);
+        $category=$user['category'];
+        $arrs=explode(",",$category);
+
+
+        $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
+         
+       
+        $arr=array();
+        \makeArr($res,$arr);
+       
+      //  $res[]=array("id"=>"0","parentid"=>"-1","name"=>"周口政府","level"=>"0");    
+        $res=array_values($res);
+       
+        foreach($res as $kk => $vv){
+            $data[$kk]['id']=(string)$vv['id'];
+           if($vv['parentid'] == "0"){
+               $data[$kk]['parent']="#";
+           }else{
+                $data[$kk]['parent']=(string)$vv['parentid'];
+           }          
+           $data[$kk]['text']=$vv['name'];
+           if($vv['level'] == 0){
+               $data[$kk]['state']=array("opened"=>true);
+           }
+           if(in_array($vv['id'],$arrs)){
+
+               $data[$kk]['state']=array("selected"=>true);
+           }
+            
+            
+        }
+       
+        
+       $datas=json_encode($data);
+     
+       $this->assign("data",$datas);
+
+       return $this->fetch();
+    }
+    public function find()
+    {
+        $id=input("id");     
+        $re=db("category_info")->field("id,name")->where("id=$id")->find();
+
+        $uid=input("uid");
+        $user=db("manager_info")->where("id",$uid)->find();
+        if($user){
+            $category=$user['category'];
+            $arrs=explode(",",$category);
+            $ids=$re['id'];
+            $arrs[]=$ids;
+            $re=implode(",",$arrs);
+            db("manager_info")->where("id",$uid)->update(['category'=>$re]);
+        }
+        
+        echo json_encode($re);
+    }
+    public function finds()
+    {
+        $id=input("id");     
+        $re=db("category_info")->field("id,name")->where("id=$id")->find();
+
+        $uid=input("uid");
+        $user=db("manager_info")->where("id",$uid)->find();
+        if($user){
+            $category=$user['category'];
+            $arrs=explode(",",$category);
+            $ids=$re['id'];
+            if(in_array($ids,$arrs)){
+                $key=array_search($ids ,$arrs);
+                array_splice($arrs,$key,1);    
+            }
+            $re=implode(",",$arrs);
+            db("manager_info")->where("id",$uid)->update(['category'=>$re]);
+        }
+              
+        echo json_encode($re);
+    }
+   
+    public function power_save()
+    {
+        $id=\input('id');
+        $re=\db("manager_info")->where("id=$id")->find();
+        if($re){
+          
+            $data['category']=input("categoryid");
+            
+            $res=\db("manager_info")->where("id=$id")->update($data);
+            if($res){
+               $this->success("权限配置成功",url('lister'));
+            }else{
+                $this->error("权限配置成功",url('lister'));
+            }
+            
+        }else{
+            $this->error("非法操作",url('lister'));
+        }
+
+        
+    }
+    public function powers()
+    {
         $list=db("carte")->where("pid=0")->select();
         foreach($list as $k => $v){
             $list[$k]['lists']=db("carte")->where("pid={$v['cid']}")->select();
@@ -156,7 +268,7 @@ class User extends BaseAdmin
         
         return $this->fetch();
     }
-    public function power_save()
+    public function power_saves()
     {
         $id=\input('id');
         $re=\db("admin")->where("id=$id")->find();
