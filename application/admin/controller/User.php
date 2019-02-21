@@ -293,33 +293,22 @@ class User extends BaseAdmin
 
         
     }
-    // public function index()
-    // {
-    //     $res=db("manager_info")->select();
-    //     foreach($res as $k => $v){
-    //         $rolesjson=json_decode($v['rolesjson']);
-    //         $data['siteid']=$rolesjson->SiteId;
-    //         $actionid=$rolesjson->ActionId;
-    //         if($actionid){
-    //             $cou=count($actionid);
-    //             if($cou == 1){
-    //                 $data['actionid']=0;
-    //             }else{
-    //                 $data['actionid']=1;
-    //             }
-    //         }else{
-    //             $data['actionid']=0;
-    //         }
-    //         $isadmin=$rolesjson->IsSupperAdmin;
-    //         if($isadmin){
-    //             $data['isadmin']=1;
-    //         }else{
-    //             $data['isadmin']=0;
-    //         }
+    public function index()
+    {
+        $res=db("site_info")->select();
+        foreach($res as $k => $v){
+            $rolesjson=json_decode($v['icpconfig']);
+            $data['icp']=$rolesjson->ICP;
+            $data['gongan']=$rolesjson->GongAn;
+            if($rolesjson->JiGuanCode){
+                $data['dang']=$rolesjson->JiGuanCode;
+            }
+            
+            
            
-    //         $res=db("manager_info")->where("id",$v['id'])->update($data);
-    //     }
-    // }
+            $res=db("site_info")->where("id",$v['id'])->update($data);
+        }
+    }
 
 
 

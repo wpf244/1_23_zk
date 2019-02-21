@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{include file="public:header"}
+<style>
+	.header_other {
+		top: 0;
+		left: auto;
+		right: 0;
+	}
+
+	.index_nav {
+		background-color: #2e8fd3;
+	}
+
+
+</style>
+
+<body>
+	<div class="wrap_neiye" style="background-image: url(__HOME__/img/neiye_bg.jpg)">
+		<div class="header_container">
+			<div class="common_wrap">
+			{include file="public:top"}
+<!-- 中间切换盒子 -->
+<div class="index_tab">
+	<div class="index_wrap">
+		<!-- 切换头部 -->
+		{include file="public:nav"}
+	</div>
+</div>
+
+				<!-- 领导之窗详情 -->
+				<div class="listing" id="article_cont">
+					<div class="listing_crumb">
+						当前位置：<a href="#">走进周口</a>&gt;<a href="{:url('News/ldzc',array('id'=>$id))}">领导之窗</a>&gt;<a href="javascript:;">{$re.title}</a>
+					</div>
+					<div class="article_cont" style="min-height:550px;overflow: hidden;">
+						<div class="lingdao_container">
+							<div class="lingdao_menu">
+									<div class="lingdao_list">
+											{volist name="reb" id="vb"}
+											  <div class="lingdao_item">
+												  <div class="lingdao_btn">{$vb.name}</div>
+												  <div class="lingdao_show">
+													{if condition="$vb.code eq 'szf' "}	
+													  <ul>
+														{volist name="vb['list']" id="vl"}	
+														  <li><a class="clearfix" href="{:url('News/leader',array('nid'=>$vl['id'],'id'=>$id))}"><span class="float_lt">{$vl.title}</span> <span class="float_rt" style="margin-right:10px;">{$vl.subtitle}</span></a></li>
+														{/volist}
+													  </ul>
+													  {else /}
+													  <ul>
+														  {volist name="vb['list']" id="vl"}	
+															  <li><a href="{:url('News/leaders',array('tid'=>$vl['id'],'id'=>$id))}">{$vl.name}</a></li>
+														  {/volist}
+														  </ul>
+													  {/if}
+												  </div>
+											  </div>
+										   {/volist}
+										  
+										  </div>
+							</div>
+							<div class="lingdao_box">
+								
+								<div class="lingdao_top">
+									<h6 class="lingdao_title">我的职责</h6>
+									<div class="lingdao_wrap clearfix">
+										<div class="lingdao_left float_lt">
+											<div class="lingdao_pic">
+
+													{if condition="$re.coverimage eq '' "}	
+													<img src="__HOME__/img/error.jpg" width="100" height="122"
+													 alt="">
+													 {else /}
+													 <a href="/uploads/{$re.coverimage}">
+													 <img src="/uploads/{$re.coverimage}" width="100" height="122"
+													 alt="">
+													</a>
+													 {/if}
+												
+											</div>
+											<div class="lingdao_nick">{$re.title}</div>
+											<div class="lingdao_name">{$re.subtitle}</div>
+										</div>
+										<div class="lingdao_right float_rt">
+											<div class="lingdao_zhize">
+													{$re.summary}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="lingdao_btm">
+									<div class="lingdao_jianli">简&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历</div>
+									<div class="lingdao_cont">
+										{$content.content}
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{include file="public:footer"}
+
+	<script>
+		$(function () {
+			$('.lingdao_show').hide()
+			$('.lingdao_item .lingdao_show').eq(0).show()
+			$('.lingdao_btn').click(function () {
+				$(this).next('.lingdao_show').slideDown().parents('.lingdao_item').siblings().children('.lingdao_show').slideUp()
+			})
+		})
+	</script>
+
+</body>
+
+</html>

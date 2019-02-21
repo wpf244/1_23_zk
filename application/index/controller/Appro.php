@@ -10,7 +10,7 @@ class Appro extends BaseHome
         $this->assign("retop",$retop);
        
         //标题轮播
-        $rebs=db("article_info")->where(['reviewstatus'=>1,'b_banner'=>1])->order("id desc")->limit(0,4)->select();
+        $rebs=db("article_category")->alias("a")->field("a.id as aid,articleid,category_code,b.id,reviewstatus,bannerid,title,coverimage")->where(['reviewstatus'=>1])->where("category_code","zkyw")->join("article_info b","a.articleid=b.id")->group("a.articleid")->group("b.time")->order("a.articleid desc")->limit(1,4)->select();
         $this->assign("rebs",$rebs);
        
         //轮播图

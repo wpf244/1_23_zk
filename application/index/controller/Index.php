@@ -3,16 +3,24 @@ namespace app\index\controller;
 
 class Index extends BaseHome
 {
-    public function index()
+   public function indexs()
+   {
+      $res=db("article_info")->select();
+      foreach($res as $v){
+         $data['time']=$v['createtime'];
+         db("article_info")->where("id",$v['id'])->update($data);
+      }
+   } 
+   public function index()
     {
         //置顶
-        $retop=db("article_info")->where(['reviewstatus'=>1])->order("id desc")->limit(0,4)->find();
+        $retop=db("article_info")->where(['reviewstatus'=>1])->order("id desc")->find();
         $this->assign("retop",$retop);
        
         //标题轮播
-        $rebs=db("article_info")->where(['reviewstatus'=>1,'b_banner'=>1])->order("id desc")->limit(0,4)->select();
+        $rebs=db("article_category")->alias("a")->field("a.id as aid,articleid,category_code,b.id,reviewstatus,bannerid,title,coverimage")->where(['reviewstatus'=>1])->where("category_code","zkyw")->join("article_info b","a.articleid=b.id")->group("a.articleid")->group("b.time")->order("a.articleid desc")->limit(1,4)->select();
         $this->assign("rebs",$rebs);
-       
+       // var_dump($rebs);
         //轮播图
        $ret=db("article_category")->alias("a")->field("a.id as aid,articleid,category_code,b.id,reviewstatus,bannerid,title,coverimage")->where(['reviewstatus'=>1,'bannerid'=>1])->where("category_code","zkyw")->join("article_info b","a.articleid=b.id")->group("articleid")->order("a.articleid desc")->limit(0,5)->select();        
       //  $ret=db("article_info")->where(['reviewstatus'=>1,'bannerid'=>1])->order("id desc")->limit("0,5")->select();
@@ -88,7 +96,7 @@ class Index extends BaseHome
 
         $newss=db("category_info")->field("id,code,status,name,iconname,orderid,categoryurl")->where(["parentid"=>$zid,"status"=>0])->order(["orderid desc","id asc"])->select();
         foreach($newss as $nk => $ns){ 
-            $newss[$nk]['list']=db("category_info")->where(['status'=>0,"parentid"=>$ns['id']])->order(["id desc"])->limit("0,6")->select();
+            $newss[$nk]['list']=db("category_info")->where(['status'=>0,"parentid"=>$ns['id']])->order(["orderid desc","id asc"])->limit("0,6")->select();
         }
         $this->assign("newss",$newss);
 

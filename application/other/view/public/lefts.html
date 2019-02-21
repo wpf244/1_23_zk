@@ -187,14 +187,23 @@ $(function(){
           <b class="arrow"></b>
         </li>
 
-        <!-- {if condition="ACTION_NAME eq 'other'"}<li class="active">{else /}<li class="">{/if}
+        {if condition="ACTION_NAME eq 'other'"}<li class="active">{else /}<li class="">{/if}
           <a href="{:url('Site/other')}">
             <i class="menu-icon fa fa-caret-right"></i>
             其他设置
           </a>
 
           <b class="arrow"></b>
-        </li> -->
+        </li>
+
+        {if condition="ACTION_NAME eq 'banner'"}<li class="active">{else /}<li class="">{/if}
+          <a href="{:url('Site/banner')}">
+            <i class="menu-icon fa fa-caret-right"></i>
+            广告图
+          </a>
+
+          <b class="arrow"></b>
+        </li>
         
       </ul>
     </li>

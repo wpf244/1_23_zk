@@ -111,13 +111,24 @@ class Site extends BaseAdmin
     }
     public function other()
     {
-        $re=db("other")->where("id=1")->find();
-        $this->assign("re",$re);
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+        $re=db("other")->where("siteid",$siteid)->find();
+        if($re){
+            $this->assign("re",$re);
+        }else{
+            $data['siteid']=$siteid;
+            db("other")->insert($data);
+            $this->redirect("other");
+        }
+        
         return $this->fetch();
     }
     public function osave()
     {
-        $re=db("other")->where("id",1)->find();
+        $id=input("id");
+        $re=db("other")->where("id",$id)->find();
         if($re){
             $data=input("post.");
         //   var_dump($data);exit;
@@ -146,7 +157,7 @@ class Site extends BaseAdmin
             }else{
                 $data['jstatus']=0;
             }
-            $res=db("other")->where("id=1")->update($data);
+            $res=db("other")->where("id=$id")->update($data);
             if($res){
                 $this->success("修改成功");
             }else{

@@ -32,6 +32,10 @@ $(function () {
 		$('.huicui_btm li:nth-child(2)').css('backgroundColor', '#f0a920')
 		$('.huicui_btm li:nth-child(3)').css('backgroundColor', '#68c531')
 		$('.huicui_btm li:nth-child(4)').css('backgroundColor', '#5ea8dc')
+		$('.wenjian_item:nth-child(3n+3)').css('marginRight', 0)
 	}
+
+	// 限制详情页表格宽度100%
+	$('.article_details table').css('width','100%');
 
 })

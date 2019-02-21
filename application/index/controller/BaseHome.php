@@ -31,7 +31,7 @@ class BaseHome extends Controller
         $sm=db("article_info")->where("title","网站声明")->find();
         $this->assign("sm",$sm);
 
-        $other=db("other")->where("id=1")->find();
+        $other=db("other")->where("siteid=$siteid")->find();
         $this->assign("other",$other);
 
         $ip=Request::instance()->ip();

@@ -111,13 +111,24 @@ class Site extends BaseAdmin
     }
     public function other()
     {
-        $re=db("other")->where("id=1")->find();
-        $this->assign("re",$re);
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+        $re=db("other")->where("siteid",$siteid)->find();
+        if($re){
+            $this->assign("re",$re);
+        }else{
+            $data['siteid']=$siteid;
+            db("other")->insert($data);
+            $this->redirect("other");
+        }
+        
         return $this->fetch();
     }
     public function osave()
     {
-        $re=db("other")->where("id",1)->find();
+        $id=input("id");
+        $re=db("other")->where("id",$id)->find();
         if($re){
             $data=input("post.");
         //   var_dump($data);exit;
@@ -146,7 +157,7 @@ class Site extends BaseAdmin
             }else{
                 $data['jstatus']=0;
             }
-            $res=db("other")->where("id=1")->update($data);
+            $res=db("other")->where("id=$id")->update($data);
             if($res){
                 $this->success("修改成功");
             }else{
@@ -157,4 +168,54 @@ class Site extends BaseAdmin
             $this->error("系统繁忙，请稍后再试");
         }
     }
+    public function banner()
+    {
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+        $re=db("banner")->where("siteid",$siteid)->find();
+        if($re){
+            $this->assign("re",$re);
+        }else{
+            $data['siteid']=$siteid;
+            db("banner")->insert($data);
+            $this->redirect("banner");
+        }
+        
+        return $this->fetch();
+    }
+    public function bsave()
+    {
+        $id=input("id");
+        $re=db("banner")->where("id",$id)->find();
+        if($re){
+             $data=input("post.");
+             if(!is_string(input('top_image'))){
+                 $data['top_image']=uploads("top_image");
+             }else{
+                 $data['top_image']=$re['top_image'];
+             }
+             if(!is_string(input('min_image'))){
+                $data['min_image']=uploads("min_image");
+            }else{
+                $data['min_image']=$re['min_image'];
+            }
+            if(!is_string(input('tong_image'))){
+                $data['tong_image']=uploads("tong_image");
+            }else{
+                $data['tong_image']=$re['tong_image'];
+            }
+        
+            $res=db("banner")->where("id=$id")->update($data);
+            if($res){
+                $this->success("修改成功");
+            }else{
+                $this->error("修改失败");
+            }
+
+        }else{
+            $this->error("系统繁忙，请稍后再试");
+        }
+    }
+
 }

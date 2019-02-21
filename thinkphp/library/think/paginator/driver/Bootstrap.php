@@ -102,6 +102,16 @@ class Bootstrap extends Paginator
         return $html;
     }
 
+     //跳转到哪页
+     protected  function gopage()
+     {
+ 
+ 
+         return $gotohtml="<li><form action='' method='get' ><a style='float:left;margin-left:2px;'><input style='width:110px;height:36px;border:1px solid #ddd;text-align:center;margin-left:8px;' type='text' name='page' placeholder='请输入页码'> <input style='height:36px;line-height:36px;border:1px solid #ddd;padding:0 12px;color: #337ab7;cursor:pointer;' type='submit' value='跳转'> </a></form></li>";
+         // return $totalhtml;;
+ 
+     }
+
     /**
      * 渲染分页html
      * @return mixed
@@ -117,10 +127,11 @@ class Bootstrap extends Paginator
                 );
             } else {
                 return sprintf(
-                    '<ul class="pagination">%s %s %s</ul>',
+                    '<ul class="pagination">%s %s %s %s</ul>',
                     $this->getPreviousButton(),
                     $this->getLinks(),
-                    $this->getNextButton()
+                    $this->getNextButton(),
+                    $this->gopage()
                 );
             }
         }
