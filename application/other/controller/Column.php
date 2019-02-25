@@ -240,6 +240,208 @@ class Column extends BaseAdmin
             echo '1';
         }
     }
+    public function nav()
+    {
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+
+        $list=db("navidic")->where(["siteid"=>$siteid])->order("kuaiid asc")->select();
+        $this->assign("list",$list);
+
+        return $this->fetch();
+    }
+    public function adds()
+    {
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+
+        $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
+         
+        foreach($res as $k => $v){
+            if($v['parentid'] != 0){   
+                $aa=$v;             
+                $parentid=$v['parentid'];
+                $re=db("category_info")->where("id=$parentid")->find();                 
+                if($re['status'] == 1 || empty($re) || $re['siteid'] != $siteid){                   
+                    unset($aa);
+                                  
+                }
+  
+            }
+        }
+        
+        \makeArr($res,$arr);
+        $arr=array();
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
+        $res=array_values($res);
+       
+        foreach($res as $kk => $vv){
+            $data[$kk]['id']=(string)$vv['id'];
+           if($vv['parentid'] == "-1"){
+               $data[$kk]['parent']="#";
+           }else{
+                $data[$kk]['parent']=(string)$vv['parentid'];
+           }          
+           $data[$kk]['text']=$vv['name'];
+           if($vv['level'] == 0){
+               $data[$kk]['state']=array("opened"=>"boolean");
+           }
+            
+            
+        }
+       
+        
+       $datas=json_encode($data);
+     
+       $this->assign("data",$datas);
+
+        $res=db("category_info")->where(["siteid"=>$siteid,"status"=>0,"level"=>0])->order("orderid desc")->select();
+        $this->assign("res",$res);
+
+        return $this->fetch();
+    }
+    public function saves()
+    {
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+
+        $data=input("post.");
+        $data['siteid']=$siteid;
+        $parentid=input("parentid");
+        $parent=db("category_info")->where("id",$parentid)->find();
+        $data['categoryname']=$parent['name'];
+        $data['name']="栏目块".input("kuaiid");
+        $data['createtime']=date("Y-m-d H:i:s");
+        $re=db("navidic")->insert($data);
+        if($re){
+            $this->success("添加成功",url('nav'));
+        }else{
+            $this->error("添加失败",url('nav'));
+        }
+
+    }
+    public function modify()
+    {
+        $id=input("id");
+        $re=db("navidic")->where("id",$id)->find();
+        $this->assign("re",$re);
+
+        $categoryidlist=$re['categoryidlist'];
+        $catearr=explode(",",$categoryidlist);
+
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+
+        $res=db("category_info")->field("id,name,parentid,level,status,orderid")->where("siteid=$siteid and status=0")->order(["orderid desc","id asc"])->select();
+         
+        foreach($res as $k => $v){
+            if($v['parentid'] != 0){   
+                $aa=$v;             
+                $parentid=$v['parentid'];
+                $re=db("category_info")->where("id=$parentid")->find();                 
+                if($re['status'] == 1 || empty($re) || $re['siteid'] != $siteid){                   
+                    unset($aa);
+                                  
+                }
+  
+            }
+        }
+        
+        \makeArr($res,$arr);
+        $arr=array();
+        $siteinfo=db("site_info")->where("id",$siteid)->find();
+        $sitename=$siteinfo['sitename'];
+        $res[]=array("id"=>"0","parentid"=>"-1","name"=>"$sitename","level"=>"0");     
+        $res=array_values($res);
+       
+        foreach($res as $kk => $vv){
+            $data[$kk]['id']=(string)$vv['id'];
+           if($vv['parentid'] == "-1"){
+               $data[$kk]['parent']="#";
+           }else{
+                $data[$kk]['parent']=(string)$vv['parentid'];
+           }          
+           $data[$kk]['text']=$vv['name'];
+           if(in_array($vv['id'],$catearr)){
+            $data[$kk]['state']=array("checked"=>"true");
+           }
+          
+           if($vv['level'] == 0){
+               $data[$kk]['state']=array("opened"=>"boolean");
+           }
+           
+            
+        }
+       
+        
+       $datas=json_encode($data);
+     
+       $this->assign("data",$datas);
+
+        $ress=db("category_info")->where(["siteid"=>$siteid,"status"=>0,"level"=>0])->order("orderid desc")->select();
+        $this->assign("res",$ress);
+
+        return $this->fetch();
+    }
+
+    public function usaves()
+    {
+        $id=input("id");
+        $re=db("navidic")->where("id",$id)->find();
+        $uid=session("uid");
+        $user=db("manager_info")->where("id=$uid")->find();
+        $siteid=$user['siteid'];
+
+        $data=input("post.");
+        $data['siteid']=$siteid;
+        $parentid=input("parentid");
+        $parent=db("category_info")->where("id",$parentid)->find();
+        $data['categoryname']=$parent['name'];
+        $data['name']="栏目块".input("kuaiid");
+        
+        $res=db("navidic")->where("id",$id)->update($data);
+        if($re){
+            $this->success("修改成功",url('nav'));
+        }else{
+            $this->error("修改失败",url('nav'));
+        }
+
+    }
+    public function deletes()
+    {
+        $id=input("id");
+        $re=db("navidic")->where("id=$id")->find();
+        if($re){
+            $del=db("navidic")->where("id=$id")->delete();
+            if($del){
+               
+                echo '0';
+            }else{
+                echo '2';
+            }
+        }else{
+            echo '1';
+        }
+    }
+    public function delete_alls()
+    {
+        $id=\input("id");
+       
+        $arr=explode(",",$id);
+        foreach($arr as $v){
+            $re=db("navidic")->where("id",$v)->find();
+            if($re){
+                $del=db("navidic")->where("id",$v)->delete(); 
+            }
+        }
+        $this->redirect("nav");
+    }
    
     
     

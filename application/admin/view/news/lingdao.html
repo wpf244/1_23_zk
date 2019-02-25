@@ -254,7 +254,12 @@
       }
     });
     // 获取节点数组
+    var idarr = $('#duiyingid').val().split(',');
+    
     function getList(id,texts) {
+ 
+      var strarr = $('#duiyingname').val() !== "" ? $('#duiyingname').val().split(',') :  []
+     
       if(idarr.indexOf(id) == -1) {
         strarr.push(texts)
         idarr.push(id)
@@ -268,8 +273,6 @@
         ids: idarr
       }
     }
-    var strarr = [],
-    idarr = []
     // jstree
     var columData = {$data};
    

@@ -47,7 +47,7 @@ $(function(){
 
   <ul class="nav nav-list">
     {if condition="CONTROLLER_NAME eq 'Index'"}<li class="active">{else /}<li class="">{/if}
-      <a href="{:url('Admins/index')}">
+      <a href="{:url('Index/index')}">
         <i class="menu-icon fa fa-tachometer"></i>
         <span class="menu-text"> 控制台 </span>
       </a>
@@ -134,6 +134,14 @@ $(function(){
           <a href="{:url('Column/lister')}">
             <i class="menu-icon fa fa-caret-right"></i>
             栏目列表
+          </a>
+          <b class="arrow"></b>
+        </li>
+
+        {if condition="ACTION_NAME eq 'nav'"}<li class="active">{else /}<li class="">{/if}
+          <a href="{:url('Column/nav')}">
+            <i class="menu-icon fa fa-caret-right"></i>
+            导航栏目列表
           </a>
           <b class="arrow"></b>
         </li>
